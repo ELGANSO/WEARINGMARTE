@@ -1,0 +1,13 @@
+.htaccess
+.htaccess.sample
+LICENSE.html
+LICENSE.txt
+downloader/
+index.php.sample
+LICENSE_AFL.txt
+RELEASE_NOTES.txt
+install.php
+mage
+media/
+php.ini.sample
+var/
