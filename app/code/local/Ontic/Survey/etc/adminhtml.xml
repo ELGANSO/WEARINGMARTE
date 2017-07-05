@@ -3,7 +3,7 @@
 <config>
     <menu>
         <elganso translate="title" module="survey">
-            <title>El Ganso</title>
+            <title>Marte</title>
             <sort_order>10</sort_order>
             <children>
                 <survey translate="title" module="survey">
