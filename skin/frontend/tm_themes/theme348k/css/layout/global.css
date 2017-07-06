@@ -1,0 +1,257 @@
+/* ============================================ *
+ * Global
+ * ============================================ */
+/***/
+/***/
+/*********************************************/
+/**********************************/
+/**************************************/
+/***************************************/
+/****************************************/
+/****************************************/
+/* ============================================ *
+ * Linearize Table
+ * ============================================ */
+/***/
+/***/
+/* -------------------------------------------- *
+ * Buttons
+ */
+/* ------------------------------------------- *
+ * Button hover
+ */
+/* -------------------------------------------- *
+ * Swatch label hover
+ */
+/* -------------------------------------------- *
+ * Custom Radio button, Checkbox
+ */
+/* -------------------------------------------- *
+ * Custom Select
+ */
+/* -------------------------------------------- *
+ * Product View Zoom
+ */
+/* -------------------------------------------- *
+ * Theme elements
+ */
+.theme-border, .table-bordered {
+  border-top: solid 2px #fac58f;
+}
+
+.theme-color {
+  color: #fac58f;
+}
+
+.title-border {
+  border-bottom: solid 2px #dfdfdf;
+  padding-bottom: 10px !important;
+  margin-bottom: 40px !important;
+}
+@media only screen and (max-width: 767px) {
+  .title-border {
+    padding-bottom: 10px !important;
+  }
+}
+
+.theme-block {
+  border: solid 1px #dfdfdf;
+  border-top: solid 2px #fac58f;
+  padding: 30px 29px;
+  margin-bottom: 60px;
+}
+
+.no-theme-block {
+  border: none;
+  padding: 0;
+  margin-bottom: 0;
+}
+
+.table-bordered thead > tr > th,
+.table-bordered thead > tr > td {
+  font-size: 16px;
+  line-height: 1.667em;
+  color: #333333;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+@media only screen and (max-width: 991px) {
+  .theme-block {
+    padding: 15px;
+    margin-bottom: 30px;
+  }
+}
+/* -------------------------------------------- *
+* Table Bordered
+*/
+.table-bordered thead > tr > th,
+.table-bordered thead > tr > td {
+  border-bottom-width: 1px;
+}
+.table-bordered th,
+.table-bordered td {
+  border: solid 1px #dfdfdf;
+}
+
+/* -------------------------------------------- *
+ * Material Design Click Animation
+ */
+.ink {
+  display: block;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 100%;
+  -moz-transform: scale(0);
+  -o-transform: scale(0);
+  -ms-transform: scale(0);
+  -webkit-transform: scale(0);
+  transform: scale(0);
+  z-index: 9999;
+}
+
+.animate {
+  -webkit-animation: ripple 0.65s linear;
+  -webkit-animation: ripple 0.65s linear;
+  -moz-animation: ripple 0.65s linear;
+  -ms-animation: ripple 0.65s linear;
+  -o-animation: ripple 0.65s linear;
+  animation: ripple 0.65s linear;
+}
+
+@-webkit-keyframes ripple {
+  100% {
+    opacity: 0;
+    -moz-transform: scale(2.5);
+    -o-transform: scale(2.5);
+    -ms-transform: scale(2.5);
+    -webkit-transform: scale(2.5);
+    transform: scale(2.5);
+  }
+}
+@-moz-keyframes ripple {
+  100% {
+    opacity: 0;
+    -moz-transform: scale(2.5);
+    -o-transform: scale(2.5);
+    -ms-transform: scale(2.5);
+    -webkit-transform: scale(2.5);
+    transform: scale(2.5);
+  }
+}
+@-o-keyframes ripple {
+  100% {
+    opacity: 0;
+    -moz-transform: scale(2.5);
+    -o-transform: scale(2.5);
+    -ms-transform: scale(2.5);
+    -webkit-transform: scale(2.5);
+    transform: scale(2.5);
+  }
+}
+@keyframes ripple {
+  100% {
+    opacity: 0;
+    -moz-transform: scale(2.5);
+    -o-transform: scale(2.5);
+    -ms-transform: scale(2.5);
+    -webkit-transform: scale(2.5);
+    transform: scale(2.5);
+  }
+}
+/* -------------------------------------------- *
+ * Icons
+ */
+.icon-sprite, .icon-sprite-for-modules {
+  background-image: url(../images/icon_sprite.png);
+  background-repeat: no-repeat;
+  text-indent: -9999px;
+}
+
+.icon-sprite-for-modules {
+  background-image: url(../images/icon_sprite.png);
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min--moz-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 4 / 2), (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+  .icon-sprite, .icon-sprite-for-modules {
+    background-image: url(../images/icon_sprite@2x.png);
+    background-size: 100px 1000px;
+  }
+}
+html,
+body {
+  height: 100%;
+}
+
+.wrapper {
+  min-width: 320px;
+  min-height: 100%;
+  margin: 0 auto;
+  background-color: #f8f8f8;
+}
+
+.wrapper:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.page {
+  margin: 0 auto;
+  padding: 28px 25px 0;
+  text-align: left;
+  max-width: 1560px;
+  background-color: #ffffff;
+}
+.page:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.cms-index-index .page {
+  overflow: hidden;
+}
+
+.left_site_column {
+  float: left;
+  width: 18.91%;
+  padding: 214px 0 0;
+}
+
+.main_site_wrapper {
+  float: right;
+  width: 79.05%;
+}
+
+@media only screen and (max-width: 991px) {
+  .page {
+    padding: 0;
+  }
+
+  .left_site_column {
+    display: none;
+  }
+
+  .main_site_wrapper {
+    float: none;
+    width: 100%;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 100%;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 100%;
+  }
+}
+
+/*# sourceMappingURL=global.css.map */

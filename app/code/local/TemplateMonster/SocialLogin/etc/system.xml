@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <tm translate="label">
+            <label>TemplateMonster</label>
+            <sort_order>100</sort_order>
+        </tm>
+    </tabs>
+    <sections>
+        <sociallogin translate="label" module="sociallogin">
+            <label>Social Login</label>
+            <tab>tm</tab>
+            <sort_oder>100</sort_oder>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>0</show_in_store>
+            <groups>
+                <general translate="label">
+                    <label>General Options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <enabled translate="label comment">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Turn on to enable social login</comment>
+                        </enabled>
+                    </fields>
+                </general>
+                <facebook_service translate="label">
+                    <label>Facebook Options</label>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <enabled translate="label comment">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Turn on to enable authorization using Facebook</comment>
+                        </enabled>
+                        <client_id translate="label comment">
+                            <label>Client Id</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Facebook client id</comment>
+                        </client_id>
+                        <client_secret translate="label comment">
+                            <label>Client secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Facebook client secret</comment>
+                        </client_secret>
+                        <sort_order translate="label comment">
+                            <label>Sort order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Sort order on the frontend</comment>
+                        </sort_order>
+                    </fields>
+                </facebook_service>
+                <google_service translate="label">
+                    <label>Google Options</label>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <enabled translate="label comment">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Turn on to enable authorization using Google</comment>
+                        </enabled>
+                        <client_id translate="label comment">
+                            <label>Client Id</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Google client id</comment>
+                        </client_id>
+                        <client_secret translate="label comment">
+                            <label>Client secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Google client secret</comment>
+                        </client_secret>
+                        <sort_order translate="label comment">
+                            <label>Sort order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Sort order on the frontend</comment>
+                        </sort_order>
+                        <redirect_uri translate="label comment">
+                            <label>Redirect Uri</label>
+                            <frontend_type>link</frontend_type>
+                            <frontend_model>sociallogin/adminhtml_system_config_form_field_google_redirect</frontend_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[Use this uri in order to configure your application in <a href="https://console.developers.google.com" target="_blank">Google Developers Console</a>.]]></comment>
+                        </redirect_uri>
+                    </fields>
+                </google_service>
+            </groups>
+        </sociallogin>
+    </sections>
+</config>

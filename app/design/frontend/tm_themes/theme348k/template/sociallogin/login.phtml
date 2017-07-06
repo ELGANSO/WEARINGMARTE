@@ -1,0 +1,23 @@
+<?php /** @var TemplateMonster_SocialLogin_Block_Login $this */ ?>
+<div class="row">
+    <div class="col-3 col-xs-12 col-sm-12 account-social-login">
+        <div class="theme-block">
+            <h2><?php echo $this->__('Login using social networks?'); ?></h2>
+            <p class="form-instructions"><?php echo $this->__('You can login using one of the social networks provided below:') ?></p>
+            <ul>
+                <?php /** @var TemplateMonster_SocialLogin_Model_Provider_Interface $provider */ ?>
+                <?php if ($this->hasProviders()): ?>
+                    <?php foreach ($this->getProviders() as $provider): ?>
+                        <li>
+                            <a href="<?php echo $this->getGrantUrl($provider) ?>">
+                                <img src="<?php echo $this->getProviderImage($provider) ?>" alt="" />
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <li>There are no enabled service providers.</li>
+                <?php endif; ?>
+            </ul>
+        </div>
+    </div>
+</div>

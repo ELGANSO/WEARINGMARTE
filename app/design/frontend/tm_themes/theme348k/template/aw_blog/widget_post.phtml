@@ -1,0 +1,64 @@
+<?php if ($posts = $this->getRecent()):  ?>
+    <div class="blog-bg">
+        <div class="container">
+            <div class="widget-title">
+                <h2><?php echo Mage::helper('blog')->__('From the blog');  ?></h2>
+            </div>
+            <div class="carousel_body_wrapper">
+                <div class="carousel_nav">
+                    <a class="btns prev_blog"><span class="material-design-keyboard54"></span></a>
+                    <a class="btns next_blog"><span class="material-design-keyboard53"></span></a>
+                </div>
+                <div class="owl-carousel-wrapper">
+                <ul class="owl-carousel owl-blog" id="owl-blog">
+                    <?php $i = 0; ?>
+                    <?php foreach ($posts as $post): ?>
+                        <?php if ($i<8): ?>
+                            <li class="blog_item">
+                                <div class="postImage"><a href="<?php echo $post->getAddress(); ?>" ><span></span><?php echo Mage::helper('cms')->getBlockTemplateProcessor()->filter($post->getExerptImage()); ?></a></div>
+                                <div class="post_holder">
+                                    <div class="post_date"><?php echo $currentDate = date('d. m. Y', strtotime($post->getCreatedTime())); ?></div>
+                                    <div class="post_title"><a href="<?php echo $post->getAddress(); ?>" ><?php echo $post->getTitle(); ?></a></div>
+                                    <div class="postContent"><?php echo substr(Mage::helper('cms')->getBlockTemplateProcessor()->filter($post->getShortContent()), 0, 106); ?></div>
+                                </div>
+                            </li>
+                        <?php endif; ?>
+                        <?php $i++; ?>
+                    <?php endforeach; ?>
+                </ul>
+                </div>
+            </div>
+           <!-- <a href="<?php // echo $this->getBlogUrl() ?>"class="aw-blog-read-more all-blog"><?php // echo Mage::helper('blog')->__('View all posts');  ?></a> -->
+        </div>
+    </div>
+
+    <script>
+        jQuery(document).ready(function() {
+
+            var owl = jQuery("#owl-blog");
+
+            owl.owlCarousel({
+
+                autoHeight : false,
+                pagination : false,
+                items : 2,
+                itemsDesktop : [1199, 2],
+                itemsDesktopSmall : [991, 2],
+                itemsTablet : [767, 1],
+                itemsMobile : [479, 1]
+
+            });
+
+            // Custom Navigation Events
+            jQuery(".next_blog").click(function(){
+                owl.trigger('owl.next');
+            })
+            jQuery(".prev_blog").click(function(){
+                owl.trigger('owl.prev');
+            })
+
+        });
+    </script>
+<?php endif; ?>
+
+<?php // $tt = count($this->getRecent()); print_r($tt) ; ?>

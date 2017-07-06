@@ -1,0 +1,665 @@
+@charset "UTF-8";
+/* ============================================ *
+ * Header
+ * ============================================ */
+/***/
+/***/
+/*********************************************/
+/**********************************/
+/**************************************/
+/***************************************/
+/****************************************/
+/****************************************/
+/* ============================================ *
+ * Linearize Table
+ * ============================================ */
+/***/
+/***/
+/* -------------------------------------------- *
+ * Buttons
+ */
+/* ------------------------------------------- *
+ * Button hover
+ */
+/* -------------------------------------------- *
+ * Swatch label hover
+ */
+/* -------------------------------------------- *
+ * Custom Radio button, Checkbox
+ */
+/* -------------------------------------------- *
+ * Custom Select
+ */
+/* -------------------------------------------- *
+ * Product View Zoom
+ */
+/* -------------------------------------------- *
+ * Theme elements
+ */
+.theme-border, .table-bordered {
+  border-top: solid 2px #fac58f;
+}
+
+.theme-color {
+  color: #fac58f;
+}
+
+.title-border {
+  border-bottom: solid 2px #dfdfdf;
+  padding-bottom: 10px !important;
+  margin-bottom: 40px !important;
+}
+@media only screen and (max-width: 767px) {
+  .title-border {
+    padding-bottom: 10px !important;
+  }
+}
+
+.theme-block {
+  border: solid 1px #dfdfdf;
+  border-top: solid 2px #fac58f;
+  padding: 30px 29px;
+  margin-bottom: 60px;
+}
+
+.no-theme-block {
+  border: none;
+  padding: 0;
+  margin-bottom: 0;
+}
+
+.table-bordered thead > tr > th,
+.table-bordered thead > tr > td {
+  font-size: 16px;
+  line-height: 1.667em;
+  color: #333333;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+@media only screen and (max-width: 991px) {
+  .theme-block {
+    padding: 15px;
+    margin-bottom: 30px;
+  }
+}
+/* -------------------------------------------- *
+* Table Bordered
+*/
+.table-bordered thead > tr > th,
+.table-bordered thead > tr > td {
+  border-bottom-width: 1px;
+}
+.table-bordered th,
+.table-bordered td {
+  border: solid 1px #dfdfdf;
+}
+
+/* -------------------------------------------- *
+ * Material Design Click Animation
+ */
+.ink {
+  display: block;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 100%;
+  -moz-transform: scale(0);
+  -o-transform: scale(0);
+  -ms-transform: scale(0);
+  -webkit-transform: scale(0);
+  transform: scale(0);
+  z-index: 9999;
+}
+
+.animate {
+  -webkit-animation: ripple 0.65s linear;
+  -webkit-animation: ripple 0.65s linear;
+  -moz-animation: ripple 0.65s linear;
+  -ms-animation: ripple 0.65s linear;
+  -o-animation: ripple 0.65s linear;
+  animation: ripple 0.65s linear;
+}
+
+@-webkit-keyframes ripple {
+  100% {
+    opacity: 0;
+    -moz-transform: scale(2.5);
+    -o-transform: scale(2.5);
+    -ms-transform: scale(2.5);
+    -webkit-transform: scale(2.5);
+    transform: scale(2.5);
+  }
+}
+@-moz-keyframes ripple {
+  100% {
+    opacity: 0;
+    -moz-transform: scale(2.5);
+    -o-transform: scale(2.5);
+    -ms-transform: scale(2.5);
+    -webkit-transform: scale(2.5);
+    transform: scale(2.5);
+  }
+}
+@-o-keyframes ripple {
+  100% {
+    opacity: 0;
+    -moz-transform: scale(2.5);
+    -o-transform: scale(2.5);
+    -ms-transform: scale(2.5);
+    -webkit-transform: scale(2.5);
+    transform: scale(2.5);
+  }
+}
+@keyframes ripple {
+  100% {
+    opacity: 0;
+    -moz-transform: scale(2.5);
+    -o-transform: scale(2.5);
+    -ms-transform: scale(2.5);
+    -webkit-transform: scale(2.5);
+    transform: scale(2.5);
+  }
+}
+/* -------------------------------------------- *
+ * Icons
+ */
+.icon-sprite, .icon-sprite-for-modules {
+  background-image: url(../images/icon_sprite.png);
+  background-repeat: no-repeat;
+  text-indent: -9999px;
+}
+
+.icon-sprite-for-modules {
+  background-image: url(../images/icon_sprite.png);
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min--moz-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 4 / 2), (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+  .icon-sprite, .icon-sprite-for-modules {
+    background-image: url(../images/icon_sprite@2x.png);
+    background-size: 100px 1000px;
+  }
+}
+.page-header-container {
+  padding: 0 0 30px;
+}
+
+@media only screen and (min-width: 992px) {
+  .page-header-container {
+    position: relative;
+    padding-bottom: 40px;
+  }
+  .page-header-container::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+.page-header {
+  padding: 0;
+}
+
+/* ============================================ *
+ * Language switcher + welcome message
+ * ============================================ */
+.header-row-background {
+  padding: 0;
+  margin-bottom: 12px;
+  color: #333333;
+}
+.header-row-background a {
+  color: #777777;
+}
+.header-row-background a:hover {
+  color: #333333;
+}
+.header-row-background .header-row {
+  max-width: 1170px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.header-row-background:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+.header-row-background .form-language,
+.header-row-background .currency-switcher {
+  float: left;
+  margin-right: 10px;
+}
+.header-row-background .welcome-msg {
+  float: right;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 300;
+  color: #fac58f;
+}
+
+.head_holder {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+@media only screen and (max-width: 991px) {
+  .header-row-background {
+    display: block;
+    padding: 15px 0 0;
+    margin-bottom: 20px;
+  }
+  .header-row-background .welcome-msg {
+    float: none;
+    text-align: center;
+    margin: 0;
+  }
+
+  .page-header-container {
+    text-align: center;
+  }
+}
+/* ============================================ *
+ * Header switchers
+ * ============================================ */
+.header-switchers .header-button {
+  float: right;
+  position: relative;
+  width: 55px;
+  margin-left: 4px;
+}
+.header-switchers .header-button > a {
+  display: block;
+  height: 30px;
+}
+.header-switchers .header-button > a:after {
+  display: inline-block;
+  font-family: "material-design";
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translate(0, 0);
+  content: "";
+  font-size: 28px;
+  line-height: 18px;
+  padding-left: 5px;
+  vertical-align: middle;
+}
+.header-switchers .header-button.currency-list > a, .header-switchers .header-button.lang-list > a {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 21px;
+  text-transform: capitalize;
+  text-align: center;
+  padding: 4px 0 0;
+  width: 100%;
+}
+.header-switchers .header-button ul {
+  display: none;
+  text-align: left;
+  position: absolute;
+  right: 0;
+  top: 36px;
+  padding: 0;
+  z-index: 999;
+  background: #fafafa;
+  border: 1px solid #dfdfdf;
+  width: 195px;
+}
+.header-switchers .header-button ul li {
+  float: none;
+  display: block;
+  padding-left: 0px;
+  border-bottom: 1px solid #dfdfdf;
+}
+.header-switchers .header-button ul li:last-child {
+  border: 0;
+}
+.header-switchers .header-button ul li a {
+  display: block;
+  font-size: 14px;
+  line-height: 17px;
+  color: #999;
+  padding: 14px 18px;
+  min-height: 18px;
+}
+.header-switchers .header-button ul li a:hover {
+  background-color: #EDEDED;
+  text-decoration: none;
+  color: #333333;
+}
+.header-switchers .header-button ul li a .mobile-part {
+  display: none;
+}
+.header-switchers .header-button ul li a.selected {
+  color: #333333;
+}
+.header-switchers .header-button > a:hover, .header-switchers .header-button.active > a {
+  text-decoration: none;
+}
+.header-switchers .header-button.full_mode {
+  width: auto;
+  cursor: pointer;
+  margin: 0 0 0 30px;
+}
+.header-switchers .header-button.full_mode .header-button-title .label {
+  padding-right: 5px;
+  color: #777;
+}
+.header-switchers .header-button.full_mode .header-button-title .current {
+  font-weight: normal;
+  color: #333333;
+}
+.header-switchers .header-button.full_mode .header-button-title .current::after {
+  display: inline-block;
+  font-family: "material-design";
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translate(0, 0);
+  content: "";
+  font-size: 28px;
+  line-height: 14px;
+  color: #c1c1c1;
+  display: inline-block;
+  vertical-align: middle;
+}
+.header-switchers .header-button.full_mode .header-button-title:hover .current {
+  color: #777777;
+}
+.header-switchers .header-button.full_mode.lang-list .header-button-title .label {
+  display: none;
+}
+@media only screen and (max-width: 767px) {
+  .header-switchers .header-button.full_mode {
+    float: none;
+  }
+  .header-switchers .header-button.full_mode.lang-list {
+    padding-right: 0;
+    border-right: none;
+  }
+}
+
+/* ============================================ *
+ * Logo
+ * ============================================ */
+.logo {
+  display: block;
+  position: absolute;
+  left: -265px;
+  top: 14px;
+  min-width: 100px;
+  min-height: 44px;
+  text-align: center;
+  margin: 0;
+}
+.logo img {
+  max-width: 100%;
+}
+.logo .small {
+  display: block;
+}
+.logo .large {
+  display: none;
+}
+
+@media only screen and (max-width: 1366px) {
+  .logo {
+    left: -235px;
+  }
+}
+@media only screen and (max-width: 1199px) {
+  .logo {
+    left: -205px;
+  }
+}
+@media only screen and (max-width: 991px) {
+  .logo {
+    position: relative;
+    left: auto;
+    top: auto;
+    display: inline;
+  }
+  .logo img {
+    display: inline;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .logo .small {
+    display: none;
+  }
+  .logo .large {
+    display: block;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .logo {
+    max-width: 100%;
+  }
+}
+/* ============================================ *
+ * Skip Links
+ * ============================================ */
+.skip-container.mobile {
+  background-color: #333333;
+}
+.skip-container.mobile .skip-links {
+  position: relative;
+}
+
+.skip-links {
+  clear: both;
+  position: relative;
+}
+.skip-links:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+@media only screen and (min-width: 992px) {
+  .skip-links {
+    border: 0;
+    float: right;
+  }
+
+  .skip-container {
+    position: relative;
+    float: right;
+  }
+  .skip-container.mobile {
+    display: none;
+  }
+}
+/* -------------------------------------------- *
+ * Skip Link - Icon
+ */
+.skip-link .icon {
+  display: inline-block;
+  width: auto;
+  height: auto;
+  vertical-align: middle;
+  font-size: 24px;
+}
+
+.skip-link.skip-nav .icon,
+.skip-link.skip-cart:not(.no-count) .icon {
+  margin-right: 3px;
+}
+
+@media only screen and (min-width: 500px) {
+  .skip-link .icon {
+    margin-right: 3px;
+  }
+}
+/* -------------------------------------------- *
+ * Skip Link - Label
+ */
+.skip-link .label {
+  display: none;
+}
+
+@media only screen and (min-width: 500px) {
+  .skip-link .label {
+    display: inline;
+  }
+}
+/* ============================================ *
+ * Skip Content
+ * ============================================ */
+.skip-content {
+  display: none;
+}
+.skip-content.skip-active {
+  display: block;
+  position: absolute;
+  background: #ffffff;
+  top: 40px;
+  z-index: 1000;
+  padding: 15px;
+  -webkit-box-shadow: 0px 0 5px rgba(0, 0, 0, 0.35) ;
+  -moz-box-shadow: 0px 0 5px rgba(0, 0, 0, 0.35) ;
+  box-shadow: 0px 0 5px rgba(0, 0, 0, 0.35) ;
+  -webkit-animation: skipLinks 0.25s linear;
+  -webkit-animation: skipLinks 0.25s linear;
+  -moz-animation: skipLinks 0.25s linear;
+  -ms-animation: skipLinks 0.25s linear;
+  -o-animation: skipLinks 0.25s linear;
+  animation: skipLinks 0.25s linear;
+}
+@-webkit-keyframes skipLinks {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-moz-keyframes skipLinks {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-o-keyframes skipLinks {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes skipLinks {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.main-menu .skip-content.skip-active {
+  position: relative;
+}
+
+/* ============================================ *
+ * Global Header Navigation
+ * ============================================ */
+@media only screen and (max-width: 991px) {
+  .header-search,
+  .header-minicart.desktop {
+    display: none;
+  }
+
+  .skip-link {
+    border-right: solid 1px #232323;
+    position: relative;
+    float: left;
+    width: 20%;
+    height: 50px;
+    color: #888888;
+    line-height: 48px;
+    text-align: center;
+  }
+  .skip-link.skip-nav {
+    border-left: solid 1px #232323;
+  }
+  .skip-link .label {
+    color: #888888;
+  }
+
+  .skip-link:hover,
+  .skip-link.skip-active {
+    background: #232323;
+    color: #ffffff;
+  }
+
+  .skip-link.skip-active span,
+  .skip-link:hover .label,
+  .skip-link:hover .icon {
+    color: #ffffff;
+  }
+
+  .skip-content.skip-active {
+    background: #ffffff;
+    position: absolute;
+    top: 50px;
+    width: 100%;
+    z-index: 999;
+    padding: 0 10px;
+    -webkit-box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.35) ;
+    -moz-box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.35) ;
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.35) ;
+  }
+
+  #header-account li a,
+  .header-button .header-button-title {
+    padding: 3px 15px 4px 25px;
+    border-bottom: 1px solid #CCCCCC;
+    text-align: left;
+    color: #999;
+    line-height: 30px;
+  }
+
+  #header-account li:last-child a {
+    border-bottom: 0;
+  }
+
+  .no-touch #header-account a:hover,
+  .header-button .header-button-title:hover {
+    background-color: #fafafa;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .header-switchers {
+    display: none;
+  }
+
+  .header-button ul li a span {
+    display: none;
+  }
+  .header-button ul li a span.mobile-part {
+    display: inline-block;
+  }
+}
+a.skip-link {
+  text-decoration: none;
+}
+
+@media only screen and (min-width: 500px) {
+  .skip-link {
+    width: 25%;
+  }
+}
+.account-cart-wrapper {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+@media only screen and (max-width: 991px) {
+  .account-cart-wrapper {
+    position: static;
+  }
+}
+
+/*# sourceMappingURL=header.css.map */

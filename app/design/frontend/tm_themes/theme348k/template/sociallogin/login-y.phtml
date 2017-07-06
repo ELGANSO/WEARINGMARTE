@@ -1,0 +1,17 @@
+<?php /** @var TemplateMonster_SocialLogin_Block_Login $this */ ?>
+<div class="account-social-login-y">
+    <ul>
+        <?php /** @var TemplateMonster_SocialLogin_Model_Provider_Interface $provider */ ?>
+        <?php if ($this->hasProviders()): ?>
+            <?php foreach ($this->getProviders() as $provider): ?>
+                <li>
+                    <a href="<?php echo $this->getGrantUrl($provider) ?>">
+                        <img src="<?php echo $this->getProviderImage($provider) ?>" alt="" />
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <li>There are no enabled service providers.</li>
+        <?php endif; ?>
+    </ul>
+</div>
