@@ -24,37 +24,39 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php echo $this->getChildHtml('index_block'); ?>
-<?php echo $this->getChildHtml('aw_blog_footer') ?>
-<?php echo $this->getChildHtml('testimonials'); ?>
-<?php echo $this->getChildHtml('tm_googlemap_embed') ?>
+<?php //echo $this->getChildHtml('index_block'); ?>
+<?php //echo $this->getChildHtml('aw_blog_footer') ?>
+<?php //echo $this->getChildHtml('testimonials'); ?>
+<?php //echo $this->getChildHtml('tm_googlemap_embed') ?>
 <div class="footer-container">
 	<div class="container">
         <div class="row">
-            <div class="col-xs-12">
-			    <div class="footer">
-					  <p id="back-top"><a href="#top"><span></span></a> </p>
-					  <?php echo $this->getChildHtml('footer.newsletter'); ?>
-					  <div class="footer-cols-wrapper">
-						<div class="footer-col">			
-							<h4><?php echo $this->__('Information') ?></h4>
-							<div class="footer-col-content">
-								<?php echo $this->getChildHtml('cms_footer_links') ?>
-								<?php echo $this->getChildHtml('footer_links') ?>
-							</div>
-						</div>
-						<?php echo $this->getChildHtml('footer_list') ?>
-						<div class="clear"></div>
-					  </div>
-					<div class="clear"></div>
-					<address><?php echo $this->getCopyright() ?></address>
-					<?php echo $this->getChildHtml('store_switcher') ?>
-					<?php $current_page = Mage::app()->getFrontController()->getRequest()->getRouteName(); 
-						if ($current_page == 'cms'):
-							echo 'More <a rel="nofollow" href="http://www.templatemonster.com/category/apparel-magento-themes/" target="_blank">Apparel Magento Themes at TemplateMonster.com</a>';
-						endif;
-					?>
+		    <div class="footer footer-marte">
+		    
+	            <div class="col-xs-12 col-md-4 col-lg-4" style="padding-bottom: 50px;text-align: center;">
+	            	
+	            	<?php echo $this->getChildHtml('footer.newsletter'); ?>
+					<div class="iconos_footer">
+					<a><div id="img_twitter"></div></a>
+					<a href="https://www.facebook.com/wearingmarte/" target="_blank"><div id="img_facebook"></div></a>
+					<a href="https://www.instagram.com/wearingmarte/" target="_blank"><div id="img_instagram"></div></div></a>
 				</div>
+				<div class="col-xs-12 col-md-4 col-lg-4" style="padding-bottom: 50px;text-align: center;">					
+					<div><ul>
+						<li><h4>Help me<h4></li>
+						<li><a href="<?php echo $this->getUrl('customer-service') ?>"><?php echo $this->__('Envios y devoluciones') ?></a></li>
+						<li><a href="">Preguntas frecuentes</a></li>
+						<li><a href="">Términos y Condiciones</a></li>
+						<li><a href="<?php echo $this->getUrl('privacy-policy-cookie-restriction-mode') ?>"><?php echo $this->__('Politica de privacidad') ?></a></li>
+					</ul></div>				
+				</div>
+				<div class="col-xs-12 col-md-4 col-lg-4" style="padding-bottom: 50px;text-align: center; ">					 
+					<h4><?php echo $this->__('Customer care') ?></h4>
+					<p>+34 600 000 000</p>
+					<p><a href="">support@wearingmarte.com</a></p>
+					<p>Horario: 24/7</p>								
+				</div>
+				 
 			</div>
 		</div>
 	</div>

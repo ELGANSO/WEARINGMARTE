@@ -24,19 +24,24 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<!--Añado cambios estilo-->
+
 <div class="subscribe-block">
     <div class="subscribe-wrapper">
-        <div class="subscribe-title">
-            <?php echo $this->__('Newsletter signup :') ?>
+    <div class="row">
+        <div class="subscribe-title col-xs-12 col-md-12 col-lg-12">
+            <?php echo $this->__('Newsletter signup') ?>
         </div>
+        <div class="col-xs-12 col-md-12 col-lg-12">
         <form action="<?php echo $this->getFormActionUrl() ?>" method="post" id="newsletter-validate-detail">
             <div class="input-box">
                <input type="email" spellcheck="false" name="email" id="newsletter" placeholder="<?php echo $this->__('Enter please your e-mail') ?>" title="<?php echo $this->__('Sign up for our newsletter') ?>" class="input-text required-entry validate-email" />
             </div>
-            <div class="actions">
+            <!--en el ejemplo no tiene boton de subscribirse-->
+            <div id="subscribirse" class="actions">
                 <button type="submit" title="<?php echo $this->__('Subscribe') ?>" class="button"><span><span><?php echo $this->__('Subscribe') ?></span></span></button>
             </div>
-        </form>
+        </form></div>
         <script type="text/javascript">
         //<![CDATA[
             var newsletterSubscriberFormDetail = new VarienForm('newsletter-validate-detail');
@@ -44,5 +49,5 @@
             document.getElementById("newsletter").setAttribute('autocorrect', 'off');
         //]]>
         </script>
-    </div>
+    </div></div>
 </div>
