@@ -1,13 +1,14 @@
 jQuery( document ).ready(function() {
-
-	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ){
-	    jQuery('#contenido-suscribe').appendTo('#col-1-footer');
-		jQuery('#help-me').appendTo('#col-2-footer');
-	}
-
+	footer_movil_web();
 });
 
-
+function footer_movil_web() {
+	var ventana_ancho = jQuery(window).width(); 	
+	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && ventana_ancho<='768'){
+	    jQuery('#contenido-suscribe').appendTo('#col-1-footer');
+		jQuery('#help-me').appendTo('#col-2-footer');
+	} 
+}
 
 
 
