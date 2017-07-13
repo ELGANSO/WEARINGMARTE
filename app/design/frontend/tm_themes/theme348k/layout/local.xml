@@ -101,12 +101,22 @@
                 </action>
             </reference>
             <!-- *** -->
+            <reference name="store_language">
+                <action method="setTemplate">
+                    <template>page/switch/languages_2.phtml</template>
+                </action>
+            </reference>
             
             <!-- * Currency|Language mobile  * -->
             <block type="page/switch" name="store_language_2" as="store_language_2" template="page/switch/languages_2.phtml"/>
             <block type="directory/currency" name="currency_2" as="currency_switcher_2" template="directory/currency_2.phtml"/>
             <!-- *** -->
-
+            <block type="core/text_list" name="top.menu" as="topMenu" translate="label">
+                <label>Navigation Bar</label>
+                <block type="page/html_topmenu" name="catalog.topnav" template="page/html/topmenu.phtml">
+                    <block type="page/html_topmenu_renderer" name="catalog.topnav.renderer" template="page/html/topmenu/renderer.phtml"/>
+                </block>
+            </block>
             <block type="checkout/cart_minicart" name="minicart_head_mobile" template="checkout/cart/minicart_mobile.phtml">
                 <block type="checkout/cart_sidebar" name="minicart_content" template="checkout/cart/minicart/items.phtml">
                     <action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>checkout/cart/minicart/default.phtml</template></action>
@@ -145,6 +155,11 @@
             <block type="reports/product_viewed" after="catalog.compare.sidebar" name="left.reports.product.viewed" template="reports/product_viewed.phtml" />
             <block type="reports/product_compared" after="left.reports.product.viewed" name="left.reports.product.compared" template="reports/product_compared.phtml" />
             <remove name="paypal.partner.right.logo" />
+            <remove name="cart_sidebar" />
+            <remove name="wishlist_sidebar" />
+            <remove name="catalog.compare.sidebar" />
+            <remove name="left.reports.product.viewed" />
+            <remove name="right.reports.product.viewed" />
 
         </reference>
 

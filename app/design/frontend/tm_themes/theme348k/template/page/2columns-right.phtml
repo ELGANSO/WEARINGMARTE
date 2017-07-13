@@ -47,10 +47,10 @@
     <?php echo $this->getChildHtml('global_notices') ?>
     <div class="page">
         <?php if ($_leftMcol = $this->getChildHtml('left_menu_col')): ?>
-            <div class="left_site_column">
+            <!--div class="left_site_column">
                 <?php echo $_leftMcol;   ?>
                 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('socials')->toHtml() ?>
-            </div>
+            </div-->
         <?php endif; ?>
         <div class="main_site_wrapper">
         <?php echo $this->getChildHtml('header') ?>
