@@ -1,8 +1,9 @@
+/**************** FOOTER ****************/
 .footer-marte{
 	color: black;
     font-weight: 300;
-    line-height: 1.4;   
-    padding: 50px; 
+    line-height: 1.4;
+    text-align:center; 
 }     
 .footer-marte a {
     color: black;
@@ -46,6 +47,18 @@
     float:right;   
     background-color: #f8f8f8;
 }
+@media only screen and (min-width: 769px){
+    #help-me {
+        text-align: left;
+        padding-left: 40px;
+    }
+    #customer-footer{
+        text-align: right;
+        padding-right: 40px;
+    }
+}
+.wrapper{background:none;}
+/**************** FOOTER IMAGENES ****************/
 .page {padding: 0;}
 a #img_instagram{
     left:31px;
@@ -81,8 +94,70 @@ a #img_twitter:hover {
 #subscribirse{
     display:none;
 }
+/**************** CABECERA MOVIL ****************/
+.count_t{display:none;}
+@media only screen and (min-width: 768px) and (max-width: 991px){
+    .count_t, .header-search, .header-minicart.desktop, .top-links{display: block;}
+    .skip-cart .count, .skip-cart .label, .skip-cart .icon {display:none;}
+    .header-minicart, .skip-link{border:none;font-size: 18px;top:25px;}
+    .logo{top:10px;}
+    .top-links{float:left;margin:5px 0 0 30px;}
+    .top-links a:hover, .header-minicart a:hover, .skip-link.skip-active span,.skip-link:hover, .skip-link.skip-active, .header-minicart .skip-active, .header-minicart a span:hover {
+        background:none;
+        color:black;
+    }
+}
+.skip-links .logo {display:none;}
+.page-header-container{height: 70px;}
 @media only screen and (max-width: 767px){
     #subscribirse{
         display:block;
     }
+    header.page-header .container .page-header-container{
+        display: none;
+    }
+    header.page-header .header-row-background {
+        display: none;
+    }
+    .skip-links{
+        background-color: #ffffff;
+        position: fixed!important;
+        width: 92%;
+        z-index: 9;
+        margin-top: 5px;
+        height: 65px;
+    }
+
+    #header{height: 70px;}
+    .skip-nav, #header-search, .skip-search{display: none;}
+    #links-header a.skip-link {height: 65px;border:none;}
+    .skip-links .logo{display: block;width: 60%;float: left;}
+    .skip-link .icon {font-size: 33px;margin-top: 8px;color:black;}
+    .skip-link .count {color:black;}
+    .skip-link:hover, .skip-link.skip-active{background-color: #fff;color:black;}
+    .skip-link.skip-active span, .skip-link:hover .label, .skip-link:hover .icon,.skip-link:hover .count{
+        color: #000;
+    }
+    .footer .button span{z-index: 1;}
+    .skip-cart {top:8px;}
+}
+.header-search{display: none;}
+/********** LOGO EN WEB ************/
+@media only screen and (min-width: 768px){
+    .main_site_wrapper{width:95%;margin:0 auto;display: initial;float:none;}
+    .main-menu{width: 33.33%;background: none;top:33px;text-align:right;font-size: 18px;}
+    .logo{position: relative;left: 0;}
+    .logo img {display: inline-block;}
+    #header .container {z-index: 99;position: fixed;width: 100%;}
+    #header {height: 70px;}
+    .mobile{display: none;}
+    .main-menu #header-nav{display: block;}
+    .nav-primary li{display: inline-block;margin-right: 15px;}
+}
+.skip-cart .icon:before, .skip-cart .count, .top-links a.account-dropdown::before, #header-nav nav ul li a{
+    color:black;
+}
+@media only screen and (min-width: 500px){
+    .skip-link{width: 20%;}
+    .skip-account .label{display: none;}
 }

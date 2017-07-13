@@ -93,11 +93,11 @@ $j(document).ready(function (){
     // Stick menu init
     // ==============================================
 
-    if(!isMobile) {
+    /**if(!isMobile) {
         if($j('.main-menu #nav li').length){
-            $j('.main-menu').tmStickUp() ;
+            $j('#header .container').tmStickUp() ;
         }
-    };
+    };**/
 
     // ==============================================
     // Additional options
