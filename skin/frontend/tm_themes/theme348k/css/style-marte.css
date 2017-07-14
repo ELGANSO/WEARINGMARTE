@@ -1,3 +1,8 @@
+a 
+{
+    color:#000;
+    cursor:pointer;
+}
 /**************** FOOTER ****************/
 .footer-marte{
 	color: black;
@@ -5,13 +10,8 @@
     line-height: 1.4;
     text-align:center; 
 }     
-.footer-marte a {
-    color: black;
-    cursor:pointer;
-}
 .footer-marte a:hover {
     color: gray;
-           
 }
 .footer-marte ul li {
 	line-height: 30px;
@@ -95,23 +95,24 @@ a #img_twitter:hover {
     display:none;
 }
 /**************** CABECERA MOVIL ****************/
-.count_t{display:none;}
 @media only screen and (min-width: 768px) and (max-width: 991px){
     .count_t, .header-search, .header-minicart.desktop, .top-links{display: block;}
     .skip-cart .count, .skip-cart .label, .skip-cart .icon {display:none;}
     .header-minicart, .skip-link{border:none;font-size: 18px;top:25px;}
     .logo{top:10px;}
-    .top-links{float:left;margin:5px 0 0 30px;}
+    .top-links{float:left;margin:0;}
     .top-links a:hover, .header-minicart a:hover, .skip-link.skip-active span,.skip-link:hover, .skip-link.skip-active, .header-minicart .skip-active, .header-minicart a span:hover {
         background:none;
-        color:black;
     }
 }
 .skip-links .logo {display:none;}
 .page-header-container{height: 70px;}
-@media only screen and (max-width: 767px){
+@media only screen and (max-width: 768px){
     #subscribirse{
         display:block;
+    }
+    .skip-container.mobile{
+        background: none;
     }
     header.page-header .container .page-header-container{
         display: none;
@@ -121,8 +122,7 @@ a #img_twitter:hover {
     }
     .skip-links{
         background-color: #ffffff;
-        position: fixed!important;
-        width: 92%;
+        width: 100%;
         z-index: 9;
         margin-top: 5px;
         height: 65px;
@@ -130,7 +130,7 @@ a #img_twitter:hover {
 
     #header{height: 70px;}
     .skip-nav, #header-search, .skip-search{display: none;}
-    #links-header a.skip-link {height: 65px;border:none;}
+    #links-header a.skip-link {border:none;}
     .skip-links .logo{display: block;width: 60%;float: left;}
     .skip-link .icon {font-size: 33px;margin-top: 8px;color:black;}
     .skip-link .count {color:black;}
@@ -140,19 +140,27 @@ a #img_twitter:hover {
     }
     .footer .button span{z-index: 1;}
     .skip-cart {top:8px;}
+    .mobile .container {padding-left: 5px;padding-right: 5px;};
 }
 .header-search{display: none;}
+@media only screen and (max-width: 991px) and (min-width: 768px)
+{
+.skip-account{top:0;}
+.logo{top:0;}
+.skip-cart .count{display: inline;}
+}
 /********** LOGO EN WEB ************/
-@media only screen and (min-width: 768px){
+@media only screen and (min-width: 769px){
     .main_site_wrapper{width:95%;margin:0 auto;display: initial;float:none;}
-    .main-menu{width: 33.33%;background: none;top:33px;text-align:right;font-size: 18px;}
+    .main-menu{background: none;top:33px;text-align:right;font-size: 18px;}
     .logo{position: relative;left: 0;}
     .logo img {display: inline-block;}
-    #header .container {z-index: 99;position: fixed;width: 100%;}
+    #header .container {z-index: 99;width: 100%;}
     #header {height: 70px;}
     .mobile{display: none;}
     .main-menu #header-nav{display: block;}
     .nav-primary li{display: inline-block;margin-right: 15px;}
+    .cms-pages-marte li {display:inline-block;margin-right: 5px;}
 }
 .skip-cart .icon:before, .skip-cart .count, .top-links a.account-dropdown::before, #header-nav nav ul li a{
     color:black;
@@ -161,3 +169,19 @@ a #img_twitter:hover {
     .skip-link{width: 20%;}
     .skip-account .label{display: none;}
 }
+@media only screen and (min-width: 992px){
+    .main-menu{width: 41.6%;}
+    .header-minicart{margin:0;}
+    .account-dropdown{display: none;}
+    .cms-pages-marte li {display:inline-block;padding: 0 25px;}
+}
+
+@media only screen and (max-width: 1072px){
+    #header-right{float:right;}
+    #header-right .menu-web {display:none;}
+    #header-right div.header-minicart{display:inline;}
+    .account-dropdown{display: inline;float:left;}
+    .top-links .skip-content.skip-active{width:130px;}
+}
+.top-links a {color:black;font-size: 16px;text-transform: none;padding-left: 15px;}
+.cms-pages-marte {font-size: 18px;text-transform: uppercase;float:left;top:33px;position: relative;}

@@ -36,12 +36,12 @@ $theme = $this->helper('customlogo');
         <div class="page-header-container">
             <!-- logo -->
 
-            <div class="main-menu col-md-4 col-xs-4 col-lg-4" style="display:block;">
+            <div class="main-menu col-md-5 col-xs-4 col-lg-5" style="display:block;">
                     <div id="header-nav" class="skip-content nav-content">
                         <?php echo $this->getChildHtml('topMenu') ?>
                     </div>
             </div>
-            <div class="col-md-4 col-xs-4 col-lg-4 logo-container">
+            <div class="col-md-2 col-xs-4 col-lg-2 logo-container">
             <?php if ($theme->isEnabled()): ?>
                 <?php if ($theme->getLogoType() == 'logo_images'): ?>
                     <?php if ($theme->getLogoUpload()): ?>
@@ -63,11 +63,13 @@ $theme = $this->helper('customlogo');
             <?php endif ?>
             </div>
             <!-- end logo -->
-            <div class="head_holder col-md-4 col-xs-4 col-lg-4">
-                <div class="header-minicart desktop">
-                    <?php echo $this->getChildHtml('minicart_head'); ?>
+            <div class="head_holder col-md-5 col-xs-4 col-lg-5">
+                <div class="cms-pages-marte">
+                    <ul>
+                        <li><a href="<?php echo Mage::getBaseUrl()."about" ?>"><?php echo $this->__('About') ?></a></li>
+                        <li><a href="<?php echo Mage::getBaseUrl()."lab" ?>"><?php echo $this->__('Lab') ?></a></li>
+                    </ul>
                 </div>
-
                 <!-- Top Links -->
                 <div class="top-links">
                     <?php
@@ -83,9 +85,21 @@ $theme = $this->helper('customlogo');
                     <?php endif ?>
 
                     <div id="<?php echo $toplinksID; ?>" class="<?php echo $toplinksClass; ?>">
+                    <!--?php echo $this->getChildHtml('topLinks') ?-->
+                        <div class="links">
+                        <ul>
+                            <li><a href="<?php echo Mage::getUrl('customer/account/login'); ?>"><span><?php echo $this->__('Sign in') ?></span></a></li>
+                            <li><a href=""><span><?php echo $this->__('Saved') ?></span></a></li>
+                        </ul>
+                        </div>
 
-                        <?php echo $this->getChildHtml('topLinks') ?>
-
+                    </div>
+                    <div id="header-right">
+                        <a class="menu-web" href="<?php echo Mage::getUrl('customer/account/login'); ?>"><span><?php echo $this->__('Sign in') ?></span></a>
+                        <a class="menu-web" href=""><span><?php echo $this->__('Saved') ?></span></a>
+                        <div class="header-minicart desktop">
+                            <?php echo $this->getChildHtml('minicart_head'); ?>
+                        </div>
                     </div>
                 </div>
                 <!-- end Top Links -->
