@@ -1,5 +1,8 @@
 jQuery( document ).ready(function() {
 	footer_movil_web();
+	jQuery(".youama-window-outside .close").click(function() {
+	jQuery("#header-account2").css("display","none");
+	});
 });
 
 function footer_movil_web() {
@@ -10,7 +13,7 @@ function footer_movil_web() {
 	} 
 }
 
-
-
-
+function abrirlogin() {
+	jQuery("#header-account2").css("display","block");
+}
 

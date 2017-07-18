@@ -66,8 +66,8 @@ $theme = $this->helper('customlogo');
             <div class="head_holder col-md-5 col-xs-4 col-lg-5">
                 <div class="cms-pages-marte">
                     <ul>
-                        <li><a href="<?php echo Mage::getBaseUrl()."about" ?>"><?php echo $this->__('About') ?></a></li>
                         <li><a href="<?php echo Mage::getBaseUrl()."lab" ?>"><?php echo $this->__('Lab') ?></a></li>
+                        <li><a href="<?php echo Mage::getBaseUrl()."about" ?>"><?php echo $this->__('About') ?></a></li>
                     </ul>
                 </div>
                 <!-- Top Links -->
@@ -88,18 +88,20 @@ $theme = $this->helper('customlogo');
                     <!--?php echo $this->getChildHtml('topLinks') ?-->
                         <div class="links">
                         <ul>
-                            <li><a href="<?php echo Mage::getUrl('customer/account/login'); ?>"><span><?php echo $this->__('Sign in') ?></span></a></li>
+                            <li onclick="<?php if (!Mage::getSingleton('customer/session')->isLoggedIn()) {?> abrirlogin() <?php } ?>"><a href="<?php echo Mage::getUrl('customer/account/login'); ?>" ><span><?php echo $this->__('Sign in') ?></span></a></li>
                             <li><a href=""><span><?php echo $this->__('Saved') ?></span></a></li>
                         </ul>
                         </div>
 
                     </div>
                     <div id="header-right">
-                        <a class="menu-web" href="<?php echo Mage::getUrl('customer/account/login'); ?>"><span><?php echo $this->__('Sign in') ?></span></a>
-                        <a class="menu-web" href=""><span><?php echo $this->__('Saved') ?></span></a>
-                        <div class="header-minicart desktop">
-                            <?php echo $this->getChildHtml('minicart_head'); ?>
-                        </div>
+                        <ul>
+                            <li onclick="<?php if (!Mage::getSingleton('customer/session')->isLoggedIn()) {?> abrirlogin() <?php } ?>"><a class="menu-web" href="<?php echo Mage::getUrl('customer/account/login'); ?>"><span><?php echo $this->__('Sign in') ?></span></a></li>
+                            <li><a class="menu-web" href=""><span><?php echo $this->__('Saved') ?></span></a></li>
+                            <div class="header-minicart desktop">
+                                <?php echo $this->getChildHtml('minicart_head'); ?>
+                            </div>
+                        </ul>
                     </div>
                 </div>
                 <!-- end Top Links -->

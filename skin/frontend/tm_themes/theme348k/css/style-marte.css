@@ -3,6 +3,11 @@ a
     color:#000;
     cursor:pointer;
 }
+.button.button-secondary, .button, .cart-table .product-cart-actions .button, #co-shipping-method-form .buttons-set .button, .footer .button {
+    background: #333;
+    background-color: #333;
+    text-decoration: none;
+}
 /**************** FOOTER ****************/
 .footer-marte{
 	color: black;
@@ -104,6 +109,9 @@ a #img_twitter:hover {
     .top-links a:hover, .header-minicart a:hover, .skip-link.skip-active span,.skip-link:hover, .skip-link.skip-active, .header-minicart .skip-active, .header-minicart a span:hover {
         background:none;
     }
+    .skip-link:hover, .skip-link.skip-active,.skip-link.skip-active span {
+        color:#333;
+    }
 }
 .skip-links .logo {display:none;}
 .page-header-container{height: 70px;}
@@ -127,7 +135,9 @@ a #img_twitter:hover {
         margin-top: 5px;
         height: 65px;
     }
-
+    #header-account {
+        height: 92vh;
+    }
     #header{height: 70px;}
     .skip-nav, #header-search, .skip-search{display: none;}
     #links-header a.skip-link {border:none;}
@@ -174,14 +184,117 @@ a #img_twitter:hover {
     .header-minicart{margin:0;}
     .account-dropdown{display: none;}
     .cms-pages-marte li {display:inline-block;padding: 0 25px;}
+    #header-right ul li{display: inline-flex;}
+    #header-account2{
+        left: calc(100% - 300px);
+        top: 0px;
+        height: 100vh;
+        display: none;
+        transform: translateY(0)!important;
+        background: #fff;
+    }
 }
-
+.youama-window-inside {padding-top: 50px;}
+.youama-window-title h3{text-transform: none;font-weight: 500;}
+.youama-window-title {margin-bottom: 40px;}
+.youama-window-title2 h3{text-transform: none;font-weight: 500;}
+.youama-window-title2 {margin-top: 40px;}
+.youama-forgot-password {text-align: center;}
+.yoauam-switch-window {background: #fff;color: #333; border: 1px solid #333;}
+.yoauam-switch-window:hover {
+    background: #333;
+    color:#fff;
+    border:1px solid #fff;
+}
 @media only screen and (max-width: 1072px){
     #header-right{float:right;}
     #header-right .menu-web {display:none;}
     #header-right div.header-minicart{display:inline;}
     .account-dropdown{display: inline;float:left;}
     .top-links .skip-content.skip-active{width:130px;}
+    #header-cart{width: auto;}
 }
 .top-links a {color:black;font-size: 16px;text-transform: none;padding-left: 15px;}
 .cms-pages-marte {font-size: 18px;text-transform: uppercase;float:left;top:33px;position: relative;}
+.youama-window-inside input {
+    border: none;
+    border-bottom: 1px solid #333;
+}
+.youama-window-box .input-fly.input-firstname::before, .youama-window-box .input-fly.input-lastname::before,.youama-window-box .input-fly.input-email::before,
+.youama-window-box .input-fly.input-password::before, .youama-window-box .input-fly.input-passwordsecond::before{
+    display:none;
+}
+.youama-window-box .input-fly input[type="text"], .youama-window-box .input-fly input[type="password"] {
+    padding-left: 0;
+}
+#header-account #mobile-menu li a, #header-account #mobile-menu3 li a {
+    border-bottom: none;
+}
+#mobile-menu li {
+    list-style: none;
+    padding-bottom: 20px;
+}
+#mobile-menu li a, #mobile-menu3 li a {
+    text-transform: none!important;
+    color:#333!important;
+}
+#mobile-menu {
+    font-size:28px;
+    position: relative;
+    float:left;
+    top: 30%;
+}
+#mobile-menu2 {
+    font-size:15px;
+    position: relative;
+    float:right;
+    top: 30%;   
+}
+#mobile-menu2 li {
+    -webkit-transform: rotate(90deg);   
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+    padding-bottom: 50px;
+    padding-right: 20px;
+    color:#333;
+}
+#mobile-menu3 {
+    font-size:15px;
+    position: absolute;
+    float:left;
+    top: 85vh;   
+}
+#mobile-menu3 li {
+    list-style: none;
+    display: inline-block;
+}
+@media only screen and (max-width: 479px){
+    #header-account2.abs {
+        position: absolute;
+        top: 5px;
+        min-height: 98vh;
+        width: 98vw;
+        left:1%;
+    }
+}
+#overlay.active {opacity: 0.7;}
+#overlay {background: #fff;}
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #333;
+}
+::-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #333;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #333;
+   opacity:  1;
+}
+::-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #333;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+   color:    #333;
+}
