@@ -41,6 +41,7 @@
                     <li<?php echo ($_last ? ' class="last"' : '') ?>><a href="<?php echo $_link->getUrl() ?>"><?php echo $_link->getLabel() ?></a></li>
                 <?php endif; ?>
             <?php endforeach; ?>
+            <li><a href="<?php echo Mage::getUrl('customer/account/logout'); ?>"><strong style="text-decoration: underline;"><?php echo $this->__('Log out'); ?></strong></a></li>
         </ul>
     </div>
 </div>
