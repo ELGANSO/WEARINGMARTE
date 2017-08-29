@@ -1,0 +1,611 @@
+<div id="wk_new_rma_container">
+    <div class="page-title">
+        <h1 class="new_rma_head"><?php echo $this->__("New RMA"); ?></h1>
+    </div>
+    <div class="wk_rma_bg">
+        <div class="wk_rma_loader"></div>
+    </div>
+    <h4 class="wk_rma_label"><?php echo $this->__("Select Order"); ?> </h4>
+    <?php echo $this->getPagerHtml(); ?>
+    <table class="data-table" id="wk_rma_orders">
+        <thead class="wk_rma_sorter">
+        <tr>
+            <th class="wk_rma_sortable">
+                <span class="wk_rma_table_title"><?php echo $this->__("Order Id"); ?></span>
+                <span data-attr="increment_id" class=""></span>
+            </th>
+            <th class="wk_rma_sortable">
+            <span
+                class="wk_rma_table_title"><?php echo $this->__("Price") . " <b>(" . Mage::app()->getStore()->getCurrentCurrencyCode() . ")</b>"; ?></span>
+                <span data-attr="grand_total" class=""></span>
+            </th>
+            <th class="wk_rma_sortable">
+                <span class="wk_rma_table_title"><?php echo $this->__("Date"); ?></span>
+                <span data-attr="created_at" class=""></span>
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        <thead class="wk_rma_filter">
+        <tr>
+            <?php $filter_data = Mage::getSingleton("customer/session")->getFilterData(); ?>
+            <th>
+                <input type="text" value="<?php echo $filter_data["order_id"]; ?>" id="wk_rma_filter_order_id"
+                       class="filter_input"/>
+            </th>
+            <th>
+                <input type="text" value="<?php echo $filter_data["price"]; ?>" id="wk_rma_filter_price"
+                       class="filter_input"/>
+            </th>
+            <th>
+                <input type="text" value="<?php echo $filter_data["date"]; ?>" id="wk_rma_filter_date"
+                       class="filter_input"/>
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php $collection = $this->getCollection();
+        if ($collection->getSize() == 0)
+        { ?>
+            <tr>
+                <td colspan="4" class="a-center"><?php echo $this->__("No order Placed yet"); ?></td>
+            </tr>
+        <?php } else
+        {
+            $order_details = array();
+
+            $i = 0;
+            $inc = array();
+            $j = 0;
+            $status = array();
+            $new = array();
+            foreach ($collection as $value)
+            {
+                $order_id = $value->getOrderId();
+                $order_details[$i]['order_id'] = $order_id;
+                $order_collection = Mage::getModel("sales/order")->getCollection()->addFieldToFilter('entity_id', $order_id);
+                foreach ($order_collection as $order)
+                {
+                    $visible_item = $order->getAllVisibleItems();
+                    foreach ($visible_item as $it)
+                    {
+                        $qty_order = $it->getQtyOrdered();
+                        $qty_ship = $it->getQtyShipped();
+                        if ($qty_order == $qty_ship)
+                        {
+
+                            $increment = Mage::getModel("sales/order")->load($it->getOrderId());
+                            $inc[$i]['status'] = $increment->getStatus();
+                            $inc[$i]['id'] = $increment->getEntityId();
+
+                            $order_details[$i]['entity_id'] = $it->getOrderId();
+                            $order_details[$i]['increment_id'] = $increment->getIncrementId();
+                            $order_details[$i]['date'] = $it->getCreatedAt();
+                            $order_details[$i]['grand_total'] = $it->getRowTotalInclTax();
+                            $order_details[$i]['customer_id'] = $increment->getCustomerId();
+                        }
+                    }
+                    $i++;
+                }
+            }
+            $order_details = array_unique($order_details, SORT_REGULAR);
+            $allowed_status = Mage::getStoreConfig("rmasystem/rmasystem/allowed-order-status");
+            if ($allowed_status == "complete")
+            {
+                foreach ($order_details as $order)
+                {
+                    echo "<tr id='wk_select_order'><td>" . $order['increment_id'] . "</td>";
+                    echo "<td>" . Mage::helper("core")->currency($order['grand_total'], true, false) . "</td>";
+                    echo "<td>" . date("Y-m-d g:i:s a", Mage::getModel('core/date')->timestamp($order['date'])) . "</td>";
+                    echo "<td><input data-ord_id='" . $order['entity_id'] . "' data-inc_id='" . $order['increment_id'] . "' value='" . $order['entity_id'] . "' type='radio' name='order_selection' class='wk_rma_order_selection'/></td></tr>";
+                }
+            } else
+            {
+                foreach ($collection as $order)
+                {
+                    $countItem = count($order->getAllVisibleItems());
+                    $countDownloadable = 0;
+                    $countVirtual = 0;
+                    $status = array();
+                    $vir_status = array();
+                    foreach ($order->getAllVisibleItems() as $value)
+                    {
+                        if ($value->getProductType() == 'downloadable')
+                        {
+                            $countDownloadable++;
+                            $status[] = $order->getStatus();
+                        } else if ($value->getProductType() == 'virtual')
+                        {
+                            $countVirtual++;
+                            $vir_status[] = $order->getStatus();
+                        }
+                    }
+                    $status = array_unique($status);
+                    $vir_status = array_unique($vir_status);
+                    if (($countItem !== $countDownloadable || (count($status) == 1 && ($status[0] == 'pending' || $status[0] == 'processing'))) && ($countItem !== $countVirtual || (count($vir_status) == 1 && ($vir_status[0] == 'pending' || $vir_status[0] == 'processing'))))
+                    {
+                        echo "<tr id='wk_select_item'><td>" . $order->getIncrementId() . "</td>";
+                        echo "<td>" . Mage::helper("core")->currency($order->getGrandTotal(), true, false) . "</td>";
+                        echo "<td>" . date("Y-m-d g:i:s a", Mage::getModel('core/date')->timestamp($order->getCreatedAt())) . "</td>";
+                        echo "<td><input data-ord_id='" . $order->getEntityId() . "' data-inc_id='" . $order->getIncrementId() . "' value='" . $order->getEntityId() . "' type='radio' name='order_selection' class='wk_rma_order_selection'/></td></tr>";
+                    }
+                }
+            }
+        }
+        ?>
+        </tbody>
+    </table>
+    <?php echo $this->getPagerHtml(); ?>
+    <form method="post" action="<?php echo $this->getUrl('rmasystem/index/saverma/'); ?>" enctype="multipart/form-data"
+          id="save_rma_form">
+        <input type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey(); ?>" name="form_key"/>
+        <div class="fieldset">
+            <ul class="form-list">
+
+                <!-- Tipo de operación -->
+                <li class="wide">
+                    <label class="required"><?php echo $this->__("Resolution Type"); ?>:</label>
+                    <div class="input-box">
+                        <select class="required-entry select" title="<?php echo $this->__('Select Resolution Type'); ?>"
+                                name="resolution_type">
+                            <option value=""><?php echo $this->__("Select Resolution Type"); ?></option>
+                            <option value="0"><?php echo $this->__("Refund"); ?></option>
+                            <option value="1"><?php echo $this->__("Size Exchange"); ?></option>
+                        </select>
+                    </div>
+                </li>
+
+                <!-- Artículos del pedido -->
+                <li class="wide">
+                    <label class="required"><?php echo $this->__("Items Ordered"); ?>:</label>
+                    <div class="input-box">
+                        <table name="items" class="data-table" id="wk_rma_order_details">
+                            <thead>
+                            <tr>
+                                <th><input type="checkbox" id="check_all" /></th>
+                                <th title="Product Name"><?php echo $this->__("Name"); ?></th>
+                                <th title="Product SKU" style="display: none;"><?php echo $this->__("SKU"); ?></th>
+                                <th title="Product Quantity Ordered" style="display: none;"><?php echo $this->__("Qty Ordered"); ?></th>
+                                <th class="a-right"
+                                    title="Product Quantity Returning" style="display: none;"><?php echo $this->__("Qty Returning"); ?></th>
+                                <th class="a-right" title="Reason"
+                                    style="display: none;"><?php echo $this->__("Reason"); ?></th>
+                                <th class="a-right size-header item_size"><?php echo $this->__("Original Size"); ?></th>
+                                <th class="a-right size-header item_size"><?php echo $this->__("New Size"); ?></th>
+                                <th class="a-right" title="Product Price"><?php echo $this->__("Price"); ?></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td colspan="7" class="a-center"><?php echo $this->__("No order selected"); ?></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+
+                <li class="wide" style="display: none;">
+                    <label><?php echo $this->__("Related Images"); ?>:</label>
+                    <div class="input-box">
+                        <label for="related_images" id="wk_rma_label_image">
+                            <span id="wk_rma_upload_icon"></span>
+                            <span id="wk_rma_upload_text"><?php echo $this->__("Upload Images"); ?></span>
+                        </label>
+                        <input multiple="" onchange="half_upload(this)" id="related_images" name="related_images[]"
+                               type="file" accept="image/*" tabindex="1"/>
+                    </div>
+                    <div class="wk_rma_image_container"></div>
+                </li>
+
+                <li class="wide" style="display: none;">
+                    <label class="required"><?php echo $this->__("Package Condition"); ?>:</label>
+                    <div class="input-box">
+                        <select class="required-entry select"
+                                title="<?php echo $this->__('Select Package Condition'); ?>"
+                                name="package_condition">
+                            <option value=""><?php echo $this->__("Select Package Condition"); ?></option>
+                            <option value="0" selected><?php echo $this->__("Open"); ?></option>
+                            <option value="1"><?php echo $this->__("Packed"); ?></option>
+                        </select>
+                    </div>
+                </li>
+
+                <li class="wide">
+                    <label class="required"><?php echo $this->__("Additional Information"); ?>:</label>
+                    <div class="input-box">
+                        <textarea name="additional_info" id="wk_rma_additional_info"></textarea>
+                    </div>
+                </li>
+
+                <div class="pickup">
+
+                    <h2>Datos de recogida</h2>
+
+                    <li class="wide">
+                        <label class="required" for="wk_rma_pickup_date"><?php echo $this->__('Pickup date'); ?>:</label>
+                        <div class="input-box">
+                            <input type="text" class="required-entry" name="pickup_date" id="wk_rma_pickup_date" />
+                            <img style="" title="Select Date" id="date_select_trig" class="v-middle" alt="" src="<?php echo $this->getSkinUrl('images/calendar.gif');?> "/>
+                            <script type="text/javascript">
+                            //<![CDATA[
+                            Calendar.setup({
+                                inputField: "wk_rma_pickup_date",
+                                ifFormat: "<?= $this->getDateFormat() ?>",
+                                showsTime: false,
+                                button: "date_select_trig",
+                                align: "Bl",
+                                singleClick : true
+                            });
+                            //]]>
+                            </script>
+                        </div>
+                    </li>
+
+                    <li class="wide">
+                        <label class="required"><?php echo $this->__('Address'); ?>:</label>
+                        <div class="input-box">
+                            <input type="text" class="required-entry" name="pickup_address" id="wk_rma_pickup_address" />
+                        </div>
+                    </li>
+
+                    <li class="wide">
+                        <label class="required"><?php echo $this->__('Number'); ?>:</label>
+                        <div class="input-box">
+                            <input type="text" class="required-entry" name="pickup_number" id="wk_rma_pickup_number" />
+                        </div>
+                    </li>
+
+                    <li class="wide">
+                        <label class="required"><?php echo $this->__('Zip/Postal Code'); ?>:</label>
+                        <div class="input-box">
+                            <input type="text" class="required-entry" name="pickup_postcode" id="wk_rma_pickup_postcode" />
+                        </div>
+                    </li>
+
+                    <li class="wide">
+                        <label class="required"><?php echo $this->__('Localidad'); ?>:</label>
+                        <div class="input-box">
+                            <input type="text" class="required-entry" name="pickup_city" id="wk_rma_pickup_city" />
+                        </div>
+                    </li>
+
+                    <li class="wide">
+                        <label class="required"><?php echo $this->__('Provincia'); ?>:</label>
+                        <div class="input-box">
+                            <input type="text" class="required-entry" name="pickup_region" id="wk_rma_pickup_region" />
+                        </div>
+                    </li>
+
+                    <li class="wide">
+                        <label class="required"><?php echo $this->__('Telephone'); ?>:</label>
+                        <div class="input-box">
+                            <input type="text" class="required-entry" name="pickup_phone" id="wk_rma_pickup_phone" />
+                        </div>
+                    </li>
+
+                </div>
+
+                <li class="wide" style="display: none;">
+                    <label><?php echo $this->__("Product Delivery Status"); ?>:</label>
+                    <div class="input-box">
+                        <select title="<?php echo $this->__('Product Delivery Status'); ?>"
+                                name="customer_delivery_status"
+                                id="wk_rma_delivery_status">
+                            <option value="0"><?php echo $this->__("Not Delivered Yet"); ?></option>
+                            <option value="1"><?php echo $this->__("Delivered"); ?></option>
+                        </select>
+                    </div>
+                </li>
+                <li class="wide" id="wk_rma_depends_del_status">
+                    <label class="required"><?php echo $this->__("Enter Consignment Number"); ?>:</label>
+                    <div class="input-box">
+                        <input id="wk_rma_consignment_no" type="text" name="customer_consignment_no"/>
+                    </div>
+                </li>
+                <li class="wide" style="display: none;">
+                    <label class="required"><?php echo $this->__("Return Policy"); ?>:</label>
+                    <div id="wk_rma_agreement_cntnt">
+                        <?php echo Mage::getStoreConfig("rmasystem/rmasystem/policy"); ?>
+                    </div>
+                    <input id="wk_i_agree" type="checkbox" class="wk_rma_checkall required-entry" checked/>
+                    <label for="wk_i_agree" class="wk_rma_checkall"><?php echo $this->__("I Agree"); ?></label>
+                </li>
+            </ul>
+        </div>
+        <a href="<?php echo $this->getUrl('rmasystem/') ?>">&laquo;<?php echo $this->__("back"); ?></a>
+        <div class="buttons-set">
+            <p class="required">* <?php echo $this->__("Required Fields"); ?></p>
+            <button id="wk_rma_button_submit" class="button" title="<?php echo $this->__('Submit Request'); ?>"
+                    type="submit">
+                <span><?php echo $this->__("Submit Request"); ?></span>
+            </button>
+        </div>
+    </form>
+    <script type="text/javascript">
+        jQueryRma = jQuery;
+        decorateTable("wk_rma_orders");
+        var save_rma_form = new VarienForm("save_rma_form", true);
+
+        jQueryRma(document).ready(function ()
+        {
+            <?php           $sorting_data = Mage::getSingleton("customer/session")->getSortingData();                             ?>
+            sort_attr = "<?php echo $sorting_data['attr']; ?>";
+            direction = "<?php echo $sorting_data['direction']?>";
+            if (sort_attr == "" || direction == "")
+            {
+                jQueryRma("#wk_rma_orders .wk_rma_sorter th").eq(0).addClass("wk_rma_selected");
+                jQueryRma("#wk_rma_orders .wk_rma_sorter th").eq(0).find("span").eq(1).addClass("wk_rma_asc");
+            }
+            else
+            {
+                jQueryRma("#wk_rma_orders .wk_rma_sorter th").each(function ()
+                {
+                    this_span = jQueryRma(this).find("span").eq(1);
+                    if (this_span.attr("data-attr") == sort_attr)
+                    {
+                        if (direction == "ASC")
+                            this_span.addClass("wk_rma_asc");
+                        else
+                            this_span.addClass("wk_rma_desc");
+                        jQueryRma(this).addClass("wk_rma_selected");
+                    }
+                });
+            }
+        });
+
+        jQueryRma('#wk_rma_orders #wk_select_order').on('click', function ()
+        {
+            var radio_check = jQueryRma(this).children('td').last().children().prop('checked', true);
+            checkOrder(radio_check);
+        });
+
+        jQueryRma('#wk_rma_orders #wk_select_item').on('click', function ()
+        {
+            var radio_check = jQueryRma(this).children('td').last().children().prop('checked', true);
+            RmaSystem.newRmaPage.loadOrder(radio_check, "<?php echo $this->getUrl('rmasystem/index/getitemDetails'); ?>");
+        });
+
+        jQueryRma("#wk_rma_orders .wk_rma_sortable").on("click", function ()
+        {
+            jQueryRma(".wk_rma_bg").show();
+            this_th = jQueryRma(this);
+            jQueryRma("#wk_rma_orders .wk_rma_sorter th").removeClass("wk_rma_selected");
+            this_th.addClass("wk_rma_selected");
+            sort_span = jQueryRma(this).find("span").eq(1);
+            sort_class = sort_span.attr("class");
+            if (sort_class == "wk_rma_asc")
+                sort_span.attr("class", "wk_rma_desc");
+            else if (sort_class == "wk_rma_desc")
+                sort_span.attr("class", "wk_rma_asc");
+            else if (sort_class == "")
+            {
+                jQueryRma("#wk_rma_orders .wk_rma_sorter th").each(function ()
+                {
+                    jQueryRma(this).find("span").eq(1).attr("class", "");
+                });
+                sort_span.attr("class", "wk_rma_asc");
+            }
+            direction = "DESC";
+            attr = sort_span.attr("data-attr");
+            if (sort_span.attr("class") == "wk_rma_asc")
+                direction = "ASC";
+            jQuery.ajax({
+                url: "<?php echo $this->getUrl('rmasystem/index/setsortingSession/'); ?>",
+                type: "POST",
+                data: {
+                    attr: attr,
+                    direction: direction
+                },
+                success: function ()
+                {
+                    window.location.href = "";
+                }
+            });
+        });
+
+        jQueryRma(".filter_input").on("keyup", function (e)
+        {
+            var code = e.keyCode || e.which;
+            if (code == 13)
+            {
+                jQuery.ajax({
+                    url: "<?php echo $this->getUrl('rmasystem/index/setfilterSession/'); ?>",
+                    type: "POST",
+                    data: {
+                        order_id: jQueryRma("#wk_rma_filter_order_id").val(),
+                        price: jQueryRma("#wk_rma_filter_price").val(),
+                        date: jQueryRma("#wk_rma_filter_date").val()
+                    },
+                    success: function ()
+                    {
+                        window.location.href = "";
+                    }
+                });
+            }
+        });
+
+        <?php       $reason_html = "><option value=''>Select Reason</option>";
+        $reason_coll = Mage::getModel("rmasystem/reason")->getCollection()->addFieldToFilter("status", 1);
+        foreach ($reason_coll as $reason)
+            $reason_html .= "<option value='" . $reason->getId() . "' selected>" . $reason->getReason() . "</option>";
+        $reason_html .= "</select>";                                                                              ?>
+        function checkOrder(check_radio)
+        {
+            jQueryRma(".wk_rma_bg").show();
+            jQueryRma('#rma_product_exchange').parent().parent('li').siblings('.wk_li').remove();
+            jQueryRma('#rma_product_exchange option[value=""]').prop('selected', true);
+            increment_id = jQueryRma(check_radio).attr("data-inc_id");
+            ord_id = jQueryRma(check_radio).attr("data-ord_id");
+
+            jQuery.ajax({
+                url: "<?php echo $this->getUrl('rmasystem/index/getorderDetails'); ?>",
+                type: "POST",
+                dataType: "json",
+                data: {order_id: ord_id,},
+                success: function (content)
+                {
+
+                    if (content.length == 0)
+                        jQueryRma("#wk_rma_order_details").find("tbody").html("<tr><td colspan='7'><?php echo $this->__('No order selected'); ?></td></tr>");
+                    else
+                    {
+                        var row = "<input type='hidden' name='order_id' value='" + ord_id + "'/><input type='hidden' name='increment_id' value='" + increment_id + "'/>";
+                        for (var i = 0; i < content.length; i++)
+                        {
+                            row += "<tr>" +
+                                "<td><a href='" + content[i].url + "' target='_blank'>" + content[i].name + "</a></td>" +
+                                "<td>" + content[i].sku + "</td>" +
+                                "<td class='wk_rma_check'>" +
+                                "<input value='" + content[i].itemid + "' data-value='" + content[i].product_id + "' type='checkbox' class='wk_rma_pro_check' name='item_checked[" + content[i].itemid + "]'/>" +
+                                "</td>" +
+                                "<td>" + content[i].qty + "</td>" +
+                                "<td class='a-right'>" +
+                                "<input type='number' name='return_item[" + content[i].itemid + "]' class='return_item validate-number' max='" + content[i].qty + "' min='1'/>" +
+                                "</td>" +
+                                "<td class='a-right' style='display:none;'><select class='item_reason' name='item_reason[" + content[i].itemid + "]'<?php echo $reason_html; ?></td>" +
+                                "<td class='item_price'>" + content[i].price + "</td>" +
+                                "</tr>";
+                        }
+                        jQueryRma("#wk_rma_order_details").find("tbody").html(row);
+                    }
+                    decorateTable("wk_rma_order_details");
+                    jQueryRma(".wk_rma_bg").hide();
+                }
+            });
+        }
+
+        function half_upload(this_input)
+        {
+            jQueryRma(".wk_rma_image_container").html("");
+            for (var i = 0; i < this_input.files.length; i++)
+            {
+                if (this_input.files && this_input.files[i])
+                {
+                    var reader = new FileReader();
+                    reader.onload = function (e)
+                    {
+                        jQueryRma(".wk_rma_image_container").append("<span class='wk_rma_image_cover'><img class='wk_rma_image' src='" + e.target.result + "'/></span>");
+                    }
+                    reader.readAsDataURL(this_input.files[i]);
+                }
+            }
+        }
+
+        jQueryRma("#wk_rma_button_submit").click(function ()
+        {
+            error = false;
+            item_checked = false;
+            row = 1;
+            error_msg = [];
+            jQueryRma("#wk_rma_order_details").parent().find(".validation-failed").removeClass("validation-failed");
+            jQueryRma("#wk_rma_order_details").parent().find(".validation-advice").remove();
+            jQueryRma("#wk_rma_order_details").find(".wk_rma_pro_check").each(function ()
+            {
+                if (jQueryRma(this).is(":checked"))
+                    item_checked = true;
+            });
+            jQueryRma("#wk_rma_order_details tbody tr").each(function ()
+            {
+                if (jQueryRma(this).find(".wk_rma_pro_check").is(":checked"))
+                {
+                    current_error_msg = "";
+                    return_qty_input = jQueryRma(this).find(".return_item");
+                    if (return_qty_input.val() > return_qty_input.attr("max") || return_qty_input.val() < 1)
+                    {
+                        error = true;
+                        current_error_msg += "<?php echo $this->__('Invalid quantity'); ?>";
+                    }
+                    if (current_error_msg != "")
+                    {
+                        current_error_msg += "<?php echo $this->__(' in row'); ?>" + " " + row;
+                        error_msg.push(current_error_msg);
+                    }
+                }
+                row++;
+            });
+            if (item_checked == false)
+            {
+                jQueryRma("#wk_rma_order_details").addClass("validation-failed").after("<div style='display:none;' class='validation-advice'><?php echo $this->__('Please select item (s)'); ?>.</div>");
+                jQueryRma(".validation-advice").fadeIn(1000);
+                error = true;
+            }
+            if (error_msg.length > 0)
+            {
+                error = true;
+                jQueryRma("#wk_rma_order_details").addClass("validation-failed");
+                for (var i = error_msg.length - 1; i >= 0; i--)
+                    jQueryRma("#wk_rma_order_details").after("<div style='display:none;' class='validation-advice'>" + error_msg[i] + "</div>");
+                jQueryRma(".validation-advice").fadeIn(1000);
+            }
+            if (save_rma_form.validator.validate() != true || error == true)
+                return false;
+        });
+
+        jQueryRma("#wk_rma_delivery_status").on("change", function ()
+        {
+            if (jQueryRma(this).val() == 1)
+            {
+                jQueryRma("#wk_rma_consignment_no").removeAttr("disabled").attr("class", "required-entry");
+                jQueryRma("#wk_rma_depends_del_status").show();
+            }
+            else
+            {
+                jQueryRma("#wk_rma_consignment_no").attr("disabled", "disabled").attr("class", "");
+                jQueryRma("#wk_rma_depends_del_status").hide();
+            }
+        });
+    </script>
+
+    <!-- Mensajes -->
+    <input type="hidden" id="message-no-other-available-sizes" value="<?= $this->__('Sorry, there are no other sizes available at the moment.') ?>" />
+
+    <!-- Templates -->
+    <script id="template-order-items" type="text/x-handlebars-template">
+        <input type="hidden" name="order_id" value="{{ order_id }}" />
+        <input type="hidden" name="increment_id" value="{{ increment_id }}" />
+        {{#each items}}
+            <tr>
+                <td class="wk_rma_check">
+                    <input
+                        value="{{ itemid }}" data-value="{{ product_id }} " type="checkbox"
+                        class="wk_rma_pro_check" name="item_checked[{{ itemid }}]" />
+                </td>
+                <td><a href="{{ url }}" target="_blank">{{ name }}</a></td>
+                <td style="display: none;">{{ sku }}</td>
+                <td style="display: none;">{{ qty }} </td>
+                <td class="a-right" style="display: none;">
+                    <input
+                        type="number" name="return_item[{{ itemid }}]" class="return_item validate-number"
+                        max="{{ qty }}" min="1" value="{{ qty }}" style="display: none;" />
+                </td>
+                <td class="a-right" style="display: none;">
+                    <input
+                        type="hidden" name="item_reason[{{ itemid }}]"
+                        value="<?= Webkul_RmaSystem_Model_Constants::ReasonDefault ?>" />
+                </td>
+                <td class="item_size" style="{{ sizeColumnStyle }}">{{ size }}</td>
+                <td class="item_size" style="{{ sizeColumnStyle }}">{{{ sizeSelectHtml }}}</td>
+                <td class="item_price">{{ price }}</td>
+            </tr>
+        {{/each}}
+    </script>
+
+    <script id="template-size-select" type="text/x-handlebars-template">
+        <label>
+            <select class="item_reason size-select" name="{{ name }}">
+                <option value="">(<?= $this->__('Choose one') ?>...)</option>
+                {{#each sizes}}
+                    <option value="{{ product_id }}">{{ description }}</option>
+                {{/each}}
+            </select>
+        </label>
+    </script>
+
+    <script src="<?= Mage::getBaseUrl('js') . "rmasystem/handlebars.js" ?>" type="text/javascript"></script>
+    <script src="<?= Mage::getBaseUrl('js') . "rmasystem/new_rma.js" ?>" type="text/javascript"></script>
+    <script type="text/javascript">
+        RmaSystem.newRmaPage.initialize();
+    </script>
+
+</div>

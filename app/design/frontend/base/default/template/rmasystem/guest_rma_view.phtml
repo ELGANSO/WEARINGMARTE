@@ -1,0 +1,254 @@
+	<div class="page-title">
+		<h1><?php echo $this->__("RMA Details"); ?>
+			<a href="<?php echo $this->getUrl('rmasystem/guest/logout'); ?>" class="wk_rma_logout_btn"><?php echo $this->__("logout"); ?></a>
+		</h1>
+	</div>
+<?php	$id = $this->getRequest()->getParam("id");
+		$this_rma = $this->getRmaDetails($id);																		?>
+	<form method="post" action="<?php echo $this->getUrl('rmasystem/guest/updaterma/'); ?>" id="wk_rma_con_form" enctype="multipart/form-data">
+	<div class="dashboard">
+		<div class="box-account box-info wk_rma_bigbox">
+			<div class="wk_rma_print_actions">
+			<?php
+			$orderItemsPro=Mage::getModel('rmasystem/items')->getCollection()->addFieldToFilter('rma_id',$this_rma->getId()); 
+			$wrong_product_type='';
+			if(count($orderItemsPro)==1){
+				foreach ($orderItemsPro as $item_pro) {
+					$item_pro_data=Mage::getModel("sales/order_item")->load($item_pro->getItemId());
+					if($item_pro_data->getProductType()=='downloadable' || $item_pro_data->getProductType()=='virtual')
+						$wrong_product_type='invalid';
+				}
+			}
+			?>
+<?php 			if($this_rma->getShippingLabel() > 0 && $this_rma->getResolutionType() !== 0 && $wrong_product_type=='')	{ 													?>
+					<a class="link-print" onclick="this.target='_blank';" href="<?php echo $this->getUrl('rmasystem/guest/printlabel/',array('id'=>$id)); ?>"><?php echo $this->__("Print Shipping Label"); ?></a>&nbsp;|&nbsp;
+<?php 			}																									?>
+        		<a class="link-print" onclick="this.target='_blank';" href="<?php echo $this->getUrl('rmasystem/guest/print/',array('id'=>$id)); ?>"><?php echo $this->__("Print RMA"); ?></a>
+			</div>
+			<div class="col2-set">
+			    <div class="col-1">
+			        <div class="box">
+			            <div class="box-title">
+			                <h3><?php echo $this->__("Order Id"); ?></h3>
+			            </div>
+			            <div class="box-content">
+			                <p>#<?php echo $this_rma->getIncrementId();?></p>
+			            </div>
+			        </div>
+			    </div>
+		        <div class="col-2">
+			        <div class="box">
+			            <div class="box-title">
+			                <h3><?php echo $this->__("Status"); ?></h3>
+			            </div>
+			            <div class="box-content">
+			                <strong><?php echo $this->__("RMA Status"); ?> : </strong>
+			                <p style="display:inline;margin-left:10px;">
+<?php 							if($this_rma->getStatus() == "1")
+	            					echo "<strong class='wk_rma_status_pending'>".$this->__('Pending')."</strong>";
+            					if($this_rma->getStatus() == "2")
+	            					echo "<strong class='wk_rma_status_processing'>".$this->__('Processing')."</strong>";
+	            				if($this_rma->getStatus() == "3")
+	            					echo "<strong class='wk_rma_status_decline'>".$this->__('Declined')."</strong>";
+	            				if($this_rma->getStatus() == "4")
+	            					echo "<strong class='wk_rma_status_solve'>".$this->__('Solved')."</strong>";
+            					if($this_rma->getStatus() == "5")
+	            					echo "<strong class='wk_rma_status_cancel'>".$this->__('Cancelled')."</strong>";?>
+			                </p>
+			            </div>
+			        </div>
+	            </div>
+		    </div>
+		    <div class="col2-set">
+			    <div class="col-1">
+			        <div class="box">
+			            <div class="box-title">
+			                <h3><?php echo $this->__("Package Condition"); ?></h3>
+			            </div>
+			            <div class="box-content">
+<?php 						if($this_rma->getPackageCondition() == 0)
+			                	echo "<p><b>".$this->__("Open")."</b></p>";
+			                else
+			                	echo "<p><b>".$this->__("Packed")."</p>";											?>
+			            </div>
+			        </div>
+			    </div>
+		        <div class="col-2">
+			        <div class="box">
+			            <div class="box-title">
+			                <h3><?php echo $this->__("Resolution Type"); ?></h3>
+			            </div>
+			            <div class="box-content">
+<?php 						if($this_rma->getResolutionType() == 0)
+			                	echo "<p><b>".$this->__("Refund")."</b></p>";
+			                else
+			                	echo "<p><b>".$this->__("Exchange")."</b></p>";										?>
+			            </div>
+			        </div>
+	            </div>
+		    </div>
+		    <div class="col2-set">
+			    <div class="col-1">
+			        <div class="box">
+			            <div class="box-title">
+			                <h3><?php echo $this->__("Created On"); ?></h3>
+			            </div>
+			            <div class="box-content">
+			                <p><?php echo date("Y-m-d g:i:s a", Mage::getModel('core/date')->timestamp($this_rma->getCreatedAt())); ?></p>
+			            </div>
+			        </div>
+			    </div>
+		        <div class="col-2">
+			        <div class="box">
+			            <div class="box-title">
+			                <h3><?php echo $this->__("Additional Information"); ?></h3>
+			            </div>
+			            <div class="box-content">
+			                <p><?php echo nl2br(strip_tags($this_rma->getAdditionalInfo())); ?></p>
+			            </div>
+			        </div>
+	            </div>
+		    </div>
+		    <div class="col2-set">
+			    <div class="col-1">
+			        <div class="box">
+			            <div class="box-title">
+			                <h3><?php echo $this->__("Your Consignment Number"); ?></h3>
+			            </div>
+			            <div class="box-content">
+			            	<input type="text" name="customer_consignment_no" value="<?php echo $this_rma->getCustomerConsignmentNo(); ?>"/>
+			            </div>
+			        </div>
+		        </div>
+<?php 			if($this_rma->getResolutionType() == 1 && $this_rma->getAdminConsignmentNo() != "")	{					?>
+				<div class="col-2">
+			        <div class="box">
+			            <div class="box-title">
+			                <h3><?php echo $this->__("Admin Consignment Number"); ?></h3>
+			            </div>
+			            <div class="box-content">
+			            	<p><?php echo $this_rma->getAdminConsignmentNo(); ?></p>
+			            </div>
+			        </div>
+		        </div>
+<?php 			}																									?>
+			    </div>
+		    </div>
+		    <div class="col2-set">
+			    <div class="wk_rma_images_holder">
+			        <div class="box-title">
+			            <h3><?php echo $this->__("Additional Image(s)"); ?></h3>
+			        </div>
+			        <div class="box-content">
+            			<div id="wk_rma_add_images_container">
+<?php 						$folderName = Mage::getBaseDir()."/media/RMA/".$id."/";
+							$images = glob($folderName."*.{jpg,JPG,jpeg,JPEG,gif,GIF,png,PNG,bmp,BMP}",GLOB_BRACE);
+							foreach ($images as $filename) {
+								$getfilename = explode("/",$filename);
+								$justfname = Mage::getBaseUrl("media")."RMA/".$id."/".end($getfilename);
+								echo "<img class='wk_rma_add_images' alt='image' src='".$justfname."'/>";
+							}																						?>
+						</div>
+						<div class="wk_rma_input_box">
+		                    <label for="related_images" id="wk_rma_label_image">
+                                <span id="wk_rma_upload_icon"></span>
+                                <span id="wk_rma_upload_text"><?php echo $this->__("Upload Images"); ?></span>
+                            </label>
+		                    <input multiple="" id="related_images" name="related_images[]" type="file" onchange="half_upload(this)" accept="image/*" tabindex="1"/>
+		                </div>
+        			</div>
+			    </div>
+			</div>
+	    </div>
+	    <h2 class="table-caption"><?php echo $this->__("Item(s) Requested for RMA"); ?></h2>
+	    <table class="data-table">
+		    <thead>
+		        <tr>
+		            <th><?php echo $this->__("Product Name"); ?></th>
+		            <th><?php echo $this->__("SKU"); ?></th>
+		            <th class="a-right"><?php echo $this->__("Return Qty"); ?></th>
+		            <th class="a-right"><?php echo $this->__("Reason"); ?></th>
+		            <th class="a-right"><?php echo $this->__("Product Price"); ?></th>
+		        </tr>
+		    </thead>
+<?php 	$orderItems = Mage::getModel("rmasystem/items")->getCollection()->addFieldToFilter("rma_id",$id);
+		foreach($orderItems as $item)	{
+			$mage_item = Mage::getModel("sales/order_item")->load($item->getItemId());
+			$product = Mage::getModel("catalog/product")->load($mage_item->getProductId());							?>
+    		<tbody>
+	            <tr class="border">
+				    <td><h3 class="product-name"><?php echo $product->getName(); ?></h3></td>
+				    <td><?php echo $product->getSku(); ?></td>
+				    <td class="a-right"><?php echo $item->getQty(); ?></td>
+				    <td class="a-right"><?php echo Mage::getModel("rmasystem/reason")->load($item->getReasonId())->getReason();	?></td>
+                    <td class="a-right"><?php echo $product->getPrice(); ?></td>
+				</tr>
+            </tbody>
+<?php 	}																											?>
+        </table>
+	</div>
+	<div id="wk_rma_conversation_container">
+<?php 	echo $this->getPagerHtml();
+	 	$collection = $this->getCollection();
+	 	$data = Mage::getSingleton("core/session")->getGuestData();
+        foreach ($collection as $eachconver) {					       												?>
+        	<div class="wk_rma_onereply">
+		        <span class="wk_rma_onereply_head <?php if($eachconver->getSender() == $data["email"]) echo "wk_rma_onereply_customer";?>">
+		            <span class="wk_rma_onereply_head_left"><?php echo date("Y-m-d g:i:s a", Mage::getModel('core/date')->timestamp($eachconver->getCreatedAt()));?></span>
+					<span class="wk_rma_onereply_head_right"><?php if($eachconver->getSender() == $data["email"]) echo $this->__("Me");else echo "Admin"; ?></span>
+		        </span>
+		        <p class="wk_rma_onereply_cntnt"><?php echo nl2br(strip_tags($eachconver->getMessage())); ?></p>
+		    </div>
+<?php   }
+		echo $this->getPagerHtml(); 																				?>
+    		<input type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey(); ?>" name="form_key"/>
+    		<input type="hidden" value="<?php echo $id; ?>" name="rma_id"/>
+	        <h2 class="legend wk_rma_clear"><?php echo $this->__("Send Message"); ?></h2>
+	        <ul class="form-list">
+	            <li class="wide">
+	                <label class="required"><em>*</em><?php echo $this->__("Enter Message"); ?></label>
+	                <div class="input-box">
+	                    <textarea class="required-entry" name="message" id="wk_rma_additional_info"></textarea>
+	                </div>
+	            </li>
+<?php 		if($this_rma->getStatus() != 4)	{																		?>
+	            <li class="wide">
+	            	<input type="checkbox" name="solved" id="wk_rma_solved"/>
+        			<label for="wk_rma_solved" class="wk_rma_agree_label">
+<?php 					echo $this->__("Check To Mark As solved"); 													?>
+        			</label>
+        		</li>
+<?php 		}
+			else{																									?>
+				<li class="wide">
+	            	<input type="checkbox" name="pending" id="wk_rma_pending"/>
+        			<label for="wk_rma_pending" class="wk_rma_agree_label">
+<?php 					echo $this->__("Check To Reopen"); 															?>
+        			</label>
+        		</li>
+<?php 		}																										?>
+	        </ul>
+		    <a href="<?php echo $this->getUrl('rmasystem/guest/rmalist')?>">&laquo;<?php echo $this->__("back"); ?></a>
+		    <div class="buttons-set">
+		        <p class="required">* <?php echo $this->__("Required Fields"); ?></p>
+		        <button class="button" title="<?php echo $this->__("Submit Request"); ?>" type="submit">
+		        	<span><?php echo $this->__("Submit Request"); ?></span>
+		        </button>
+		    </div>
+		</form>
+	</div>
+<script type="text/javascript">
+	new VarienForm("wk_rma_con_form", true);
+	function half_upload(this_input){
+        jQueryRma("#wk_rma_add_images_container").find(".new_one").remove();
+        for(var i=0; i<this_input.files.length; i++){
+            if(this_input.files && this_input.files[i]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    jQueryRma("#wk_rma_add_images_container").append("<img class='wk_rma_add_images new_one' src='"+e.target.result+"'/>");
+                }
+                reader.readAsDataURL(this_input.files[i]);
+            }
+        }
+    }
+</script>

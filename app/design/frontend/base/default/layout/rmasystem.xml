@@ -1,0 +1,235 @@
+<?xml version="1.0"?>
+<layout version="1.0.0">
+
+    <customer_account>
+        <reference name="customer_account_navigation">
+            <action method="addLink" translate="label" ifconfig="rmasystem/rmasystem/enabled">
+                <name>RMA</name>
+                <path>rmasystem</path>
+                <label>RMA</label>
+            </action>
+        </reference>
+    </customer_account>
+
+    <rmasystem_account>
+        <update handle="customer_account"/>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>rmasystem/css/rs_front.css</stylesheet>
+            </action>
+            <block type="core/text" name="google.cdn.jquery">
+                <action method="setText">
+                    <text>
+                        <![CDATA[<script type="text/javascript">if (typeof jQuery == 'undefined'){document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));}</script><script type="text/javascript">jQuery.noConflict();</script>]]>
+                    </text>
+                </action>
+            </block>
+        </reference>
+        <reference name="content">
+            <block type="rmasystem/rmalist" name="rma.customer.list" template="rmasystem/rma_list.phtml"/>
+        </reference>
+    </rmasystem_account>
+
+    <rmasystem_index_new>
+        <update handle="customer_account"/>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>rmasystem/css/rs_front.css</stylesheet>
+            </action>
+            <block type="core/text" name="google.cdn.jquery">
+                <action method="setText">
+                    <text>
+                        <![CDATA[<script type="text/javascript">if (typeof jQuery == 'undefined'){document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));}</script><script type="text/javascript">jQuery.noConflict();</script>]]>
+                    </text>
+                </action>
+            </block>
+        </reference>
+        <reference name="content">
+            <block type="rmasystem/rmanew" name="rma_new" template="rmasystem/rma_new.phtml"/>
+        </reference>
+    </rmasystem_index_new>
+
+    <rmasystem_index_label>
+        <update handle="customer_account"/>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>rmasystem/css/rs_front.css</stylesheet>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="rmasystem/rmalabel" name="rma_label" template="rmasystem/rma_label.phtml"/>
+        </reference>
+    </rmasystem_index_label>
+
+    <rmasystem_view>
+        <update handle="customer_account"/>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>rmasystem/css/rs_front.css</stylesheet>
+            </action>
+            <block type="core/text" name="google.cdn.jquery">
+                <action method="setText">
+                    <text>
+                        <![CDATA[<script type="text/javascript">if (typeof jQuery == 'undefined'){document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));}</script><script type="text/javascript">jQuery.noConflict();</script>]]>
+                    </text>
+                </action>
+            </block>
+        </reference>
+        <reference name="content">
+            <block type="rmasystem/conversation" name="rma_view" template="rmasystem/rma_view.phtml"/>
+        </reference>
+    </rmasystem_view>
+
+    <rmasystem_print translate="label" module="rmasystem">
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/print.phtml</template>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>rmasystem/css/rs_front.css</stylesheet>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="rmasystem/print" name="rma_print" template="rmasystem/page/print.phtml"/>
+        </reference>
+    </rmasystem_print>
+
+    <rmasystem_printlabel translate="label" module="rmasystem">
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/print.phtml</template>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>rmasystem/css/rs_front.css</stylesheet>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="rmasystem/print" name="rma_receipt" template="rmasystem/page/printlabel.phtml"/>
+        </reference>
+    </rmasystem_printlabel>
+
+    <default>
+        <reference name="footer_links">
+            <action method="addLink" translate="label title" module="rmasystem">
+                <label>Order Returns</label>
+                <url helper="rmasystem/getUrl"/>
+                <title>Order Returns</title>
+            </action>
+        </reference>
+    </default>
+
+    <rmasystem_guest_index>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>rmasystem/css/rs_front.css</stylesheet>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="core/template" name="rma.guest.login" template="rmasystem/guest_login.phtml"/>
+        </reference>
+    </rmasystem_guest_index>
+
+    <rmasystem_guest_rmalist>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>rmasystem/css/rs_front.css</stylesheet>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="rmasystem/guestrmalist" name="rma.rma.list" template="rmasystem/guest_rma_list.phtml"/>
+        </reference>
+    </rmasystem_guest_rmalist>
+
+    <rmasystem_guest_new>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>rmasystem/css/rs_front.css</stylesheet>
+            </action>
+            <block type="core/text" name="google.cdn.jquery">
+                <action method="setText">
+                    <text>
+                        <![CDATA[<script type="text/javascript">if (typeof jQuery == 'undefined'){document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));}</script><script type="text/javascript">jQuery.noConflict();</script>]]>
+                    </text>
+                </action>
+            </block>
+        </reference>
+        <reference name="content">
+            <block type="rmasystem/guestrmanew" name="guest_rma_new" template="rmasystem/guest_rma_new.phtml"/>
+        </reference>
+    </rmasystem_guest_new>
+
+    <rmasystem_guest_view>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>rmasystem/css/rs_front.css</stylesheet>
+            </action>
+            <block type="core/text" name="google.cdn.jquery">
+                <action method="setText">
+                    <text>
+                        <![CDATA[<script type="text/javascript">if (typeof jQuery == 'undefined'){document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));}</script><script type="text/javascript">jQuery.noConflict();</script>]]>
+                    </text>
+                </action>
+            </block>
+        </reference>
+        <reference name="content">
+            <block type="rmasystem/guestconversation" name="guest_rma_view" template="rmasystem/guest_rma_view.phtml"/>
+        </reference>
+    </rmasystem_guest_view>
+
+    <rmasystem_guest_print translate="label" module="rmasystem">
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/print.phtml</template>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>rmasystem/css/rs_front.css</stylesheet>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="rmasystem/print" name="guest_rma_print" template="rmasystem/page/guest_print.phtml"/>
+        </reference>
+    </rmasystem_guest_print>
+
+    <rmasystem_guest_printlabel translate="label" module="rmasystem">
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/print.phtml</template>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>rmasystem/css/rs_front.css</stylesheet>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="rmasystem/print" name="guest_rma_receipt" template="rmasystem/page/guest_printlabel.phtml"/>
+        </reference>
+    </rmasystem_guest_printlabel>
+
+</layout>

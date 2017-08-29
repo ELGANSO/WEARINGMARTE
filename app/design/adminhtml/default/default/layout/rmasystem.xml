@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <rmasystem_adminhtml_rma_index>
+        <reference name="content">
+            <block type="rmasystem/adminhtml_rma" name="rma_request"/>
+        </reference>
+    </rmasystem_adminhtml_rma_index>
+    <rmasystem_adminhtml_rma_new>
+        <reference name="content">
+            <block type="rmasystem/adminhtml_rma_new" name="rma_new" />
+        </reference>
+        <reference name="left">
+            <block type="rmasystem/adminhtml_rma_new_tabs" name="rma_new_tabs" />
+        </reference>
+    </rmasystem_adminhtml_rma_new>
+    <rmasystem_adminhtml_label_index>
+        <reference name="content">
+            <block type="rmasystem/adminhtml_label" name="rma_label"/>
+        </reference>
+    </rmasystem_adminhtml_label_index>
+    <rmasystem_adminhtml_reason_index>
+        <reference name="content">
+            <block type="rmasystem/adminhtml_reason" name="rma_reason"/>
+        </reference>
+    </rmasystem_adminhtml_reason_index>
+    <adminhtml_system_config_edit>
+        <update handle="editor"/>
+        <reference name="head">
+            <action method="setCanLoadTinyMce">
+                <load>1</load>
+            </action>
+        </reference>
+    </adminhtml_system_config_edit>
+</layout>

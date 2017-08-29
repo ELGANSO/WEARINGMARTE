@@ -1,0 +1,236 @@
+<div id="refound">
+		<script src="<?php echo Mage::getBaseUrl('js')."calendar/calendar.js";?>" type="text/javascript"></script>
+        <script src="<?php echo Mage::getBaseUrl('js')."calendar/calendar-setup.js";?>" type="text/javascript"></script>
+        <link href="<?php echo Mage::getBaseUrl('js')."calendar/calendar-win2k-1.css";?>" type="text/css" rel="stylesheet"/>
+        
+        <br>
+		<div class="page-title">
+			<h2><?php echo $this->__("RMA History"); ?></h2>
+		</div>
+		<div class="wk_rma_bg">
+            <div class="wk_rma_loader"></div>
+        </div>
+<?php 	echo $this->getPagerHtml(); ?>
+			<table class="data-table" id="rma-table">
+			    <thead class="wk_rma_sorter">
+			        <tr>
+                        <th class="wk_rma_sortable">
+                            <span class="wk_rma_table_title"><?php echo $this->__("Order Id"); ?></span>
+                            <span data-attr="order_id" class=""></span>
+                        </th>
+			           	<th class="wk_rma_sortable">
+			           		<span class="wk_rma_table_title"><?php echo $this->__("Id"); ?></span>
+			           		<span data-attr="id" class=""></span>
+		           		</th>
+			            <th class="wk_rma_sortable">
+			            	<span class="wk_rma_table_title"><?php echo $this->__("Status"); ?></span>
+			            	<span data-attr="status" class=""></span>
+		            	</th>
+			            <th class="wk_rma_sortable">
+			            	<span class="wk_rma_table_title"><?php echo $this->__("Date"); ?></span>
+			            	<span data-attr="created_at" class=""></span>
+		            	</th>
+			            <th class="a-right">
+			            	<span class="wk_rma_table_title"><?php echo $this->__("Action"); ?></span>
+		            	</th>
+			        </tr>
+			    </thead>
+			    <thead class="wk_rma_filter">
+	                <tr>
+                <?php  $filter_data = Mage::getSingleton("customer/session")->getRmaFilterData(); ?>
+                        <th><input type="text" value="<?php echo $filter_data["order_id"]; ?>" id="wk_rma_filter_order_id" class="filter_input"/></th>
+	                    <th><input type="text" value="<?php echo $filter_data["rma_id"]; ?>" id="wk_rma_filter_rma_id" class="filter_input"/></th>
+	                    <th>
+	                    	<select class="filter_input" id="wk_rma_filter_status">
+		                    	<option value=""><?= $this->__('Select Status') ?></option>
+                                <?php foreach(Mage::getModel('rmasystem/rma')->getStatusOptions() as $id => $label): ?>
+                                    <option value="1" <?php if($filter_data["status"] == $id)echo "selected"; ?>><?= $label ?></option>
+                                <?php endforeach; ?>
+	                    	</select>
+                    	</th>
+	                    <th><input type="text" value="<?php echo $filter_data["date"]; ?>" id="wk_rma_filter_date" class="filter_input"/></th>
+	                    <th></th>
+	                </tr>
+	            </thead>
+			    <tbody>
+<?php 				$collection = $this->getCollection();
+					$totalcount = count($collection);
+					if($totalcount > 0){
+					    /** @var Webkul_RmaSystem_Model_Rma $row */
+                        foreach ($collection as $row) 	{																?>
+					    	<tr>
+					            <td><?php echo $row->getId(); ?></td>
+					            <td><?php echo $row->getIncrementId(); ?></td>
+					            <td><strong><?= $row->getStatusText(true) ?></strong></td>
+					            <td>
+                                    <?php echo date("Y-m-d", Mage::getModel('core/date')->timestamp($row->getCreatedAt()));?>
+								</td>
+					            <td class="a-center last">
+					                <span class="nobr">
+
+                                        <div>
+                                            <a href="<?php echo $this->getUrl('rmasystem/index/view/',array('id'=>$row->getId())); ?>"><?php echo $this->__("View"); ?></a>
+                                        </div>
+
+                                        <?php if($row->isWaitingShipment()): ?>
+                                            <div>
+                                                <a href="<?= $row->getLabelUrl() ?>" target="_blank"><?= $this->__('Print Label') ?></a>
+                                            </div>
+                                        <?php endif; ?>
+
+                                <?php 	if($row->isOpen())	{	?>
+<!--										<span class="wk_separator">|</span>-->
+										<a onclick="return confirm('<?php echo $this->__("Are You sure"); ?>?');" class="link-reorder" href="<?php echo $this->getUrl('rmasystem/index/cancel/',array('id'=>$row->getId())); ?>"><?php echo $this->__("Cancel"); ?></a>
+<?php  								}																					?>
+
+									</span>
+					            </td>
+					        </tr>
+<?php 					}
+					}
+					else 	{ 																							?>
+						<tr class="first last">
+				            <td colspan="5" class="a-center"><?php echo $this->__("You havn't filled any RMA yet"); ?>.</td>
+					    </tr>
+<?php				}																									?>
+			    </tbody>
+			</table>
+<?php 		echo $this->getPagerHtml(); 																				?>
+
+<div class="buttons-set">
+            <button type="button" style="width:300px;float:right;" title="<?= $this->__('Request New RMA') ?>" class="button validation-passed" onclick="window.location='<?= $this->getUrl('rmasystem/index/new') ?>';">
+                <div class="btn-left"></div>
+                <div class="btn-middle">
+                    <span><?= $this->__('Request New RMA') ?></span>
+                </div>
+                <div class="btn-right"></div>
+            </button>
+        </div>
+<script type="text/javascript">
+	decorateTable("rma-table");
+	enUS = {"m":{"wide":["January","February","March","April","May","June","July","August","September","October","November","December"],"abbr":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]}};
+    Calendar._DN = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    Calendar._SDN = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+    Calendar._FD = 1;
+    Calendar._MN = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    Calendar._SMN = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    Calendar._am = "AM";
+    Calendar._pm = "PM";
+    Calendar._TT = {};
+    Calendar._TT["INFO"] = "About the calendar";
+    Calendar._TT["ABOUT"] =
+    "DHTML Date/Time Selector :: Magelime \n" +
+    "(c) dynarch.com 2002-2005 / Author: Mihai Bazon\n" +
+    "For latest version visit: http://www.dynarch.com/projects/calendar/\n" +
+    "Distributed under GNU LGPL. See http://gnu.org/licenses/lgpl.html for details." +
+    "\n\n" +
+    "Date selection:\n" +
+    "- Use the \xab, \xbb buttons to select year\n" +
+    "- Use the " + String.fromCharCode(0x2039) + ", " + String.fromCharCode(0x203a) + " buttons to select month\n" +
+    "- Hold mouse button on any of the above buttons for faster selection.";
+    Calendar._TT["ABOUT_TIME"] = "\n\n" +
+    "Time selection:\n" +
+    "- Click on any of the time parts to increase it\n" +
+    "- or Shift-click to decrease it\n" +
+    "- or click and drag for faster selection.";
+    Calendar._TT["PREV_YEAR"] = "Prev. year (hold for menu)";
+    Calendar._TT["PREV_MONTH"] = "Prev. month (hold for menu)";
+    Calendar._TT["GO_TODAY"] = "Go Today";
+    Calendar._TT["NEXT_MONTH"] = "Next month (hold for menu)";
+    Calendar._TT["NEXT_YEAR"] = "Next year (hold for menu)";
+    Calendar._TT["SEL_DATE"] = "Select date";
+    Calendar._TT["DRAG_TO_MOVE"] = "Drag to move";
+    Calendar._TT["PART_TODAY"] = ' (' + "Today" + ')';
+    Calendar._TT["DAY_FIRST"] = "Display %s first";
+    Calendar._TT["WEEKEND"] = "0,6";
+    Calendar._TT["CLOSE"] = "Close";
+    Calendar._TT["TODAY"] = "Today";
+    Calendar._TT["TIME_PART"] = "(Shift-)Click or drag to change value";
+    Calendar._TT["DEF_DATE_FORMAT"] = "%b %e, %Y";
+    Calendar._TT["TT_DATE_FORMAT"] = "%B %e, %Y";
+    Calendar._TT["WK"] = "Week";
+    Calendar._TT["TIME"] = "Time:";
+    jQueryRma = jQuery;
+	jQueryRma(document).ready(function(){
+		Calendar.setup({
+            inputField: "wk_rma_filter_date",
+            ifFormat: "%Y-%m-%e",
+            button: "date_select_trig",
+            align: "Br",
+            singleClick : true
+        });
+<?php   $sorting_data = Mage::getSingleton("customer/session")->getRmaSortingData();   ?>
+        sort_attr = "<?php echo $sorting_data['attr']; ?>";
+        direction = "<?php echo $sorting_data['direction']?>";
+        if(sort_attr == "" || direction == ""){
+            jQueryRma("#rma-table .wk_rma_sorter th").eq(0).addClass("wk_rma_selected");
+            jQueryRma("#rma-table .wk_rma_sorter th").eq(0).find("span").eq(1).addClass("wk_rma_asc");
+        }
+        else{
+            jQueryRma("#rma-table .wk_rma_sorter th").each(function(){
+                this_span = jQueryRma(this).find("span").eq(1);
+                if(this_span.attr("data-attr") == sort_attr){
+                    if(direction == "ASC")
+                        this_span.addClass("wk_rma_asc");
+                    else
+                        this_span.addClass("wk_rma_desc");
+                    jQueryRma(this).addClass("wk_rma_selected");
+                }
+            });
+        }
+	});
+
+	jQueryRma("#rma-table .wk_rma_sortable").on("click",function(){
+        jQueryRma(".wk_rma_bg").show();
+        this_th = jQueryRma(this);
+        jQueryRma("#rma-table .wk_rma_sorter th").removeClass("wk_rma_selected");
+        this_th.addClass("wk_rma_selected");
+        sort_span = this_th.find("span").eq(1);
+        sort_class = sort_span.attr("class");
+        console.log(sort_class);
+        if(sort_class == "wk_rma_asc")
+            sort_span.attr("class","wk_rma_desc");
+        else
+        if(sort_class == "wk_rma_desc")
+            sort_span.attr("class","wk_rma_asc");
+        else
+        if(sort_class == ""){
+            jQueryRma("#rma-table .wk_rma_sorter th").each(function(){
+                jQueryRma(this).find("span").eq(1).attr("class","");
+            });
+            sort_span.attr("class","wk_rma_asc");
+        }
+        direction = "DESC";
+        attr = sort_span.attr("data-attr");
+        if(sort_span.attr("class") == "wk_rma_asc")
+            direction = "ASC";
+        jQuery.ajax({
+            url: "<?php echo $this->getUrl('rmasystem/index/setrmasortingSession/'); ?>",
+            type: "POST",
+            data: {
+                attr        :   attr,
+                direction   :   direction
+            },
+            success: function() {window.location.href = "";}
+        });
+    });
+
+	jQueryRma(".filter_input").on("keyup",function(e){
+            var code = e.keyCode || e.which;
+            if(code == 13) {
+                jQuery.ajax({
+                    url: "<?php echo $this->getUrl('rmasystem/index/setrmafilterSession/'); ?>",
+                    type: "POST",
+                    data: {
+                        rma_id    :   jQueryRma("#wk_rma_filter_rma_id").val(),
+                        order_id  :   jQueryRma("#wk_rma_filter_order_id").val(),
+                        status    :   jQueryRma("#wk_rma_filter_status").val(),
+                        date 	  :   jQueryRma("#wk_rma_filter_date").val()
+                    },
+                    success: function() {window.location.href = "";}
+                });
+            }
+        });
+</script>
+
+</div>

@@ -1,0 +1,89 @@
+<?php	$id = $this->getRequest()->getParam("id");
+		$this_rma = Mage::getModel("rmasystem/rma")->load($id);														?>
+	<div class="page-title">
+		<h1><?php echo $this->__("Shipping Label"); ?>
+			<span style="float:right;">#<?php echo $this_rma->getIncrementId()."-".$id; ?></span>
+		</h1>
+	</div>
+	<div class="dashboard">
+		<div class="box-account box-info wk_rma_bigbox">
+			<div class="box-content">
+<?php 			$label = Mage::getModel("rmasystem/label")->load($this_rma->getShippingLabel());					?>
+				<div class="shipping_label_each">
+					<img src="<?php echo Mage::getBaseUrl('media').$label->getFilename(); ?>" class="shipping_label_img"/>
+				</div>
+<?php 			$filename = Mage::getBaseUrl("media")."RMA/Barcodes/".$id.".gif";
+				echo "<img class='wk_barcode_images' alt='image' src='".$filename."'/>";							?>
+        	</div>
+	        <div class="col2-set" style="clear:both;">
+			    <div class="col-1">
+			        <div class="box">
+			            <div class="box-title">
+			                <h3><?php echo $this->__("Order Id"); ?></h3>
+			            </div>
+			            <div class="box-content">
+			                <p>#<?php echo $this_rma->getIncrementId(); ?></p>
+			            </div>
+			        </div>
+			    </div>
+		        <div class="col-2">
+			        <div class="box">
+			            <div class="box-title">
+			                <h3><?php echo $this->__("RMA Id"); ?></h3>
+			            </div>
+			            <div class="box-content">
+			                <p>#<?php echo $this_rma->getIncrementId()."-".$id; ?></p>
+			            </div>
+			        </div>
+	            </div>
+		    </div>
+		    <div class="col2-set">
+		        <div class="col-1">
+			        <div class="box">
+			            <div class="box-title">
+			                <h3><?php echo $this->__("Created On"); ?></h3>
+			            </div>
+			            <div class="box-content">
+			                <p><?php echo date("Y-m-d g:i:s a", Mage::getModel('core/date')->timestamp($this_rma->getCreatedAt()));?></p>
+			            </div>
+			        </div>
+	            </div>
+		    </div>
+	    </div>
+	    <h2 class="table-caption"><?php echo $this->__("Item(s) Requested for RMA"); ?></h2>
+	    <table class="data-table" id="item_table">
+		    <thead>
+		        <tr>
+		            <th><?php echo $this->__("Product Name"); ?></th>
+		            <th><?php echo $this->__("SKU"); ?></th>
+		            <th class="a-right"><?php echo $this->__("Return Qty"); ?></th>
+		            <th class="a-right"><?php echo $this->__("Reason"); ?></th>
+		        </tr>
+		    </thead>
+<?php 	$orderItems = Mage::getModel("rmasystem/items")->getCollection()->addFieldToFilter("rma_id",$id);
+		foreach($orderItems as $item)	{
+			$mage_item = Mage::getModel("sales/order_item")->load($item->getItemId());
+			if($mage_item->getProductType()!=='downloadable' && $mage_item->getProductType()!=='virtual'):
+			$product = Mage::getModel("catalog/product")->load($mage_item->getProductId());							?>
+    		<tbody>
+	            <tr>
+				    <td><h3 class="product-name"><?php echo $product->getName(); ?></h3></td>
+				    <td><?php echo $product->getSku(); ?></td>
+				    <td class="a-right">
+<?php 					echo $item->getQty(); 																		?>
+                    </td>
+				    <td class="a-right">
+<?php					echo Mage::getModel("rmasystem/reason")->load($item->getReasonId())->getReason();			?>
+                    </td>
+				</tr>
+            </tbody>
+             <?php endif; ?>
+<?php 	}																											?>
+        </table>
+	</div>
+
+<script type="text/javascript">
+	new VarienForm("wk_rma_con_form", true);
+	decorateTable("item_table");
+	window.print();
+</script>

@@ -1,0 +1,172 @@
+<?xml version="1.0"?> 
+<config>
+    <tabs>
+        <webkul>
+            <label>&lt;a href="https://www.webkul.com" style="background:none;" target="_blank"&gt;WEBKUL&lt;img height="10" style="margin-left:10px;" src='https://webkul.com/blog/wp-content/uploads/2013/09/wklogo.png'/&gt;&lt;/a&gt;</label>
+            <sort_order>1</sort_order>
+        </webkul>
+    </tabs>
+    <sections>
+        <rmasystem>
+            <label>RMA System</label>
+            <tab>webkul</tab>
+            <sort_order>130</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <rmasystem>
+                    <label>Parameters</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                        </enabled>
+                        <!--<policy translate="label tooltip">-->
+                            <!--<label>Enter Return Policy Description</label>-->
+                            <!--<frontend_type>editor</frontend_type>-->
+                            <!--<frontend_model>rmasystem/adminhtml_system_config_editor</frontend_model>-->
+                            <!--<sort_order>1</sort_order>-->
+                            <!--<show_in_default>1</show_in_default>-->
+                            <!--<show_in_website>1</show_in_website>-->
+                            <!--<show_in_store>1</show_in_store>-->
+                            <!--<validate>required-entry</validate>-->
+                            <!--<tooltip>Please Enter Return Policy in html format that is displayed in Front when someone is Requesting for return</tooltip>-->
+                        <!--</policy>-->
+                        <adminname translate="label">
+                            <label>Admin Name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                        </adminname>
+                        <adminemail translate="label">
+                            <label>Admin Email Id</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-email required-entry</validate>
+                        </adminemail>
+                        <valid-days translate="label tooltip">
+                            <label>Enter days</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                            <tooltip>Enter number of days upto which customer can request for rma after placing order</tooltip>
+                        </valid-days>
+                        <allowed-order-status translate="label tooltip">
+                            <label>Select Allowed Order Status</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>rmasystem/orderstatus</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                            <tooltip>Customer can file RMA only those order status will be the status you selected here</tooltip>
+                        </allowed-order-status>
+                    </fields>
+                </rmasystem>
+                <seur>
+                    <label>Dirección de devolución</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <address translate="label">
+                            <label>Dirección</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                        </address>
+                        <number translate="label">
+                            <label>Número</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                        </number>
+                        <postcode translate="label">
+                            <label>C.P.</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                        </postcode>
+                        <city translate="label">
+                            <label>Localidad</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                        </city>
+                        <region translate="label">
+                            <label>Provincia</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                        </region>
+                        <contact translate="label">
+                            <label>Persona de contacto</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                        </contact>
+                        <phone translate="label">
+                            <label>Teléfono</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                        </phone>
+                        <email translate="label">
+                            <label>e-mail</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                        </email>
+                    </fields>
+                </seur>
+            </groups>
+        </rmasystem>
+    </sections>
+</config>

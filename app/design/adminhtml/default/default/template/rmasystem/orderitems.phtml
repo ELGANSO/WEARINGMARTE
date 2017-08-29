@@ -1,0 +1,64 @@
+<div class="grid">
+    <table class="order-items-table">
+        <thead>
+        <tr class="headings">
+            <th><label><input type="checkbox" class="check_all"></label></th>
+            <th>Nombre</th>
+            <th class="size-cell">Talla original</td>
+            <th class="size-cell">Nueva talla</td>
+            <th>Precio</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($this->getOrderItems() as $item) { ?>
+        <tr>
+            <td>
+                <label>
+                    <input
+                        type="checkbox"
+                        name="item_checked[<?= $item->getId() ?>]"
+                        data-item-id="<?= $item->getId() ?>"
+                        data-item-name="<?= $item->getProduct()['name'] ?>"
+                    >
+                </label>
+                <input
+                    type="hidden"
+                    name="item_reason[<?= $item->getId() ?>]"
+                    value="<?= Webkul_RmaSystem_Model_Constants::ReasonDefault ?>"
+                    >
+                <input
+                    type="hidden"
+                    name="return_item[<?= $item->getId() ?>]"
+                    value="<?= (int) $item->getQtyOrdered() ?>"
+                    >
+            </td>
+            <td><?= $item->getProduct()->getName() ?></td>
+            <td class="size-cell"><?= $this->getItemSize($item) ?></td>
+            <td class="size-cell">
+                <label>
+                    <select name="requested_size[<?= $item->getId() ?>]" style="width: auto;">
+                        <option value="">(No cambiar)</option>
+                        <?php foreach ($this->getHelper()->getOtherAvailableSizes($item) as $size)
+                        { ?>
+                            <option value="<?= $size->getProductId() ?>"><?= $size->getDescription() ?></option>
+                        <?php } ?>
+                    </select>
+                </label>
+            </td>
+            <td><?= $this->getFormattedPrice($item) ?></td>
+        </tr>
+        </tbody>
+        <?php } ?>
+    </table>
+</div>
+
+<style type="text/css">
+    .size-cell
+    {
+        display: none;
+    }
+    .columns .form-list td.value
+    {
+        width: auto;
+    }
+</style>

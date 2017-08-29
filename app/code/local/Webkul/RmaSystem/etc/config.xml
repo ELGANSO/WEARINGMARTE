@@ -1,0 +1,225 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Webkul_RmaSystem>
+            <version>2.0.5</version>
+        </Webkul_RmaSystem>
+    </modules>
+    <frontend>
+        <layout>
+            <updates>
+                <rmasystem>
+                    <file>rmasystem.xml</file>
+                </rmasystem>
+            </updates>
+        </layout>
+        <routers>
+            <rmasystem>
+                <use>standard</use>
+                <args>
+                    <module>Webkul_RmaSystem</module>
+                    <frontName>rmasystem</frontName>
+                </args>
+            </rmasystem>
+        </routers>
+        <translate>
+            <modules>
+                <Webkul_RmaSystem>
+                    <files>
+                        <rmasystem>rmasystem/translation.csv</rmasystem>
+                    </files>
+                </Webkul_RmaSystem>
+            </modules>
+        </translate>
+    </frontend>
+    <admin>
+        <routers>
+            <rmasystem>
+                <use>admin</use>
+                <args>
+                    <module>Webkul_RmaSystem</module>
+                    <frontName>rmasystem</frontName>
+                </args>
+            </rmasystem>
+        </routers>
+    </admin>
+    <adminhtml>
+        <events>
+            <controller_action_layout_render_before_adminhtml_sales_order_view>
+                <observers>
+                    <webkul_rmasystem>
+                        <class>rmasystem/observer</class>
+                        <method>addRmaButton</method>
+                    </webkul_rmasystem>
+                </observers>
+            </controller_action_layout_render_before_adminhtml_sales_order_view>
+        </events>
+        <translate>
+            <modules>
+                <Webkul_RmaSystem>
+                    <files>
+                        <rmasystem>rmasystem/translation.csv</rmasystem>
+                    </files>
+                </Webkul_RmaSystem>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <rmasystem>
+                    <file>rmasystem.xml</file>
+                </rmasystem>
+            </updates>
+        </layout>
+        <menu>
+            <rmasystem translate="title">
+                <title>RMA System</title>
+                <sort_order>80</sort_order>
+                <children>
+                    <allrma translate="title">
+                        <title>Manage All RMA</title>
+                        <action>rmasystem/adminhtml_rma</action>
+                        <sort_order>1</sort_order>
+                    </allrma>
+                    <!--<reason translate="title">
+                        <title>Manage Reasons</title>
+                        <action>rmasystem/adminhtml_reason</action>
+                        <sort_order>2</sort_order>
+                    </reason>
+                    <label translate="title">
+                        <title>Manage Shipping Labels</title>
+                        <action>rmasystem/adminhtml_label</action>
+                        <sort_order>3</sort_order>
+                    </label>-->
+                    <config translate="title">
+                        <title>Configuration</title>
+                        <sort_order>4</sort_order>
+                        <action>adminhtml/system_config/edit/section/rmasystem</action>
+                    </config>
+                </children>
+            </rmasystem>
+        </menu>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <rmasystem translate="title">
+                                            <title>RMA System</title>
+                                        </rmasystem>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                        <rmasystem translate="title">
+                            <title>RMA System</title>
+                            <sort_order>100</sort_order>
+                            <children>
+                                <allrma translate="title">
+                                    <title>Manage All RMA</title>
+                                    <action>rmasystem/adminhtml_index</action>
+                                </allrma>
+                                <!--<reason translate="title">
+                                    <title>Manage Reasons</title>
+                                    <action>rmasystem/adminhtml_reason</action>
+                                </reason>
+                                <label translate="title">
+                                    <title>Manage Shipping Labels</title>
+                                    <action>rmasystem/adminhtml_label</action>
+                                </label>-->
+                                <config translate="title">
+                                    <title>Configuration</title>
+                                    <action>adminhtml/system_config/edit/section/rmasystem</action>
+                                </config>
+                            </children>
+                        </rmasystem>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+    <global>
+        <template>
+            <email>
+                <new_rma>
+                    <label>Alert Admin And Customer or Guest For New RMA Request</label>
+                    <file>rmasystem/new_rma.html</file>
+                    <type>html</type>
+                </new_rma>
+                <cancel_rma>
+                    <label>Alert Admin And Customer or Guest For RMA Request cancellation by customer or guest</label>
+                    <file>rmasystem/cancel_rma.html</file>
+                    <type>html</type>
+                </cancel_rma>
+                <new_message>
+                    <label>Alert Admin And Customer or Guest When New Message is appended</label>
+                    <file>rmasystem/new_message.html</file>
+                    <type>html</type>
+                </new_message>
+                <rma_update>
+                    <label>Alert Admin And Customer when rma is updated with status or delivery status</label>
+                    <file>rmasystem/rma_update.html</file>
+                    <type>html</type>
+                </rma_update>
+            </email>
+        </template>
+        <blocks>
+            <rmasystem>
+                <class>Webkul_RmaSystem_Block</class>
+            </rmasystem>
+        </blocks>
+        <helpers>
+            <rmasystem>
+                <class>Webkul_RmaSystem_Helper</class>
+            </rmasystem>
+        </helpers>
+        <models>
+            <rmasystem>
+                <class>Webkul_RmaSystem_Model</class>
+                <resourceModel>rmasystem_mysql4</resourceModel>
+            </rmasystem>
+            <rmasystem_mysql4>
+                <class>Webkul_RmaSystem_Model_Mysql4</class>
+                <entities>
+                    <rma>
+                        <table>wk_rma</table>
+                    </rma>
+                    <items>
+                        <table>wk_rma_items</table>
+                    </items>
+                    <label>
+                        <table>wk_rma_label</table>
+                    </label>
+                    <reason>
+                        <table>wk_rma_reason</table>
+                    </reason>
+                    <conversation>
+                        <table>wk_rma_conversation</table>
+                    </conversation>
+                </entities>
+            </rmasystem_mysql4>
+        </models>
+        <resources>
+            <rmasystem_setup>
+                <setup>
+                    <module>Webkul_RmaSystem</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </rmasystem_setup>
+            <rmasystem_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </rmasystem_write>
+            <rmasystem_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </rmasystem_read>
+        </resources>
+    </global>
+</config>

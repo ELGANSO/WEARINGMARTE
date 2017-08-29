@@ -1,0 +1,180 @@
+<?php	$id = $this->getRequest()->getParam("id");
+		$this_rma = Mage::getModel("rmasystem/rma")->load($id);	
+?>
+	<div class="page-title">
+		<h1><?php echo $this->__("RMA Details"); ?>
+			<span style="float:right;">#<?php echo $this_rma->getIncrementId()."-".$id; ?></span>
+		</h1>
+	</div>
+	<div class="dashboard">
+		<div class="box-account box-info wk_rma_bigbox">
+			<div class="col2-set">
+			    <div class="col-1">
+			        <div class="box">
+			            <div class="box-title">
+			                <h3><?php echo $this->__("Order Id"); ?></h3>
+			            </div>
+			            <div class="box-content">
+			                <p>#<?php echo $this_rma->getIncrementId();?></p>
+			            </div>
+			        </div>
+			    </div>
+		        <div class="col-2">
+			        <div class="box">
+			            <div class="box-title">
+			                <h3><?php echo $this->__("Status"); ?></h3>
+			            </div>
+			            <div class="box-content">
+			                <strong><?php echo $this->__("RMA Status"); ?> : </strong>
+			                <p style="display:inline;margin-left:10px;">
+<?php 							if($this_rma->getStatus() == "1")
+	            					echo "<strong class='wk_rma_status_pending'>".$this->__('Pending')."</strong>";
+            					if($this_rma->getStatus() == "2")
+	            					echo "<strong class='wk_rma_status_processing'>".$this->__('Processing')."</strong>";
+	            				if($this_rma->getStatus() == "3")
+	            					echo "<strong class='wk_rma_status_decline'>".$this->__('Declined')."</strong>";
+	            				if($this_rma->getStatus() == "4")
+	            					echo "<strong class='wk_rma_status_solve'>".$this->__('Solved')."</strong>";
+            					if($this_rma->getStatus() == "5")
+	            					echo "<strong class='wk_rma_status_cancel'>".$this->__('Cancelled')."</strong>";?>
+			                </p>
+			            </div>
+			        </div>
+	            </div>
+		    </div>
+		    <div class="col2-set">
+			    <div class="col-1">
+			        <div class="box">
+			            <div class="box-title">
+			                <h3><?php echo $this->__("Package Condition"); ?></h3>
+			            </div>
+			            <div class="box-content">
+<?php 						if($this_rma->getPackageCondition() == 0)
+			                	echo "<p><b>".$this->__("Open")."</b></p>";
+			                else
+			                	echo "<p><b>".$this->__("Packed")."</p>";											?>
+			            </div>
+			        </div>
+			    </div>
+		        <div class="col-2">
+			        <div class="box">
+			            <div class="box-title">
+			                <h3><?php echo $this->__("Resolution Type"); ?></h3>
+			            </div>
+			            <div class="box-content">
+<?php 						if($this_rma->getResolutionType() == 0)
+			                	echo "<p><b>".$this->__("Refund")."</b></p>";
+			                else
+			                	echo "<p><b>".$this->__("Exchange")."</b></p>";										?>
+			            </div>
+			        </div>
+	            </div>
+		    </div>
+		    <div class="col2-set">
+			    <div class="col-1">
+			        <div class="box">
+			            <div class="box-title">
+			                <h3><?php echo $this->__("Created On"); ?></h3>
+			            </div>
+			            <div class="box-content">
+			                <p><?php echo date("Y-m-d g:i:s a", Mage::getModel('core/date')->timestamp($this_rma->getCreatedAt())); ?></p>
+			            </div>
+			        </div>
+			    </div>
+		        <div class="col-2">
+			        <div class="box">
+			            <div class="box-title">
+			                <h3><?php echo $this->__("Additional Information"); ?></h3>
+			            </div>
+			            <div class="box-content">
+			                <p><?php echo nl2br(strip_tags($this_rma->getAdditionalInfo())); ?></p>
+			            </div>
+			        </div>
+	            </div>
+		    </div>
+		    <div class="col2-set">
+			    <div class="col-1">
+			        <div class="box">
+			            <div class="box-title">
+			                <h3><?php echo $this->__("Your Consignment Number"); ?></h3>
+			            </div>
+			            <div class="box-content">
+			            	<?php echo $this_rma->getCustomerConsignmentNo(); ?>
+			            </div>
+			        </div>
+<?php 			if($this_rma->getResolutionType() == 1)	{															?>
+			        <div class="box">
+			            <div class="box-title">
+			                <h3><?php echo $this->__("Admin Consignment Number"); ?></h3>
+			            </div>
+			            <div class="box-content">
+			            	<input type="text" name="consignment_no" value="<?php echo $this_rma->getAdminConsignmentNo(); ?>"/>
+			            </div>
+			        </div>
+<?php 			}																									?>
+			    </div>
+		    </div>
+		    <div class="col2-set">
+			    <div class="wk_rma_images_holder">
+			        <div class="box-title">
+			            <h3><?php echo $this->__("Additional Image(s)"); ?></h3>
+			        </div>
+			        <div class="box-content">
+            			<div id="wk_rma_add_images_container">
+<?php 						$folderName = Mage::getBaseDir()."/media/RMA/".$id."/";
+							$images = glob($folderName."*.{jpg,JPG,jpeg,JPEG,gif,GIF,png,PNG,bmp,BMP}",GLOB_BRACE);
+							foreach ($images as $filename) {
+								$getfilename = explode("/",$filename);
+								$justfname = Mage::getBaseUrl("media")."RMA/".$id."/".end($getfilename);
+								echo "<img class='wk_rma_add_images' alt='image' src='".$justfname."'/>";
+							}																						?>
+						</div>
+        			</div>
+			    </div>
+			</div>
+	    </div>
+	    <h2 class="table-caption"><?php echo $this->__("Item(s) Requested for RMA"); ?></h2>
+	    <table class="data-table" id="item_table">
+		    <thead>
+		        <tr>
+		            <th><?php echo $this->__("Product Name"); ?></th>
+		            <th><?php echo $this->__("SKU"); ?></th>
+		            <th class="a-right"><?php echo $this->__("Return Qty"); ?></th>
+		            <th class="a-right"><?php echo $this->__("Reason"); ?></th>
+		            <th class="a-right"><?php echo $this->__("Product Price"); ?></th>
+		        </tr>
+		    </thead>
+<?php 	$orderItems = Mage::getModel("rmasystem/items")->getCollection()->addFieldToFilter("rma_id",$id);
+		foreach($orderItems as $item)	{
+			$mage_item = Mage::getModel("sales/order_item")->load($item->getItemId());
+			$product = Mage::getModel("catalog/product")->load($mage_item->getProductId());							?>
+    		<tbody>
+	            <tr>
+				    <td><h3 class="product-name"><?php echo $product->getName(); ?></h3></td>
+				    <td><?php echo $product->getSku(); ?></td>
+				    <td class="a-right"><?php echo $item->getQty(); ?></td>
+				    <td class="a-right"><?php echo Mage::getModel("rmasystem/reason")->load($item->getReasonId())->getReason();	?></td>
+                    <td class="a-right"><?php echo $product->getPrice(); ?></td>
+				</tr>
+            </tbody>
+<?php 	}																											?>
+        </table>
+	</div>
+	<div id="wk_rma_conversation_container">
+<?php 	$collection = $this->getCollection();
+        foreach ($collection as $eachconver) {
+        	$customer_id = Mage::getSingleton("customer/session")->getId();											?>
+        	<div class="wk_rma_onereply">
+		        <span class="wk_rma_onereply_head <?php if($eachconver->getSender() == $customer_id) echo "wk_rma_onereply_customer";?>">
+		            <span class="wk_rma_onereply_head_left"><?php echo date("Y-m-d g:i:s a", Mage::getModel('core/date')->timestamp($eachconver->getCreatedAt()));  ?></span>
+					<span class="wk_rma_onereply_head_right"><?php if($eachconver->getSender() == $customer_id) echo $this->__("Me");else echo "Admin"; ?></span>
+		        </span>
+		        <p class="wk_rma_onereply_cntnt"><?php echo nl2br(strip_tags($eachconver->getMessage())); ?></p>
+		    </div>
+<?php   }																											?>
+	</div>
+<script type="text/javascript">
+	new VarienForm("wk_rma_con_form", true);
+	decorateTable("item_table");
+	window.print();
+</script>

@@ -1,0 +1,301 @@
+<link rel="stylesheet" type="text/css"
+      href="<?php echo $this->getSkinUrl('rmasystem/css/rs_front.css', array('_area' => 'frontend')); ?>">
+<script type="text/javascript">
+    if (typeof jQuery == 'undefined')
+    {
+        document.write(unescape("%3Cscript src='https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+    }
+</script>
+<script type="text/javascript">
+    jQuery.noConflict();
+</script>
+<?php $id = $this->getRequest()->getParam("id");
+/** @var Webkul_RmaSystem_Model_Rma $this_rma */
+$this_rma = Mage::getModel("rmasystem/rma")->load($id); ?>
+<div class="box-account box-info wk_rma_bigbox">
+    <div class="box">
+        <div class="col">
+            <div class="">
+                <div class="box-title">
+                    <h3><?php echo $this->__("Order Id"); ?></h3>
+                </div>
+                <div class="box-content">
+                    <p>
+                        <a href="<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/sales_order/view', array("order_id" => $this_rma->getOrderId())); ?>">#<?php echo $this_rma->getIncrementId(); ?></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="box-title">
+                <h3><?php echo $this->__("Status"); ?></h3>
+            </div>
+            <div class="box-content"><?= $this_rma->getStatusText() ?></div>
+        </div>
+    </div>
+    <div class="box">
+        <!--<div class="col">
+		            <div class="box-title">
+		                <h3><?php echo $this->__("Package Condition"); ?></h3>
+		            </div>
+		            <div class="box-content">
+<?php if ($this_rma->getPackageCondition() == 0)
+            echo "<p><b>" . $this->__("Open") . "</b></p>";
+        else
+            echo "<p><b>" . $this->__("Packed") . "</p>"; ?>
+		            </div>
+			    </div>-->
+        <div class="col">
+            <div class="box-title">
+                <h3><?php echo $this->__("Type"); ?></h3>
+            </div>
+            <div class="box-content"><?= $this_rma->getResolutionTypeText() ?></div>
+        </div>
+        <div class="col">
+            <div class="box-title">
+                <h3><?php echo $this->__("Created On"); ?></h3>
+            </div>
+            <div class="box-content">
+                <p><?php echo date("Y-m-d g:i:s a", Mage::getModel('core/date')->timestamp($this_rma->getCreatedAt())); ?></p>
+            </div>
+        </div>
+    </div>
+    <?php if ($this_rma->hasAdditionalInfo()): ?>
+        <div class="box">
+            <div class="col">
+                <div class="box-title">
+                    <h3><?php echo $this->__("Additional Information"); ?></h3>
+                </div>
+                <div class="box-content">
+                    <p><?php echo nl2br(strip_tags($this_rma->getAdditionalInfo())); ?></p>
+                </div>
+            </div>
+        </div>
+    <?php endif ?>
+    <!--<div class="box">
+			    <div class="col">
+		            <div class="box-title">
+		                <h3><?php echo $this->__("Customer Consignment Number"); ?></h3>
+		            </div>
+		            <div class="box-content">
+		            	<span><?php echo $this_rma->getCustomerConsignmentNo(); ?></span>
+		            </div>
+			    </div>
+<?php if ($this_rma->getResolutionType() == 1)
+    { ?>
+			    <div class="col">
+		            <div class="box-title">
+		                <h3><?php echo $this->__("Admin Consignment Number"); ?></h3>
+		            </div>
+		            <div class="box-content">
+		            	<span><?php echo $this_rma->getAdminConsignmentNo(); ?></span>
+		            </div>
+			    </div>
+<?php } ?>
+		    </div>-->
+    <!--<div class="col2-set">
+			    <div class="wk_rma_images_holder">
+			        <div class="box-title">
+			            <h3><?php echo $this->__("Additional Image(s)"); ?></h3>
+			        </div>
+			        <div class="box-content">
+            			<div id="wk_rma_add_images_container">
+<?php $folderName = Mage::getBaseDir() . "/media/RMA/" . $id . "/";
+    $images = glob($folderName . "*.{jpg,JPG,jpeg,JPEG,gif,GIF,png,PNG,bmp,BMP}", GLOB_BRACE);
+    foreach ($images as $filename)
+    {
+        $getfilename = explode("/", $filename);
+        $justfname = Mage::getBaseUrl("media") . "RMA/" . $id . "/" . end($getfilename);
+        echo "<img class='wk_rma_add_images' alt='image' src='" . $justfname . "'/>";
+    } ?>
+						</div>
+        			</div>
+			    </div>
+			</div>-->
+</div>
+<h3 class="table-caption"><?php echo $this->__("Productos"); ?></h3>
+
+<table class="data-table">
+    <thead>
+    <tr>
+        <th><?php echo $this->__("Product Name"); ?></th>
+        <th><?php echo $this->__("SKU"); ?></th>
+        <th class="a-right"><?php echo $this->__("Quantity"); ?></th>
+        <?php if($this_rma->isSizeExchange()): ?>
+            <th>Talla original</th>
+            <th>Talla nueva</th>
+        <?php endif; ?>
+        <th class="a-right"><?php echo $this->__("Price"); ?></th>
+    </tr>
+    </thead>
+
+    <?php $orderItems = Mage::getModel("rmasystem/items")->getCollection()->addFieldToFilter("rma_id", $id);
+    $download_count = count($orderItems);
+    $download = 0;
+    $helper = Mage::helper('rmasystem');
+    /** @var Webkul_RmaSystem_Model_Items $item */
+    foreach ($orderItems as $item)
+    {
+        /** @var Mage_Sales_Model_Order_Item $mage_item */
+        $mage_item = Mage::getModel("sales/order_item")->load($item->getItemId());
+        if($simpleItem = $helper->getLinkedSimpleItem($mage_item))
+        {
+            $mage_item = $simpleItem;
+        }
+
+        /** @var Mage_Catalog_Model_Product $product */
+        $product = Mage::getModel("catalog/product")->load($mage_item->getProductId());
+        if ($product->getTypeId() == 'downloadable' || $product->getTypeId() == 'virtual')
+            $download++;
+
+        ?>
+        <tbody>
+        <tr class="border">
+            <td><p class="product-name"><?php echo $product->getName(); ?></p></td>
+            <td><?php echo $product->getSku(); ?></td>
+            <td class="a-right"><?php echo $item->getQty(); ?></td>
+            <?php if($this_rma->isSizeExchange()): ?>
+                <?php $requestedProduct = Mage::getModel('catalog/product')->load($item->getRequestedProductId()); ?>
+                <td><?= $product->getAttributeText('size') ?></td>
+                <td>
+                    <?= $item->getRequestedProductSize() ?>
+                    <?php if(!$requestedProduct['stock_item']->getIsInStock()): ?>
+                        <span style="color: red; font-weight: bold;">(Sin stock)</span>
+                    <?php endif; ?>
+                </td>
+            <?php endif; ?>
+            <td class="a-right"><?= Mage::helper('core')->currency($mage_item->getPriceInclTax()); ?></td>
+        </tr>
+        </tbody>
+    <?php } ?>
+</table>
+<div id="wk_rma_conversation_container">
+
+    <?php
+    $collection = Mage::getModel('rmasystem/conversation')->getCollection()->addFieldToFilter('rma_id', $id);
+    $customer = Mage::getModel('customer/customer')->load($this_rma->getCustomerId());
+    $customer_name = $customer->getFirstname() . ' ' . $customer->getLastname();
+
+    foreach ($collection as $eachconver): ?>
+        <div class='wk_rma_onereply'>
+            <span class='wk_rma_onereply_head <?php if ($eachconver->getSender() == '0') echo 'wk_rma_onereply_customer'; ?>'>
+                <span class='wk_rma_onereply_head_left'><?php echo date('Y-m-d g:i:s a', Mage::getModel('core/date')->timestamp($eachconver->getCreatedAt())); ?></span>
+                <span class='wk_rma_onereply_head_right'><?php if ($eachconver->getSender() == '0') echo $this->__('Yo'); else echo $customer_name; ?></span>
+            </span>
+            <p class='wk_rma_onereply_cntnt'><?php echo nl2br(strip_tags($eachconver->getMessage())); ?></p>
+        </div>
+    <?php endforeach; ?>
+
+    <table cellspacing="0" class="form-list">
+        <tbody>
+        <tr>
+            <td class="label">
+                <label><?php echo $this->__("Introduzca mensaje"); ?><span class="required">*</span></label>
+            </td>
+            <td class="value">
+                <textarea cols="15" rows="2" class="required-entry textarea" name="message" id="reason"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button>Enviar mensaje</button>
+            </td>
+        </tr>
+        <?php if ($this_rma->getResolutionType() == 1)
+        { ?>
+            <!--<tr>
+						<td class="label">
+							<label><?php echo $this->__("Delivery Status of Package for customer from Admin"); ?></label>
+						</td>
+						<td class="value">
+							<select class="select" name="admin_delivery_status" id="wk_rma_delivery_status">
+								<option value=""><?php echo $this->__("Please Select"); ?></option>
+								<option value="0" <?php if ($this_rma->getAdminDeliveryStatus() == 0) echo "selected='selected'" ?>><?php echo $this->__("Not Delivered Yet"); ?></option>
+                                <option value="1" <?php if ($this_rma->getAdminDeliveryStatus() == 1) echo "selected='selected'" ?>><?php echo $this->__("Delivered"); ?></option>
+							</select>
+			            </td>
+					</tr>-->
+            <!--<tr id="wk_rma_depends_del_status">
+						<td class="label">
+							<label><?php echo $this->__("Your Consignment Number"); ?><span class="required">*</span></label>
+						</td>
+						<td class="value">
+							<input id="wk_rma_consignment_no" value="<?php echo $this_rma->getAdminConsignmentNo(); ?>" disabled="disabled" type="text" class="required-entry input-text" name="admin_consignment_no"/>
+			            </td>
+					</tr>-->
+        <?php } ?>
+        <!--<tr>
+						<td class="label">
+							<label><?php echo $this->__("Select Status"); ?></label>
+						</td>
+						<td class="value">
+							<select class="select select_status" name="status">
+								<option value=""><?php echo $this->__("Please Select"); ?></option>
+								<option value="2" <?php if ($this_rma->getStatus() == 2) echo "selected='selected'" ?>><?php echo $this->__("Approve"); ?></option>
+								<option class="decline_status" value="3" <?php if ($this_rma->getStatus() == 3) echo "selected='selected'" ?>><?php echo $this->__("Decline"); ?></option>
+								<option value="4" <?php if ($this_rma->getStatus() == 4) echo "selected='selected'" ?>><?php echo $this->__("Solved"); ?></option>
+							</select>
+			            </td>
+					</tr>-->
+        <?php $collection = Mage::getModel("rmasystem/label")->getCollection()->addFieldToFilter("status", 1);
+        if ($collection->getSize() > 0)
+        {
+            ?>
+            <?php if ($this_rma->getResolutionType() !== 0 && $download_count != $download): ?>
+            <!--<tr class="ship_label">
+						<td class="label">
+							<label><?php echo $this->__("Select Shipping Label"); ?></label>
+						</td>
+						<td class="value">
+<?php foreach ($collection as $label)
+            { ?>
+							<div class="shipping_label_each">
+								<label for="<?php echo 'ra' . $label->getId(); ?>"><img src="<?php echo Mage::getBaseUrl('media') . $label->getFilename(); ?>"	class="shipping_label_img"/></label>
+								<input id="<?php echo 'ra' . $label->getId(); ?>" type="radio" <?php if ($this_rma->getShippingLabel() == $label->getId()) echo "checked"; ?> name="shipping_label" value="<?php echo $label->getId(); ?>" class="shipping_label"/>
+							</div>
+<?php } ?>
+			            </td>
+					</tr>-->
+        <?php endif; ?>
+        <?php } ?>
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    new varienForm("wk_rma_con_form", true);
+    <?php    if($this_rma->getResolutionType() == 1)    {                                                                    ?>
+    jQuery("#wk_rma_delivery_status").on("change", function ()
+    {
+        if (jQuery(this).val() == 1)
+        {
+            jQuery("#wk_rma_consignment_no").removeAttr("disabled").attr("class", "required-entry input-text");
+            jQuery("#wk_rma_depends_del_status").show();
+        }
+        else
+        {
+            jQuery("#wk_rma_consignment_no").attr("disabled", "disabled").removeAttr("class");
+            jQuery("#wk_rma_depends_del_status").hide();
+        }
+    });
+    <?php    }                                                                                                            ?>
+    jQuery(document).ready(function ()
+    {
+        jQuery("#wk_rma_delivery_status").trigger("change");
+    });
+    <?php    if($this_rma->getResolutionType() == 0 || $download == $download_count)    {
+    ?>
+    jQuery('.ship_label').hide();
+    <?php
+    }else{
+    ?>
+    jQuery('.select_status').on('change', function ()
+    {
+        if (jQuery(this).val() == 3)
+            jQuery('.ship_label').hide();
+        else
+            jQuery('.ship_label').show();
+    });
+    <?php
+    }?>
+</script>
