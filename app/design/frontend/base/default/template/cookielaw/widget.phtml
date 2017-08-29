@@ -9,13 +9,15 @@
 <div id="v-cookielaw"
      class="<?php echo $_helper->getType(); ?> <?php echo $_helper->getSkin(); ?> <?php echo ($_helper->getType() == 'v-bar') ? $_helper->getBarPosition() : $_helper->getBoxPosition(); ?>"
      style="display: none">
-    <div class="v-message">
-        <?php echo ($_helper->getShow() == 'default') ? $this->__('This websites use cookies. By continuing to browse the site you are agreeing to our use of cookies.') : $_helper->getCustomMessage(); ?>
-    </div>
-    <div class="v-actions">
-        <a href="javascript:cookieLawAccept();" class="v-button v-accept">
-            <?php echo ($_helper->getShow() == 'default') ? $this->__("Accept") : $_helper->getCustomAccept(); ?>
+    <div style="width:100%; height:15px;">
+        <a href="javascript:cookieLawAccept();" class="v-button v-accept" style="float:right; font-size:x-large;">
+            <?php //echo ($_helper->getShow() == 'default') ? $this->__("Accept") : $_helper->getCustomAccept(); ?>
+            &#10005;
         </a>
+    </div>
+    <br/>
+    <div class="v-message">        
+        <?php echo ($_helper->getShow() == 'default') ? $this->__('This websites use cookies. By continuing to browse the site you are agreeing to our use of cookies.') : $_helper->getCustomMessage(); ?>
         <a href="<?php echo $_helper->getCmsPage(); ?>" class="v-button">
             <?php echo ($_helper->getShow() == 'default') ? $this->__("More information") : $_helper->getCustomMoreInfo(); ?>
         </a>
