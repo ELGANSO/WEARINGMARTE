@@ -34,7 +34,8 @@
             <input type="text" id="<?php echo $this->getFieldId('firstname')?>" name="<?php echo $this->getFieldName('firstname')?>" value="<?php echo $this->htmlEscape($this->getObject()->getFirstname()) ?>" title="<?php echo $this->__('First Name') ?>" class="input-text required-entry absolute-advice" <?php echo $this->getFieldParams() ?> />
         </div>
     </div>
-<?php if ($this->showMiddlename()): ?>
+<?php //if ($this->showMiddlename()): ?>
+<?php if (false): ?>
     <div class="field name-middlename">
         <label for="<?php echo $this->getFieldId('middlename')?>"><?php echo $this->__('M.I.') ?></label>
         <div class="input-box">

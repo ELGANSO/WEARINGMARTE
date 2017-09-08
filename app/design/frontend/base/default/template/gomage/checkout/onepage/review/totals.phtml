@@ -27,10 +27,11 @@
         }
     ?>
     <?php echo $this->renderTotals(null, $_colspan); ?>
+    <tr class="line-totals"> <td colspan="4"> <hr style="margin: 0 0 10px 0!important; border-top: 1px solid #000 !important;""></td></tr>
     <?php echo $this->renderTotals('footer', $_colspan); ?>
     <?php if ($this->needDisplayBaseGrandtotal()):?>
     <tr>
-        <td class="a-right" colspan="<?php echo $_colspan; ?>">
+        <td class="" colspan="<?php echo $_colspan; ?>">
             <small><?php echo $this->helper('sales')->__('Your credit card will be charged for') ?></small>
         </td>
         <td class="a-right">

@@ -39,9 +39,11 @@
 
         </reference>
 
-        <reference name="after_body_start">
+        <!--COMENTAMOS LA REFERENCIA PARA NO UTILIZAR LOS DISEÑOS INTRODUCIDOS POR EL ADMIN-->
+        <!--reference name="after_body_start">
 			<block type="core/template" template="gomage/checkout/styles.phtml" />
-		</reference>
+		</reference-->
+		<!--FIN COMENTAMOS LA REFERENCIA PARA NO UTILIZAR LOS DISEÑOS INTRODUCIDOS POR EL ADMIN-->
 
         <reference name="content" >
         	<action method="unsetChildren" />

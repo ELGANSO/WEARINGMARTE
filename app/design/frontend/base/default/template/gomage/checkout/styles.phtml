@@ -17,7 +17,7 @@
 <style type="text/css">
 
 	/* glc title */
-	.glc-title{				
+	/*.glc-title{				
 		<?php
 			$_color1 = Mage::getStoreConfig('gomage_checkout/skin_header/bg_color'); 
 			$_color2 = Mage::getStoreConfig('gomage_checkout/skin_header/bg_color2');
@@ -40,10 +40,10 @@
       -moz-border-radius: <?php echo $_radius ?>px <?php echo $_radius ?>px 0 0;
       border-radius: <?php echo $_radius ?>px <?php echo $_radius ?>px 0 0; 
 		<?php endif; ?>	
-	}
+	}*/
   
   /* glc number */
-	.glc-title span{
+	/*.glc-title span{
 		<?php if ($_color = Mage::getStoreConfig('gomage_checkout/skin_header/p_bg_color')):?>
 			background: <?php echo $helper->formatColor($_color);?>;
 		<?php endif; ?>
@@ -55,10 +55,10 @@
       -moz-border-radius: <?php echo $_radius ?>px;
       border-radius: <?php echo $_radius ?>px; 
 		<?php endif; ?>	
-	} 
+	} */
 
 	/* glc col */
-	.glc-col{
+	/*.glc-col{
 		<?php if ($_color = Mage::getStoreConfig('gomage_checkout/skin_block/bg_color')): ?>
 			background-color: <?php echo $helper->formatColor($_color);?>;
 		<?php endif; ?>
@@ -100,16 +100,16 @@
 		<?php if ($_color = Mage::getStoreConfig('gomage_checkout/skin_block/bg_color')): ?>
 			background-color: <?php echo $helper->formatColor($_color);?>;
 		<?php endif; ?>  
-    }
+    }*/
 	/* Order Review Background Color */
-	.glc .data-table tfoot{
+	/*.glc .data-table tfoot{
 		<?php if ($_color = Mage::getStoreConfig('gomage_checkout/skin_block/or_bg_color')): ?>
 			background: <?php echo $helper->formatColor($_color);?>;
 		<?php endif; ?>
-	}
+	}*/
 
 	/* Buttons */
-  .simple_overlay button.button span span,
+  /*.simple_overlay button.button span span,
   .glc button.button span span{		
 		<?php
 			$_color1 = Mage::getStoreConfig('gomage_checkout/skin_button/bg_color'); 
@@ -153,10 +153,10 @@
 		<?php if ($_color = Mage::getStoreConfig('gomage_checkout/skin_button/mo_font_color')):?>
 			color: <?php echo $helper->formatColor($_color); ?>;
 		<?php endif; ?>		
-	}
+	}*/
 
 	/* Pop-up Window */
-	.simple_overlay{
+	/*.simple_overlay{
 		<?php if ($_radius = Mage::getStoreConfig('gomage_checkout/skin_popup/radius')): ?>
 	 		-webkit-border-radius: <?php echo $_radius ?>px;
       -moz-border-radius: <?php echo $_radius ?>px;
@@ -168,5 +168,5 @@
 		<?php if ($_color = Mage::getStoreConfig('gomage_checkout/skin_popup/close_color')):?>
 			color: <?php echo $helper->formatColor($_color);?>;
 		<?php endif; ?>  
-  }
+  }*/
 </style>	

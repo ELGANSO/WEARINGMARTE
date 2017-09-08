@@ -628,13 +628,13 @@ $total-space: 40px;
                     position: relative;
                     @extend %label-example;
                     &::after {
-                        position: absolute;
+                        /*position: absolute;
                         height: 1px;
                         bottom: 0;
                         left: $total-space;
                         right: $total-space;
                         background-color: $c-table-border;
-                        content: '';
+                        content: '';*/
                     }
                     &.last {
                         text-align: right;

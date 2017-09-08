@@ -158,19 +158,25 @@
 
 /* STEP Methods */  
 .glc-step.methods{
-	float: right;
-  width:65%;
+	/*float: right;
+  width:65%;*/
+  float: left;
+  /*width:33%;*/
+  width:25%;
   }
   /* Shipping methods */
   .glc .methods .shipping-methods{
     float:left;
-    width:49%;
+    /*width:49%;*/
+    width:100%;
     }
   /* Payment methods */
   .glc .methods #gcheckout-payment-methods{
     position:relative;
-    float: right;
-    width:49%;
+    /*float: right;
+    width:49%;*/
+    float: left;
+    width:100%;
     }
     .glc.not_shipping_mode .methods #gcheckout-payment-methods{
       width: 100% !important;
@@ -179,14 +185,16 @@
 /* STEP Review */
 .glc-step.review{
   float: right;
-	padding-top:15px;
-  width: 65%;
+	/*padding-top:15px;*/
+  /*width: 65%;*/
+  /*width: 33%;*/
+  width: 41%;
   }
   
 /* glc column */
 .glc-col{
 	padding:15px;
-  border: 1px solid #eaeaea;
+  /*border: 1px solid #eaeaea;*/
   border-top: 0;
   background: #fff;
   }
@@ -195,22 +203,13 @@
 .glc-title{
 	margin:0;
 	padding:0 17px;
-  /* border: 1px solid #eaeaea; */
-  background-color: #f19e2b;
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f8b53f), to(#ea8616));
-  background-image: -webkit-linear-gradient(top, #f8b53f, #ea8616);
-  background-image:    -moz-linear-gradient(top, #f8b53f, #ea8616);
-  background-image:      -o-linear-gradient(top, #f8b53f, #ea8616);
-  background-image:         linear-gradient(to bottom, #f8b53f, #ea8616);
-	color:#fafafa;
-	text-transform:uppercase;
-	font:700 12px/30px Arial,Helvetica,sans-serif;
+	color:#000;
   -webkit-background-clip: padding-box !important;
   -moz-background-clip   : padding-box !important;
   background-clip        : padding-box !important;
   }
   .glc-title strong{
-    font-weight: 700;
+    font-weight: 400;
     }
   /* glc number */
   .glc-title span{
@@ -222,7 +221,7 @@
     background: #fff;
     color: #1b1b1b;
     text-align: center;
-    font: 700 14px/15px Arial, "Nimbus Sans L", Helvetica, sans-serif;
+    font: 400 14px/15px Arial, "Nimbus Sans L", Helvetica, sans-serif;
     }
   
 /* Layout END
@@ -387,7 +386,7 @@
 .glc p.control label{
 	display:inline;
 	float:none;
-	padding: 0 0 0 3px;
+	padding: 3px 0 0 20px;
 	color:#666;
 	vertical-align:middle;
 	font-weight:400;
@@ -463,18 +462,18 @@
 .glc textarea,
 #login-form .form-list li .input-box .input-text{
 	border:1px solid #d7d7d7;
-	-webkit-border-radius: 3px;
+/*	-webkit-border-radius: 3px;
 	-moz-border-radius   : 3px;
-	border-radius        : 3px;
+	border-radius        : 3px;*/
 	background: #fff;
   background-color:#fff;
-  -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.06) inset;
+  /*-webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.06) inset;
   -moz-box-shadow   : 0 2px 3px rgba(0, 0, 0, 0.06) inset;
   box-shadow        : 0 2px 3px rgba(0, 0, 0, 0.06) inset;
   -webkit-transition: all 0.2s ease;
   -moz-transition   : all 0.2s ease;
   -o-transition     : all 0.2s ease;
-  transition        : all 0.2s ease;
+  transition        : all 0.2s ease;*/
 }
 .glc input.input-text,
 .glc select,
@@ -484,6 +483,8 @@
 .glc .form-list select{
   margin: 0;
   padding: 1px;
+	border: none!important;
+	border-bottom: 1px solid #D9D9D9!important;
   }
 .glc .form-list li:after{
   content: '';
@@ -627,7 +628,7 @@
 	width:23% !important;
 }
 .glc .customer-name-middlename .field{
-  width: 31% !important;
+  width: 48% !important;
   }
   .glc .customer-name-middlename .field.name-middlename{
     width: 30% !important;
@@ -958,6 +959,7 @@
 	display:inline !important;
 	float:none !important;
 	height:41px !important;
+	width: 100% !important;
   }
   
 /* Simple buttons */
@@ -982,7 +984,7 @@
   .glc button.button span span{
     margin:0;
     padding: 0 12px;
-    background-color: #f19e2b;
+    /*background-color: #f19e2b;
     background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f8b640), to(#e98414));
     background-image: -webkit-linear-gradient(top, #f8b640, #e98414);
     background-image:    -moz-linear-gradient(top, #f8b640, #e98414);
@@ -1013,12 +1015,12 @@
   .glc button.btn-checkout span span{
     margin:0;
     padding:0 25px;
-    background-color: #f28b0a;
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fbaa16), to(#e46708));
+    background-color: #2b2e2e;
+    /*background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fbaa16), to(#e46708));
     background-image: -webkit-linear-gradient(top, #fbaa16, #e46708);
     background-image:    -moz-linear-gradient(top, #fbaa16, #e46708);
     background-image:      -o-linear-gradient(top, #fbaa16, #e46708);
-    background-image:         linear-gradient(to bottom, #fbaa16, #e46708);
+    background-image:         linear-gradient(to bottom, #fbaa16, #e46708);*/
     text-indent:0px !important;
     text-transform:none;
     }
@@ -1168,20 +1170,23 @@
   }
 .lightcheckout-discount-form label{
   display: inline-block;
-  margin: 0 3px 0 0;
+  width:100%;
+  /*margin: 0 3px 0 0;*/
+  padding: 10px 0;
+  background-color: #d9d9d9;
 	vertical-align:middle;
 	text-transform:uppercase;
 	font:700 13px/16px Arial,Helvetica,sans-serif;
   }
 .lightcheckout-discount-form{
 	margin:0;
-	padding:12px 16px;
-	border:1px solid #eaeaea;
+	padding:12px 0px;
+	/*border:1px solid #eaeaea;*/
 	border-top:0;
 	border-bottom:0;
   }
 .discount-bottom .lightcheckout-discount-form{
-	border-bottom:1px solid #eaeaea;
+	/*border-bottom:1px solid #eaeaea;*/
   }
 .glc .check-gc-status-wrap{
   padding-top:5px;
@@ -1252,7 +1257,7 @@
 	margin:0;
 }
 .glc .data-table tr.last th, .glc .data-table tr.last td{
-	border-bottom:1px solid #e1e1e1 !important;
+	/*border-bottom:1px solid #e1e1e1 !important;*/
 }
 .glc .data-table thead th{
 	background: #f5f5f5;
@@ -1288,21 +1293,23 @@
 	background:none !important;
 }
 .glc .data-table tfoot{
-	background-color: #f5f5f5;
+	/*background-color: #f5f5f5;*/
 }
 .glc .data-table tfoot td{
 	padding-top:1px;
 	padding-bottom:1px;
-	border-right:1px solid #e4e4e4;
-	border-bottom:0;
+	/*border-right:1px solid #e4e4e4;*/
+	border:none !important;
+	/*border-bottom:0;*/
 }
 .glc .data-table .odd,
 .glc .data-table .even{
 	background:#fff;
 }
 .glc .data-table tbody th, .glc .data-table tbody td{
-	border-right:1px solid #e4e4e4;
-	border-bottom:1px solid #e4e4e4;
+	/*border-right:1px solid #e4e4e4;
+	border-bottom:1px solid #e4e4e4;*/
+	border:none !important;
 }
 .glc .data-table tfoot strong{
 	color:#1c1c1c;
@@ -1722,3 +1729,99 @@
 .ls-popup-container{position:absolute;z-index:100;width:175px;height:200px;}
 /* Calendar END
 -------------------------------------------------- */
+
+
+/**AÑADIDO CAMBIOS EN EL DISEÑO CHECKOUT**/
+.glc-number{
+	display:none;
+}
+
+#customer_account_create{
+	display:none;
+}
+
+#billing_use_for_shipping_yes{
+	display:none;
+}
+
+#checkout-payment-method-load input{
+	width:inherit!important;
+	margin-right: 10px !important;
+}
+
+table, thead, table thead th {
+	border: none !important;
+}
+
+.input-box input{
+	width: 100%!important;
+	/*border-top: none!important;
+	border-left: none!important;
+	border-right: none!important;*/
+	border: none!important;
+	border-bottom: 1px solid #D9D9D9 !important;
+	padding: 0!important;
+
+}
+
+.glc-title{
+	text-transform: inherit !important;
+	font-size: initial;
+	border-bottom: 1px solid #000 !important;
+	width: 70% !important;
+	padding-left: 0px !important; 
+}
+
+
+#checkout-review-table-wrapper table .price{
+	font-size: 18px !important; 
+    color: inherit !important;
+    font-weight: inherit !important;
+}
+#checkout-review-table-wrapper table tfoot tr td{
+	padding:10px 0 0 0 !important;
+}
+#checkout-review-table-wrapper table tfoot tr td::after{
+	position: inherit;
+    /*height: 1px;
+    bottom: 0;
+    left: 40px;
+    right: 40px;
+    background-color: #dfdfdf;
+    content: '';*/
+}
+
+#checkout-review-submit{
+	padding-top: 25px;
+}
+
+#coupon_code{
+	width:200px !important;
+}
+
+.glc button.btn-coupon span{
+  display: block;
+  margin: 0;
+  padding: 0;
+	height:41px;
+	border:0 !important;
+  background: none;
+  color:#FFF;
+  text-indent:0px;
+  white-space:nowrap;
+	font:700 15px/40px Arial,Helvetica,sans-serif;
+  }
+
+.glc button.btn-coupon span span{
+    margin:0;
+    padding:0 25px;
+    background-color: #2b2e2e;
+    /*background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fbaa16), to(#e46708));
+    background-image: -webkit-linear-gradient(top, #fbaa16, #e46708);
+    background-image:    -moz-linear-gradient(top, #fbaa16, #e46708);
+    background-image:      -o-linear-gradient(top, #fbaa16, #e46708);
+    background-image:         linear-gradient(to bottom, #fbaa16, #e46708);*/
+    text-indent:0px !important;
+    text-transform:none;
+    }
+/**FIN AÑADIDO CAMBIOS EN EL DISEÑO CHECKOUT**/

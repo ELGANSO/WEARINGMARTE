@@ -12,7 +12,7 @@
  */
 ?>
 <?php if(Mage::helper('gomage_deliverydate')->isEnableDeliveryDate()): ?>
-    <h2 class="glc-title"><span id="glc-deliverydate-number" class="glc-number"><?php echo (Mage::getSingleton('checkout/session')->getShippingSameAsBilling() ? '3' : '4'); ?></span><strong><?php echo $this->__('Time of Delivery');?></strong></h2>
+    <h2 class="glc-title"><span id="glc-deliverydate-number" class="glc-number"></span><?php echo $this->__('Time of Delivery');?></h2>
     <div class="glc-col">
         <div class="delivery-date">
             <?php foreach($this->getFields() as $field): ?>
