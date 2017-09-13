@@ -786,3 +786,61 @@ img .product-image-gallery {
     padding: 5px 15px 15px 15px;
 }
 /*FIN ESTILO EXTENSION POLITICA DE COOKIES*/
+/* Mi Cuenta*/
+.dashboard .page-title h1:before, .dashboard .page-title h2:before{
+	color:#dfdfdf;
+}
+body.customer-account .my-account .welcome-msg p.hello{
+	color:#777777;
+}
+.theme-block, body.customer-account .my-account .box, body.customer-account .my-account #form-validate .fieldset, .dashboard #my_recent_tags, .dashboard #my_recent_reviews{
+	border-top: solid 1px #dfdfdf;
+}
+.box-title h3, .box-title h2{
+	color: #000 !important;
+}
+.box-title h3:before, .box-title h2:before{
+	color:#dfdfdf !important;
+	border: 1px solid #dfdfdf !important;
+}
+.theme-border, .table-bordered, body.customer-account .data-table {
+    border-top: solid 1px #dfdfdf;
+}
+
+@media only screen and (max-width: 1199px){
+body.customer-account .data-table tbody tr.first {
+    border-top: solid 1px #dfdfdf;
+}
+}
+
+/*FIN Mi Cuenta*/
+
+/* Bolsa*/
+.header-minicart .block-subtitle {
+	color:#000 !important;
+	text-align: center;
+}
+#cart-sidebar .product-image{
+	background: #fff;
+}
+.truncated a.details, .header-minicart .minicart-actions .checkout-button, .header-minicart .minicart-actions .cart-link{
+	background-color: #000;
+	color: #fff;
+}
+.truncated a.details:hover, .header-minicart .minicart-actions .checkout-button:hover, .header-minicart .minicart-actions .cart-link:hover{
+	background-color: #949393;
+	color: #fff !important;
+}
+.top-links .skip-content.skip-active li a{
+	color:#fff;
+}
+.header-minicart .subtotal .price {
+    color: #909090;
+ }
+ .header-minicart .block-subtitle .close{
+ 	color:#000;
+ }
+ .header-minicart .block-subtitle .close:hover{
+ 	color: #949393;
+ }
+/* Fin Bolsa*/
