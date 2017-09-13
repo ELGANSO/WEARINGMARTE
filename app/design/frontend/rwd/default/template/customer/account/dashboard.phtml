@@ -29,6 +29,7 @@
         <h1><?php echo $this->__('My Dashboard') ?></h1>
     </div>
     <?php echo $this->getMessagesBlock()->toHtml() ?>
+	<?php echo $this->getChildHtml('customer.account.dashboard.top') ?>
     <?php echo $this->getChildHtml('hello') ?>
     <?php echo $this->getChildHtml('top') ?>
     <div class="box-account box-info">
