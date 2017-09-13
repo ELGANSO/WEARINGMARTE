@@ -59,7 +59,7 @@
             <div class="container">
                 <div class="main">
                     <div class="row">
-                        <div class="col-main col-xs-12 col-sm-9">
+                        <div class="col-main col-xs-12 col-sm-12">
                             <?php if ($this->getChildHtml('global_messages')) { ?>
                                 <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="message-popup" aria-hidden="true" id="message-popup">
                                     <div class="modal-dialog">
@@ -76,13 +76,15 @@
                             <?php } ?>
                             <?php echo $this->getChildHtml('content') ?>
                         </div>
+                        <!--
                         <div class="col-right sidebar col-xs-12 col-sm-3">
                             <?php // This left_first block will display above the main content on smaller viewports ?>
-                            <?php if ($_leftContent = $this->getChildHtml('left_first')): ?>
-                                <div class="col-left-first"><?php echo $_leftContent;   ?></div>
-                            <?php endif; ?>
-                            <div class="main-col-right"><?php echo $this->getChildHtml('right') ?></div>
+                            <?php //if ($_leftContent = $this->getChildHtml('left_first')): ?>
+                                <div class="col-left-first"><?php //echo $_leftContent;   ?></div>
+                            <?php //endif; ?>
+                            <div class="main-col-right"><?php //echo $this->getChildHtml('right') ?></div>
                         </div>
+                        -->
                     </div>
                 </div>
             </div>

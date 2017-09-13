@@ -24,71 +24,42 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php if($this->getItems()->getSize()): ?> 
-<div id="block-related">
 
-    <h2><?php echo $this->__('Related Products') ?></h2>
-    <p class="block-subtitle"><?php echo $this->__('Check items to add to the cart or') ?>&nbsp;<a href="#" onclick="selectAllRelated(this); return false;"><?php echo $this->__('select all') ?></a></p>
-    <div class="swipe-carousel">
-        <div class="swiper-wrapper related-carousel">
-        <?php foreach($this->getItems() as $_item): ?>
-                <div class="product">
-                    <a href="<?php echo $_item->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_item->getName()) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(280,347) ?>" alt="<?php echo $this->escapeHtml($_item->getName()) ?>" /></a>
-                    <div class="product-details">
-                        <?php echo $this->getPriceHtml($_item, true, '-related') ?>
-                        <p class="product-name"><a href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->escapeHtml($_item->getName()) ?></a></p>
-                        <?php if ($this->helper('wishlist')->isAllow()) : ?>
-                            <a href="<?php echo $this->getAddToWishlistUrl($_item) ?>" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a>
-                        <?php endif; ?>
-                    </div>
-                    <?php if(!$_item->isComposite() && $_item->isSaleable()): ?>
-                        <?php if (!$_item->getRequiredOptions()): ?>
-                            <input type="checkbox" class="checkbox related-checkbox" id="related-checkbox<?php echo $_item->getId() ?>" name="related_products[]" value="<?php echo $_item->getId() ?>" />
-                        <?php endif; ?>
-                    <?php endif; ?>
-                </div>
-
-        <?php endforeach ?>
-        </div>
-        <script type="text/javascript">decorateList('block-related', 'none-recursive')</script>
-        <script type="text/javascript">
-        //<![CDATA[
-        $$('.related-checkbox').each(function(elem){
-            Event.observe(elem, 'click', addRelatedToProduct)
-        });
-
-        var relatedProductsCheckFlag = false;
-        function selectAllRelated(txt){
-            if (relatedProductsCheckFlag == false) {
-                $$('.related-checkbox').each(function(elem){
-                    elem.checked = true;
-                });
-                relatedProductsCheckFlag = true;
-                txt.innerHTML="<?php echo $this->__('unselect all') ?>";
-            } else {
-                $$('.related-checkbox').each(function(elem){
-                    elem.checked = false;
-                });
-                relatedProductsCheckFlag = false;
-                txt.innerHTML="<?php echo $this->__('select all') ?>";
-            }
-            addRelatedToProduct();
-        }
-
-        function addRelatedToProduct(){
-            var checkboxes = $$('.related-checkbox');
-            var values = [];
-            for(var i=0;i<checkboxes.length;i++){
-                if(checkboxes[i].checked) values.push(checkboxes[i].value);
-            }
-            if($('related-products-field')){
-                $('related-products-field').value = values.join(',');
-            }
-        }
-        //]]>
-        </script>
-
+<?php if($this->getItems()->getSize()): ?>
+    <!--TITULO COMPLETA TU LOOK-->
+    <div style="text-align: center;">
+        <span id="h1-producto" ><?php echo $this->__('Completa tu look') ?></span> <!--Añadir a traducciones-->
     </div>
 
-</div>
-<?php endif ?>
+    <div class="row">
+    	<div class="col-lg-2 col-md-2 col-xs-0"></div>
+    	<div class="col-lg-8 col-md-8 col-xs-12">
+    <?php foreach($this->getItems() as $_item): ?>
+        
+            <div class="product col-xs-6 col-sm-6 col-md-6 col-lg-6" id="style-cambia-look">
+
+                <a href="<?php echo $_item->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_item->getName()) ?>" class=""><img src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')/*->resize(280,347) */?>" alt="<?php echo $this->escapeHtml($_item->getName()) ?>" style="width: 100%;"/>
+                </a>
+                <div class="style-texto-producto row">
+                	<!--NOMBRE-->
+                	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                		<a id="style-nombre-look" href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->escapeHtml($_item->getName()) ?></a>
+                	<!--PRECIO-->
+                		<div id="style-precio">
+                			<?php echo $this->getPriceHtml($_item, true, '-related') ?>
+                		</div>
+                	</div>
+                	<!--VER PRODUCTO-->
+                	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                		<a id="style-ver-producto" href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->__('Ver Producto') ?></a>
+                	</div>
+                </div>
+            </div>
+    <?php endforeach ?> 
+    	</div>
+    	<div class="col-lg-2 col-md-2 col-xs-0"></div>
+    </div>               
+            
+                
+    
+<?php endif ?>    

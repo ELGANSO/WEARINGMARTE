@@ -45,8 +45,8 @@
         $grid_cols_1 = $grid_cols_2 = 'col-sm-6';
         $indicate_class = 'normal-image-type';
     }else if( $_product_type_large_image ){
-        $grid_cols_1 = 'col-lg-8 col-sm-6';
-        $grid_cols_2 = 'col-lg-4 col-sm-6';
+        $grid_cols_1 = 'col-lg-9 col-sm-6';
+        $grid_cols_2 = 'col-lg-3 col-sm-6';
         $indicate_class = 'large-image-type';
     }else if( $_product_type_center_image ){
         $grid_cols_1 = $grid_cols_2 = 'col-sm-12';
@@ -59,101 +59,196 @@
     var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
 </script>
 <div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
-<div class="product-view <?php echo $indicate_class; ?>" itemscope itemtype="http://schema.org/Offer">
+<div class="product-view <?php echo $indicate_class; ?>" itemscope itemtype="https://schema.org/Offer">
     <div class="product-essential row">
-        <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+        <form action="<?php echo str_replace("http:","https:",$this->getSubmitUrl($_product)) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
             <?php echo $this->getBlockHtml('formkey') ?>
             <div class="no-display">
                 <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
                 <input type="hidden" name="related_product" id="related-products-field" value="" />
             </div>
 
-            <div class="product-img-box col-xs-12  <?php echo $grid_cols_1 ?>">
+            <div class="product-img-box col-lg-12 col-md-12 col-xs-12   <?php //echo $grid_cols_1 ?>" id="style-img">
                 <div class="product-name">
                     <h2><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h2>
                 </div>
                 <?php echo $this->getChildHtml('media') ?>
             </div>
 			
-			<div class="col-xs-12 <?php echo $grid_cols_2 ?>">
-	            <div class="product-shop">
-
-                    <!-- center mode -->
+			<div class=" row <?php //echo $grid_cols_2 ?>" id="product-info">
+				<div class="col-lg-1 col-md-1 col-xs-1"></div>
+				<div class="col-lg-10 col-md-10 col-xs-10">
+					<div class="row">
+                    <!-- center mode 
                     <?php if($_product_type_center_image){ ?>
                     <div class="price-info" itemprop="price">
-                        <?php echo $this->getPriceHtml($_product); ?>
-                        <?php echo $this->getChildHtml('bundle_prices') ?>
-                        <?php echo $this->getTierPriceHtml() ?>
+                        <?php //echo $this->getPriceHtml($_product); ?>
+                        <?php //echo $this->getChildHtml('bundle_prices') ?>
+                        <?php //echo $this->getTierPriceHtml() ?>
                     </div>
 
-                    <?php }?>
+                    <?php }?>-->
                     <!-- /center mode -->
+                <!--REFERENCIA Y STOCK
 
 	            	<div class="additional-info">
-	            		<div class="product-sku"><?php echo $this->__('Product Code: ') . '<span class="sku-number">' . nl2br($_product->getSku()) . '</span>'; ?></div>
-                        <?php echo $this->getChildHtml('product_type_data') ?>
-	            		<?php echo $this->getChildHtml('product_type_availability'); ?>
+	            		<div class="product-sku"><?php //echo $this->__('Product Code: ') . '<span class="sku-number">' . nl2br($_product->getSku()) . '</span>'; ?></div>
+                        <?php// echo $this->getChildHtml('product_type_data') ?>
+	            		<?php //echo $this->getChildHtml('product_type_availability'); ?>
                         <div class="clear"></div>
 	            	</div>
-	                <div class="product-name secondary" itemprop="name">
+                -->
+                 <!--NOMBRE PRODUCTO-->
+	                <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 product-name secondary" itemprop="name">
 	                    <span class="h1"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></span>
-	                </div>
-
-                    <div class="extra-info">
-                        <?php echo $this->getReviewsSummaryHtml($_product, 'default', false)?>
-                    </div>
-
-                    <?php if(!$_product_type_center_image){ ?>
-	                <div class="price-info" itemprop="price">
-	                    <?php echo $this->getPriceHtml($_product); ?>
+                		<!--SHORT DESCRIPTION-->
+                		<?php $_description = $this->getProduct()->getShortDescription(); ?>
+                   		<?php if ($_description): ?>
+            				<?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $_description, 'description') ?> 
+                    	<?php endif; ?>
+                		<!--/SHORT DESCRIPTION-->
+		                <!--PRECIO-->
+          				<?php echo $this->getPriceHtml($_product); ?>
 	                    <?php echo $this->getChildHtml('bundle_prices') ?>
 	                    <?php echo $this->getTierPriceHtml() ?>
+                		<!--/PRECIO-->
 	                </div>
-
-                    <?php }?>
-
-                    <div class="clear"></div>
-
+           			
+           			<!--Color y tallas--> 
+					<div class="col-lg-4 col-md-4 col-xs-6 talla">
+				
+						<?php
+							$config = $_product->getTypeInstance(true);
+							if($_product->getTypeId() == 'configurable'){
+							foreach($config->getConfigurableAttributesAsArray($_product) as $attributes)
+					            { 
+					                ?>
+		                            <div class="tallas-productos">
+										<?php if($_product->getStockItem() && $_product->getStockItem()->getIsInStock()): ?>
+											
+			                            	<select id = "super_attribute<?php echo $attributes['attribute_id'] ?>" name = "super_attribute[<?php echo $attributes['attribute_id'] ?>]">
+			                            	<option><?php echo $this->__('Seleccione una talla') ?></option>
+			                                <?php
+			                                $i = 1;
+			                                foreach($attributes["values"] as $values)
+			                                { ?>
+			                                 <option value ="<?php echo $values['value_index']?>">
+			                                 	<?php echo $values["label"]?>
+			                                 </option>
+			                          		<?php 
+			                          		}
+			                                ?>
+			                                </select>
+			                             <?php else:?>
+											 <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+										<?php endif?>
+		                                </span>
+		                            </div>
+					        <?php
+					            }
+					            }?>
+						
+		            </div>
+				
+					<!-- ADD CARRITO -->
+	            <div class="add-to-cart-wrapper col-lg-4 col-md-4 col-xs-6">
 	                <?php echo $this->getChildHtml('other');?>
+		                <?php if ($_product->isSaleable()):?>
+		                    <?php  //echo $this->getChildChildHtml('container1', '', true, true) ?>
+		                    <?php echo $this->getChildHtml('addtocart') ?>
+		                <?php endif;?>
+                </div>
 
-	                <?php if ($_product->isSaleable() && $this->hasOptions()):?>
-	                    <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
-	                <?php endif;?>
+                <!--/ AddCARRITO-->
+                 
+					</div>
 
-	            </div>
+				</div>
+	          </div>
 
-	            <div class="add-to-cart-wrapper">
-	                <?php echo $this->getChildHtml('extrahint') ?>
-                    
-	                <?php if (!$this->hasOptions()):?>
-	                    <div class="add-to-box">
-	                        <?php if($_product->isSaleable()): ?>
-	                            <?php echo $this->getChildHtml('addtocart') ?>
-	                            <?php if( $this->helper('wishlist')->isAllow() || $_compareUrl=$this->helper('catalog/product_compare')->getAddUrl($_product)): ?>
-	                                <span class="or"><?php echo $this->__('OR') ?></span>
-	                            <?php endif; ?>
-	                        <?php endif; ?>
-	                        <?php echo $this->getChildHtml('addto') ?>
-	                        <?php echo $this->getChildHtml('sharing') ?>
-	                    </div>
-	                    <?php echo $this->getChildHtml('extra_buttons') ?>
-	                <?php elseif (!$_product->isSaleable()): ?>
-	                    <div class="add-to-box">
-	                        <?php echo $this->getChildHtml('addto') ?>
-	                        <?php echo $this->getChildHtml('sharing') ?>
-	                    </div>
-	                <?php endif; ?>
-
-	            </div>
-
+                <!--/div-->
                 <?php // echo $this->getChildHtml('alert_urls') ?>
 
 	            <div class="clear"></div>
 	            <?php if ($_product->isSaleable() && $this->hasOptions()):?>
 	                <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
 	            <?php endif;?>
+	            <div class="col-lg-1 col-md-1 col-xs-1"></div>
+	            </div> <!-- Cierre product info -->
 	        </div>
+            <!--VIDEO PRODUCTO-->
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="style-video">                    
+                        <?php echo "<img src='".Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."wysiwyg/video-producto.png'/>"; ?>
+                    </div>
+                </div>
+            <!--/VIDEO PRODUCTO--> 
+            <div class="row">
+            	<div class="col-lg-2 col-md-2 col-xs-12"></div>   
+				<!--IMAGENES PROPIEDADES-->
+                    <div class=" imagenes-prop iconos_producto col-xs-12 col-sm-4 col-md-4 col-lg-4 ">
+                        <div class="style-texto-producto col-lg-12 col-md-12 col-xs-12">
+				        	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				            	<?php $_description = $this->getProduct()->getDescription(); ?>
+				           	 <?php if ($_description): ?>
+				                		<p><?php echo $this->__('Features') ?></p>
+						                <div class="std">
+						                    <?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $_description, 'description') ?>
+						                </div>
+				            		<?php endif; ?>
+				        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">                    
+                            <?php echo "<img src='".Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."wysiwyg/prop14.png'/>"; ?>
+                            <p id="style-prop">Nombre</p>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">                    
+                            <?php echo "<img src='".Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."wysiwyg/prop2.png'/>"; ?>
+                            <p id="style-prop">Nombre</p>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">                    
+                            <?php echo "<img src='".Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."wysiwyg/prop3.png'/>"; ?>
+                            <p id="style-prop">Nombre</p>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">                    
+                            <?php echo "<img src='".Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."wysiwyg/prop14.png'/>"; ?>
+                            <p id="style-prop">Nombre</p>
+                        </div>
+                        
+                    </div>
+                <!--/IMAGENES PROPIEDADES-->
+					
+                 <!--  AÑADIR COMENTARIOS
+
+                    <div class="extra-info">
+                        <?php //echo $this->getReviewsSummaryHtml($_product, 'default', false)?>
+                    </div>
+                -->
+                 </div>  		
+                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 ">
+                 	
+	            	<div class="col-lg-12 col-md-12 col-xs-12 style-texto-producto">
+	            		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				            <?php $_composicion = $this->getProduct()->getComposicion(); ?>
+				            <?php if ($_composicion): ?>
+				                <p><?php echo $this->__('Composition') ?></p>
+				                <div class="std">
+				                    <?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $_composicion, 'composicion') ?>
+				                </div>
+				            <?php endif; ?>
+				        </div>        
+				        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 style-texto-producto">
+				            <?php $_cuidadoproducto = $this->getProduct()->getCuidadoproducto(); ?>
+				            <?php if ($_cuidadoproducto): ?>
+				                <p><?php echo $this->__('Product Care') ?></p>
+				                <div class="std">
+				                    <?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $_cuidadoproducto, 'cuidadoproducto') ?>
+				                </div>
+				            <?php endif; ?>
+				        </div>
+	            	</div>  
+            </div>
         </form>
+
         <script type="text/javascript">
         //<![CDATA[
             var productAddToCartForm = new VarienForm('product_addtocart_form');
@@ -205,26 +300,22 @@
             }.bind(productAddToCartForm);
         //]]>
         </script>
-        <div class="clear"></div>
-        <div class="prod_socials"><?php echo $this->getChildHtml('alert_urls') ?></div>
+
+        <!-- COMPARTIR EN REDES SOCIALES-->
+        <!-- <div class="clear"></div>
+        <div class="prod_socials"><?php //echo $this->getChildHtml('alert_urls') ?></div> 
+        -->
+
     </div>
 
-    <?php if ($detailedInfoGroup = $this->getChildGroup('detailed_info', 'getChildHtml')):?>
-        <div class="product-collateral toggle-content tabs">
-            <dl id="collateral-tabs" class="collateral-tabs">
-                <?php   foreach ($detailedInfoGroup as $alias => $html):
-                            if(trim($html) == '') continue;
-                ?>
-                            <dt class="tab"><span id="<?php echo $alias; ?>"><?php echo $this->escapeHtml($this->getChildData($alias, 'title')) ?></span></dt>
-                            <dd class="tab-container">
-                                <div class="tab-content"><?php echo $html ?></div>
-                            </dd>
-                <?php endforeach;?>
-            </dl>
-        </div>
-    <?php endif; ?>
+    
+        
+    </div>
+
+
 
     <?php echo $this->getChildHtml('related_products') ?>
+    
     <?php echo $this->getChildHtml('upsell_products') ?>
     <?php echo $this->getChildHtml('product_additional_data') ?>
 
