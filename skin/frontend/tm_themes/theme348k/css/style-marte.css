@@ -1,3 +1,14 @@
+@font-face {
+    font-family: "Graphik-Regular";
+    font-style: normal;
+    font-weight: normal;
+    src: local("?"), url("../fonts/Graphik-Regular.woff") format("woff"), url("../fonts/Graphik-Regular.ttf") format("truetype");
+}
+
+*{
+	/*font-family: "Futura", sans-serif !important;*/
+	font-family: "Graphik-Regular" !important;
+}
 .row2{
 margin-left: 0px !important;
 margin-right: 0px !important;
