@@ -44,7 +44,7 @@ a:hover {
 	line-height: 30px;
 }
  .footer-marte .subscribe-block .subscribe-wrapper .input-box #newsletter{
-    width: 100%;
+    width: 70% !important;
     padding: 15px;
     border-bottom: solid 1px black !important;
     border-top: none;
@@ -52,19 +52,23 @@ a:hover {
     border-right: none;
     background-color: #f8f8f8;   
     text-align: center;
-    font-size: 18px;
+    font-size: 15px;
 }
 .footer-marte .subscribe-block{
     border:none;
 }
 .footer-container{ 
-    padding-top:25px;
+	color: #2B2E2E;
+    padding-top: 80px;
+    font-size: 12px;
+    font-weight: normal;
 }
 .footer-marte .subscribe-block .subscribe-wrapper .subscribe-title{
     position: relative;
     left: 0;
     top: 0;
     text-transform: none;
+    font-size:18px;
 }
 .footer-marte .subscribe-block .subscribe-wrapper{
     padding: 0;
@@ -88,36 +92,48 @@ a:hover {
 /**************** FOOTER IMAGENES ****************/
 .page {padding: 0;}
 a #img_instagram{
-    left:31px;
+    /*left:31px;
     width: 25px;
     height: 25px;
     background: url("/media/wysiwyg/instagram.png") 26px 0;
-    margin-left: 25px;
+    margin-left: 25px;*/
+    width:18px;
+    height:18px;
+    background: url("/media/wysiwyg/instagram18.png") no-repeat;
     cursor: pointer;
+    padding:0 20px !important;
 }
-a #img_instagram:hover {
+/*a #img_instagram:hover {
     background: url("/media/wysiwyg/instagram.png") 0 -26px;
-}
+}*/
 a #img_facebook{
-    margin-left: 30px;
+    /*margin-left: 30px;
     height: 28px;
     width:28px;
-    background: url("/media/wysiwyg/social_icons@2x.png") 0 0;
+    background: url("/media/wysiwyg/social_icons@2x.png") 0 0;*/
+    width:18px;
+    height:18px;
+    background: url("/media/wysiwyg/facebook.png") no-repeat;
     cursor: pointer;
+    padding:0 20px !important;
 }
-a #img_facebook:hover {
+/*a #img_facebook:hover {
     background: url("/media/wysiwyg/social_icons@2x.png") 51px 0;
-}
+}*/
 a #img_twitter{
-    height: 28px;
+    /*height: 28px;
     width:28px;
-    background: url("/media/wysiwyg/social_icons@2x.png") 0 -48px;
+    background: url("/media/wysiwyg/social_icons@2x.png") 0 -48px;*/
+    width:18px;
+    height:18px;
+    background: url("/media/wysiwyg/twitter.png") no-repeat;
     cursor: pointer;
+    padding:0 20px !important;
 }
-a #img_twitter:hover {
+/*a #img_twitter:hover {
     background: url("/media/wysiwyg/social_icons@2x.png") 51px -48px;
-}
-.iconos_footer{display: inline-flex;}
+}*/
+.iconos_footer{display: inline-flex; padding-left:20px;}
 #subscribirse{
     display:none;
 }
@@ -855,3 +871,24 @@ body.customer-account .data-table tbody tr.first {
  	color: #949393;
  }
 /* Fin Bolsa*/
+
+/*Estilos pagina home*/
+
+.nav-primary li.level0 > a, .cms-pages-marte > ul > li > a, #mobile-menu > .links > li > a{
+	color: #2B2E2E !important;
+	font-size: 14px;
+	letter-spacing: 1px;
+}
+
+.home-text{
+	color:#2B2E2E !important;
+	font-size: 13px !important;
+	letter-spacing: 0.4px;
+}
+
+.footer-title{
+    color: #2B2E2E;
+    font-size: 12px;
+    font-weight: bold;
+
+}
