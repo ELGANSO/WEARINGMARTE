@@ -10,6 +10,23 @@ jQuery( document ).ready(function() {
     		// Animation complete.
   		});
 	});
+
+	//Menu lateral version escritorio
+	jQuery("#header-navBtn, #menu-active").click(function(){
+		console.log(jQuery("#header-nav").css('display'));
+		if(jQuery("#header-nav").css('display') !== 'none') {
+			
+			jQuery("#header-nav").hide("slide");
+			jQuery("#header, .main-container").css("cssText", "margin-left: 0 !important;");
+			jQuery("#menu-active").hide();
+
+		}else{
+
+			jQuery("#header-nav").show("slide","fast");
+			jQuery("#header, .main-container").css("cssText", "margin-left: 20% !important;");
+			jQuery("#menu-active").show();
+		}
+	});
 });
 
 function footer_movil_web() {

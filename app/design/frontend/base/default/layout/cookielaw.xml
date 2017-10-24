@@ -9,9 +9,9 @@
 <layout version="0.1.0">
     <default>
         <reference name="head">
-            <action method="addCss">
+            <!--<action method="addCss">
                 <stylesheet>valdecode/cookielaw/css/cookielaw.css</stylesheet>
-            </action>
+            </action>-->
         </reference>
         <reference name="after_body_start">
             <block name="cookielaw.after_body_start" type="core/template" before="-"

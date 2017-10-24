@@ -32,8 +32,8 @@
  * @var $this Mage_Checkout_Block_Cart
  */
 //Redirijo a checkout/cart
-header("Location:".Mage::getUrl('checkout/onepage/'));
-exit;
+//header("Location:".Mage::getUrl('checkout/onepage/'));
+//exit;
 ?>
 <?php $_priceDisplay = ($this->helper('tax')->displayCartBothPrices()) ? 'display-both-prices' : 'display-single-price'; ?>
 <div class="cart <?php echo $_priceDisplay; ?>">

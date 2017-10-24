@@ -35,12 +35,12 @@
         <div class="col-xs-12 col-md-12 col-lg-12">
         <form action="<?php echo $this->getFormActionUrl() ?>" method="post" id="newsletter-validate-detail">
             <div class="input-box">
-               <input type="email" spellcheck="false" name="email" id="newsletter" placeholder="<?php echo $this->__('Enter please your e-mail') ?>" title="<?php echo $this->__('Sign up for our newsletter') ?>" class="input-text required-entry validate-email" />
+               <input type="email" spellcheck="false" name="email" id="newsletter" placeholder="<?php echo $this->__('Enter please your e-mail') ?>" title="<?php echo $this->__('Sign up for our newsletter') ?>" class="input-text required-entry validate-email" onkeypress="enviar(event)"  />
             </div>
-            <!--en el ejemplo no tiene boton de subscribirse-->
+            <!--en el ejemplo no tiene boton de subscribirse
             <div id="subscribirse" class="actions">
-                <button type="submit" title="<?php echo $this->__('Subscribe') ?>" class="button"><span><span><?php echo $this->__('Subscribe') ?></span></span></button>
-            </div>
+                <button type="submit" title="<?php //echo $this->__('Subscribe') ?>" class="button"><span><span><?php //echo $this->__('Subscribe') ?></span></span></button>
+            </div>-->
         </form></div>
         <script type="text/javascript">
         //<![CDATA[
@@ -48,6 +48,11 @@
             document.getElementById("newsletter").setAttribute('autocapitalize', 'off');
             document.getElementById("newsletter").setAttribute('autocorrect', 'off');
         //]]>
+
+        function enviar(e) {
+		  tecla = (document.all) ? e.keyCode : e.which;
+		  if (tecla==13) jQuery("#newsletter-validate-detail").submit();
+		}
         </script>
     </div></div>
 </div>

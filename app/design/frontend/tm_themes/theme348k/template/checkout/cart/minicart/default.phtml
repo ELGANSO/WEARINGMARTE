@@ -168,7 +168,8 @@
                 <?php endforeach; ?>
             </dl>
           </div>
-        <a href="#" onclick="return false;" class="details"><?php echo $this->__('Details') ?></a>
+        <!--a href="#" onclick="return false;" class="details"><?php //echo $this->__('Details') ?></a-->
+        <a href="<?php echo $this->getDeleteUrl() ?>" title="<?php echo $this->__('Remove Item') ?>" class="btn-remove btn-remove2"></a>
         </div>
         <?php endif; ?>
 

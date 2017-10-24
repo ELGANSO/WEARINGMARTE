@@ -15,7 +15,12 @@ $theme = $this->helper('customlogo');
 <div class="skip-links2"> <span class="skip-link2 skip-account2"></span></div>
 <div id="header-account2" class="skip-content2"></div>
 <!-- End Ajax Login -->
-
+<!-- MENÚ LATERAL -->
+<div id="header-nav" class="skip-content nav-content">
+    <?php echo $this->getChildHtml('topMenu') ?>
+</div>
+<!-- END MENÚ LATERAL -->
+<div id="menu-active"></div>
 <header id="header" class="page-header">
 
     <!--<div class="header-row-background">
@@ -37,9 +42,12 @@ $theme = $this->helper('customlogo');
             <!-- logo -->
 
             <div class="main-menu col-md-5 col-xs-4 col-lg-5" style="display:block;">
-                    <div id="header-nav" class="skip-content nav-content">
-                        <?php echo $this->getChildHtml('topMenu') ?>
-                    </div>
+            		<!-- Menu Label -->
+			        <a id="header-navBtn" class="skip-link skip-nav">
+			            <span class="iconMenu"></span>
+			            <!--<span class="label"><?php //echo $this->__('Menu'); ?></span>-->
+			        </a>
+                    
             </div>
             <div class="col-md-2 col-xs-4 col-lg-2 logo-container">
             <?php if ($theme->isEnabled()): ?>
@@ -64,12 +72,12 @@ $theme = $this->helper('customlogo');
             </div>
             <!-- end logo -->
             <div class="head_holder col-md-5 col-xs-4 col-lg-5">
-                <div class="cms-pages-marte">
+                <!--<div class="cms-pages-marte">
                     <ul>
                         <li><a href="<?php echo Mage::getBaseUrl()."lab" ?>"><?php echo $this->__('Lab') ?></a></li>
                         <li><a href="<?php echo Mage::getBaseUrl()."about" ?>"><?php echo $this->__('About') ?></a></li>
                     </ul>
-                </div>
+                </div>-->
                 <!-- Top Links -->
                 <div class="top-links">
                     <?php
@@ -95,6 +103,10 @@ $theme = $this->helper('customlogo');
 
                     </div>
                     <div id="header-right">
+                    	<div class="header-switchers">
+		                    <?php echo $this->getChildHtml('store_language') ?>
+		                    <?php //echo $this->getChildHtml('currency_switcher') ?>
+		                </div>
                         <ul>
                             <li onclick="<?php if (!Mage::getSingleton('customer/session')->isLoggedIn()) {?> abrirlogin() <?php } ?>"><a class="menu-web" href="<?php echo Mage::getUrl('customer/account/login'); ?>"><span><?php echo $this->__('Sign in') ?></span></a></li>
                             <li><a class="menu-web" href=""><span><?php echo $this->__('Saved') ?></span></a></li>

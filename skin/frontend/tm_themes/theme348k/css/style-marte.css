@@ -9,6 +9,11 @@
 	/*font-family: "Futura", sans-serif !important;*/
 	font-family: "Graphik-Regular" !important;
 }
+html, body {
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+}
 .row2{
 margin-left: 0px !important;
 margin-right: 0px !important;
@@ -44,13 +49,13 @@ a:hover {
 	line-height: 30px;
 }
  .footer-marte .subscribe-block .subscribe-wrapper .input-box #newsletter{
-    width: 70% !important;
+    width: 90% !important;
     padding: 15px;
     border-bottom: solid 1px black !important;
     border-top: none;
     border-left: none;
     border-right: none;
-    background-color: #f8f8f8;   
+    background-color: #fff;   
     text-align: center;
     font-size: 15px;
 }
@@ -76,7 +81,7 @@ a:hover {
 #footer-container-marte{
     width: 100%;
     float:right;   
-    background-color: #f8f8f8;
+    background-color: #fff;
 }
 @media only screen and (min-width: 769px){
     #help-me {
@@ -152,7 +157,17 @@ a #img_twitter{
     }
 }
 .skip-links .logo {display:none;}
-.page-header-container{height: 70px;}
+.page-header-container{height: 50px; background: #fff;}
+#header-navBtn .iconMenu, .skip-account .icon:before {
+	margin-top: 17px;
+	margin-left: 25px;
+	width: 40px;
+	height: 15px;
+	display: block;
+	background: url("/media/wysiwyg/icon-menu.svg") 0 0;
+	background-repeat: no-repeat; 
+}
+
 @media only screen and (max-width: 768px){
     #subscribirse{
         display:block;
@@ -171,7 +186,7 @@ a #img_twitter{
         width: 100%;
         z-index: 9;
         margin-top: 5px;
-        height: 65px;
+        height: auto;
     }
     #header-account {
         height: 92vh;
@@ -180,15 +195,32 @@ a #img_twitter{
     .skip-nav, #header-search, .skip-search{display: none;}
     #links-header a.skip-link {border:none;}
     .skip-links .logo{display: block;width: 60%;float: left;}
-    .skip-link .icon {font-size: 33px;margin-top: 8px;color:black;}
+    .skip-link .icon {margin-left:20px;vertical-align: top;}
     .skip-link .count {color:black;}
     .skip-link:hover, .skip-link.skip-active{background-color: #fff;color:black;}
     .skip-link.skip-active span, .skip-link:hover .label, .skip-link:hover .icon,.skip-link:hover .count{
         color: #000;
     }
+    #header-navBtn .iconMenu, .skip-account .icon:before {
+    	margin-top: 19px;
+    }
     .footer .button span{z-index: 1;}
-    .skip-cart {top:8px;}
-    .mobile .container {padding-left: 5px;padding-right: 5px;};
+    .skip-cart {top:2px;}
+    .mobile .container {padding-left: 0px;padding-right: 0px;};
+    .nav-social {display: none !important;}
+    .links{
+	    position: relative;
+    	top: 100px;
+    }
+    #nav{
+    	height: initial !important;
+    }
+    .skip-account .icon:before {
+		content: "" !important;
+		margin-left: 0 !important;
+    }
+    .footer .subscribe-block{ margin:0 !important; }
+    .logo img {display: inline-block; width: 60% !important; margin-top: 15px;}
 }
 .header-search{display: none;}
 @media only screen and (max-width: 991px) and (min-width: 768px)
@@ -200,13 +232,14 @@ a #img_twitter{
 /********** LOGO EN WEB ************/
 @media only screen and (min-width: 769px){
     .main_site_wrapper{width:95%;margin:0 auto;display: initial;float:none;}
-    .main-menu{background: none;top:33px;text-align:right;font-size: 18px;}
-    .logo{position: relative;left: 0;}
-    .logo img {display: inline-block;}
-    #header .container {z-index: 99;width: 100%;}
+    .main-menu{background: none;top:0;text-align:left;font-size: 18px;}
+    .logo{position: relative;left: 0;top:0;}
+    .logo img {display: inline-block; width: 120px !important; margin-top: 15px;}
+    #header .container {z-index: 99;width: 100%;padding-left: 0px;padding-right: 0px;}
     #header {height: 70px;}
-    .mobile{display: none;}
-    .main-menu #header-nav{display: block;}
+    .mobile{display: block;}
+    #header-nav{display: none;}
+    .main-menu #header-navBtn{display:  block;}
     .nav-primary li{display: inline-block;margin-right: 15px;}
     .cms-pages-marte li {display:inline-block;margin-right: 5px;}
 }
@@ -255,6 +288,11 @@ a #img_twitter{
     #header-cart{width: auto;}
 }
 .top-links a {color:black;font-size: 16px;text-transform: none;padding-left: 15px;}
+.top-links {
+    position: relative;
+    float: right;
+    margin: 14px 30px 0 0;
+}
 .cms-pages-marte {font-size: 18px;text-transform: uppercase;float:left;top:33px;position: relative;}
 .youama-window-inside input {
     border: none;
@@ -267,12 +305,19 @@ a #img_twitter{
 .youama-window-box .input-fly input[type="text"], .youama-window-box .input-fly input[type="password"] {
     padding-left: 0;
 }
-#header-account #mobile-menu li a, #header-account #mobile-menu3 li a {
+#header-account #mobile-menu li a {
     border-bottom: none;
+    text-transform: uppercase !important;
+}
+#header-account li a, .header-button .header-button-title{
+	border:none !important;
+}
+#header-account #mobile-menu3 li a{
+	text-transform: capitalize !important;
 }
 #mobile-menu li {
     list-style: none;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
 }
 #mobile-menu li a, #mobile-menu3 li a {
     text-transform: none!important;
@@ -282,13 +327,13 @@ a #img_twitter{
     font-size:28px;
     position: relative;
     float:left;
-    top: 30%;
+    top: 20%;
 }
 #mobile-menu2 {
     font-size:15px;
     position: relative;
     float:right;
-    top: 30%;   
+    top: 25%;   
 }
 #mobile-menu2 li {
     -webkit-transform: rotate(90deg);   
@@ -304,7 +349,7 @@ a #img_twitter{
     font-size:15px;
     position: absolute;
     float:left;
-    top: 85vh;   
+    top: 73vh;   
 }
 #mobile-menu3 li {
     list-style: none;
@@ -493,14 +538,26 @@ img .product-image-gallery {
   display:         flex;
 }
 @media only screen and (max-width: 768px){
-       .row-eq-height {
-            display: block;
-           }
-        }
+   .row-eq-height {
+        display: block;
+       }
+
+    .nav-social, .links {
+    display: none !important;
+	}
+	#contenido-suscribe .row {margin-left:0; margin-right: 0;padding-left: 0; padding-right:0;}
+	.footer-container{
+		padding-top: 40px !important;
+	}
+	.container, .container .col-main{
+		padding: 0 !important;
+	}
+}
 
 .tab {
     padding: 0 100px;
 }
+
 
 
 /***ESTILO TITULO CAMBIA TU LOOK***/
@@ -876,7 +933,7 @@ body.customer-account .data-table tbody tr.first {
 
 .nav-primary li.level0 > a, .cms-pages-marte > ul > li > a, #mobile-menu > .links > li > a{
 	color: #2B2E2E !important;
-	font-size: 14px;
+	font-size: 13px;
 	letter-spacing: 1px;
 }
 
@@ -891,4 +948,75 @@ body.customer-account .data-table tbody tr.first {
     font-size: 12px;
     font-weight: bold;
 
+}
+#nav{
+	background:#fff;
+	height:100vh;
+	width: 20%;
+	z-index: 99999999;
+    position: absolute;
+}
+#nav .nav-primary{
+	margin-top: 70%;
+}
+#nav ul li a{
+	text-align: left;
+}
+.nav-social li a{
+	font-size: 11px;
+}
+.nav-primary li {
+    padding-bottom: 15px;
+    display: -webkit-box;
+}
+#menu-active{
+	height:100vh;
+	width: 100%;
+	position: fixed;
+	top:0;
+	left: 20%;
+	background: #696b6b;
+	opacity: 0.8;
+	display: none;
+    z-index: 999;
+}
+.nav-social{
+	position: absolute;
+    bottom: 20px;
+    margin: 0;
+    display: inline-flex;
+}
+.nav-social li {
+	padding-left:15px;
+    color: #2B2E2E !important;
+    font-size: 12px;
+    letter-spacing: 1px;
+    font-family: "Graphik-Regular" !important;
+}
+.col-main{margin-top: 50px;}
+.row {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+#header-right ul li span, .top-links a{
+	font-size: 12px !important;
+	letter-spacing: 1px !important;
+}
+
+#help-me ul li a, #customer-footer p, #customer-footer p a{
+	color:#424242;
+}
+.top-links a.account-dropdown::before{ display: none !important; }
+
+@media only screen and (min-width: 992px)
+{
+	.nav-primary li.level0, .nav-primary a.level0 {
+	    display: block;
+	}
+}
+@media only screen and (max-width: 991px){
+	.skip-link {
+		color: #000 !important;
+	}
 }
