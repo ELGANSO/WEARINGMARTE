@@ -399,4 +399,8 @@ class GoMage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         }
         Mage::app()->saveCache(time(), 'gomage_notifications_last_update');
     }
+
+    public function isEnterprise(){
+    	return false;
+    }
 }
