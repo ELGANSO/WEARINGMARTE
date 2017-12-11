@@ -1,0 +1,64 @@
+<?php
+/**
+ * GoMage LightCheckout Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010-2016 GoMage (https://www.gomage.com)
+ * @author       GoMage
+ * @license      https://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use https://www.gomage.com/terms-of-use
+ * @version      Release: 5.9.2
+ * @since        Class available since Release 2.5
+ */
+?>
+<?php $_order = $this->getOrder(); ?>
+
+<?php if ($this->helper('giftmessage/message')->getIsMessagesAvailable('items', $_order)): ?>
+
+<?php endif; ?>
+
+    <?php $_items = $_order->getItemsCollection(); ?>
+    <?php $_index = 0; ?>
+    <?php $_count = $_items->count(); ?>
+<div class="sucess_items">
+    <?php foreach ($_items as $item): ?>
+       <?php if ($item->getParentItem()) continue; ?>
+       <?php
+       		$sku = explode('-',$item->getSku());
+       		if (isset($sku[1]) && $sku[1]!=""){
+       			$size = $sku[1];
+       		}
+       		else{ 
+       			$size = 'U';
+       		}
+       ?>
+       <div class="row item">
+            <div class="col-lg-4 col-md-4 col-xs-4 img">
+            	<img src="<?php echo $this->helper('catalog/image')->init($item->getProduct(), 'thumbnail')?>" />
+            </div>            
+            <div class="col-lg-4 col-md-4 col-xs-4">
+                <a href="<?php echo $this->getUrl('catalog/product/view/id/'.$item->getProduct()->getId()) ?>"><?php echo $this->escapeHtml($item->getProduct()->getName()) ?></a>
+                <span> S | <?php echo $size; ?></span>
+            </div>
+            <div class="col-lg-4 col-md-4 col-xs-4"><span><?php echo number_format($item->getPrice(),2) ?>€</span></div>
+        </div>
+    <?php endforeach; ?>
+    <div class="row sucess-totals" style="border-bottom: 2px solid grey;padding-bottom:20px;">
+		<div class="col-lg-12 col-md-12 col-xs-12">
+			<span class="left"> <?php echo $this->__('Subtotal ');?></span>
+			<span class="right"> <?php echo number_format($_order->getSubtotal(),2);?>€</span>
+		</div>
+		<div class="col-lg-12 col-md-12 col-xs-12">
+			<span class="left"> <?php echo $this->__('Envío');?></span>
+			<span class="right"> <?php echo number_format($_order->getBaseShippingInclTax(),2);?>€</span>
+		</div>
+	</div>
+	<div class="row sucess-totals">
+		<div class="col-lg-12 col-md-12 col-xs-12">
+			<span class="left" style="font-weight: bold;"> <?php echo $this->__('Total');?></span>
+			<span class="right" style="font-weight: bold;"> <?php echo number_format($_order->getGrandTotal(),2)?>€</span>
+			<p class="right tax"> (<?php echo $this->__('IVA incluido')?>)</p>
+		</div>
+	</div>
+</div>
+

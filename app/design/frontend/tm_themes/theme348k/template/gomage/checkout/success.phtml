@@ -1,0 +1,63 @@
+<?php
+ /**
+ * GoMage LightCheckout Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010-2016 GoMage (https://www.gomage.com)
+ * @author       GoMage
+ * @license      https://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use https://www.gomage.com/terms-of-use
+ * @version      Release: 5.9.2
+ * @since        Class available since Release 5.0
+ */
+?>
+<div class="row sucess-page">
+	<div class="col-lg-2 col-md-2 col-xs-12"></div>
+	<div class="col-lg-3 col-md-3 col-xs-12">
+
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php if ($this->getOrderId()):?>
+<?php $order =  Mage::getModel('sales/order')->loadByIncrementId($this->getOrderId());?>
+<h2 class="thank-title">
+	<img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) ?>wysiwyg/ic_done_black_64px.svg"/>
+	<?php echo $this->__('Gracias')." ".explode(" ",$order->getCustomerName())[0] ?>
+</h2>
+
+<?php if ($this->getCanViewOrder()) :?>
+    <p class="strong"><?php echo $this->__('Pedido confirmado <br>%s', sprintf('<a href="%s">#%s</a>', $this->escapeHtml($this->getViewOrderUrl()), $this->escapeHtml($this->getOrderId()))) ?></p>
+<?php  else :?>
+    <p class="strong"><?php echo $this->__('Pedido confirmado <br> # is: %s.', $this->escapeHtml($this->getOrderId())) ?></p>
+<?php endif;?>
+    <!--<p><?php echo $this->__('You will receive an order confirmation email with details of your order and a link to track its progress.') ?></p>-->
+    <p><?php echo $this->__('Welcome to Marte, %s. Confirmed order. We will get started on your order right away. You shoud be receiving an order  confirmation email shortly. If you have any questions email us to support@wearingmarte.com or via Twitter to @wearingmarte.', explode(" ",$order->getCustomerName())[0]) ?></p>
+<?php if ($this->getCanViewOrder() && $this->getCanPrintOrder()) :?>
+    <p>
+        <?php echo $this->__('Click <a href="%s" onclick="this.target=\'_blank\'">here to print</a> a copy of your order confirmation.', $this->getPrintUrl()) ?>        
+    </p>
+<?php endif;?>
+</div>
+<div class="col-lg-5 col-md-5 col-xs-12 items-ordered">
+	<div style="border-top: 2px solid grey;"></div>
+<?php echo $this->getChildHtml() ?>
+<?php endif;?>
+
+<?php if ($this->getAgreementRefId()): ?>
+    <p><?php echo $this->__('Your billing agreement # is: %s.', sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getAgreementUrl()), $this->escapeHtml($this->getAgreementRefId())))?></p>
+<?php endif;?>
+
+<?php if ($profiles = $this->getRecurringProfiles()):?>
+<p><?php echo $this->__('Your recurring payment profiles:'); ?></p>
+<ul class="disc">
+<?php foreach($profiles as $profile):?>
+<?php $profileIdHtml = ($this->getCanViewProfiles() ? sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getProfileUrl($profile)), $this->escapeHtml($this->getObjectData($profile, 'reference_id'))) : $this->escapeHtml($this->getObjectData($profile, 'reference_id')));?>
+    <li><?php echo $this->__('Payment profile # %s: "%s".', $profileIdHtml, $this->escapeHtml($this->getObjectData($profile, 'schedule_description')))?></li>
+<?php endforeach;?>
+</ul>
+<?php endif;?>
+
+<div class="buttons-set">
+    <button type="button" class="button" title="<?php echo $this->__('Continue Shopping') ?>" onclick="window.location='<?php echo $this->getUrl() ?>'"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
+</div>
+</div>
+<div class="col-lg-2 col-md-2 col-xs-12"></div>
+</div>
