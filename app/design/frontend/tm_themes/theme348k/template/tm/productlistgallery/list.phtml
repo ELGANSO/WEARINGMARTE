@@ -56,8 +56,9 @@
 		<?php if (count($_categories) > 0): ?>
 		    <ul>
 		        <?php foreach($_categories as $_category): ?>
+		            <?php if($currentCategory->getName() == $_category->getName()) $active = "active"; else $active=""; ?>
 		            <li>
-		                <a href="<?php echo $_helperCat->getCategoryUrl($_category) ?>">
+		                <a href="<?php echo $_helperCat->getCategoryUrl($_category) ?>" class="<?php echo $active; ?>">
 		                    <?php echo $_category->getName() ?>
 		                </a>
 		                <?php $_category = Mage::getModel('catalog/category')->load($_category->getId()) ?>
@@ -65,8 +66,9 @@
 		                <?php if (count($_subcategories) > 0): ?>
 		                    <ul>
 		                        <?php foreach($_subcategories as $_subcategory): ?>
+		                        	<?php if($currentCategory->getName() == $_subcategory->getName()) $active = "active"; else $active=""; ?>
 		                            <li>
-		                                <a href="<?php echo $_helper->getCategoryUrl($_subcategory) ?>">
+		                                <a href="<?php echo $_helper->getCategoryUrl($_subcategory) ?>" class="<?php echo $active; ?>">
 		                                    <?php echo $_subcategory->getName() ?>
 		                                </a>
 		                            </li>
@@ -134,8 +136,8 @@
                     <?php endif; ?>
 
                     <div class="desc std">
-                        <div itemprop="description"><?php echo $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description') ?></div>
-                        <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped ?>" class="link-learn"><?php echo $this->__('Learn More') ?></a>
+                        <div itemprop="description"><?php //echo $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description') ?></div>
+                        <a href="<?php //echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped ?>" class="link-learn"><?php //echo $this->__('Learn More') ?></a>
                     </div>
 
                     <?php
@@ -196,12 +198,12 @@
         $_productId = $_product->getId();
         	/* Calculo tamño del li*/
 
-        	$x = ($j) % 3;
-        	if($x == 1) $size = 12;
+        	//$x = ($j) % 3;
+        	if($j == 1) $size = 12;
         	else $size = 6;
         	$j++;
          ?>
-            <li class="item<?php if(($j-1)%$_columnCount==0): ?> first<?php elseif($j%$_columnCount==0): ?> last<?php endif; ?> col-xs-12 col-sm-<?php echo $size?>" itemscope itemtype="http://schema.org/product">
+            <li class="item<?php if(($j-1)%$_columnCount==0): ?> first<?php elseif($j%$_columnCount==0): ?> last<?php endif; ?> col-xs-<?php echo $size?> col-sm-<?php echo $size?>" itemscope itemtype="http://schema.org/product">
                 <div class="item_block_wr">
                 <!--<div class="item_placeholder"></div>-->
                 <div class="item_wrap">
@@ -243,7 +245,7 @@
 
                     <div class="product-details">
                         <h2 class="product-name" itemprop="name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a></h2>
-                        <h3><?php echo $_product->getShortDescription();?></h3>
+                        <h3><?php //echo $_product->getShortDescription();?></h3>
                         <?php echo $this->getPriceHtml($_product, true) ?>
         			
         				<?php
@@ -255,9 +257,8 @@
 					                ?>
 					             
 		                            <div class="tallas">
-		                            	<span><?php echo number_format($_product->getFinalPrice(),2).$moneda ?> -
 										<?php if($_product->getStockItem() && $_product->getStockItem()->getIsInStock()): ?>
-			                            	<?php echo $this->__('AVAILABLE') ?>: 
+			                            	<?php echo $this->__('Available') ?>: 
 			                                <?php
 			                                $i = 1;
 			                                foreach($attributes["values"] as $values)
