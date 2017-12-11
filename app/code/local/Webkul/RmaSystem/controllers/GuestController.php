@@ -5,9 +5,10 @@
 
         public function indexAction() {
             $data = Mage::getSingleton("core/session")->getGuestData();
-            if(Mage::getSingleton("customer/session")->isLoggedIn())
-                Mage::app()->getResponse()->setRedirect(Mage::getUrl("rmasystem/index/index"));
-            else
+           // if(Mage::getSingleton("customer/session")->isLoggedIn()){
+                //Mage::app()->getResponse()->setRedirect(Mage::getUrl("rmasystem/index/index"));
+           // }
+           // else
             if(isset($data))
                 $this->_redirect("*/guest/rmalist");
             else {
@@ -41,13 +42,13 @@
             $post = $this->getrequest()->getPost();
             $order = Mage::getModel("sales/order")->loadByIncrementId($post["order_id"]);
             $email = $order->getCustomerEmail();
-            if($email == $post["email"] && $order->getCustomerGroupId() == 0) {
+            if($email == $post["email"] && $order->getCustomerGroupId() == 1) {
                 Mage::getSingleton("core/session")->addSuccess($this->__("Login Successful"));
                 Mage::getSingleton("core/session")->setGuestData($post);
                 $this->_redirect("*/guest/rmalist");
             }
             else {
-                Mage::getSingleton("core/session")->addError($this->__("Invalid Details"));
+                Mage::getSingleton("core/session")->addError($this->__("Invalid Details")." - ".$post["email"]."- ".$order->getCustomerGroupId());
                 $this->_redirect("*/*/");
             }
         }

@@ -1,0 +1,23 @@
+<div class="row rma">
+<form method="post" action="<?php echo $this->getUrl('rmasystem/guest/loginpost/')?>" id="wk_rma_guest_login">
+    <input type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey(); ?>" name="form_key"/>
+	<div class="col-lg-4 col-md-4 col-xs-2"></div>
+	<div class="col-lg-4 col-md-4 col-xs-8">
+		<h2><?php echo $this->__("Devoluciones"); ?></h2>
+		<p class="strong"><?php echo $this->__("Solicita tu devolución aqui"); ?></p>
+        <input type="text" name="order_id" class="input-text required-entry" placeholder="* <?php echo $this->__("Introduce tu número de pedido"); ?>">
+        <input type="text" name="email" class="input-text required-entry validate-email" placeholder="* <?php echo $this->__("Introduce el email con que hiciste la compra"); ?>">
+   
+        <div class="buttons-set">
+        	<!--<p class="required">*<?php //echo $this->__("Required Fields"); ?></p>-->
+        	<button class="button" title="<?php echo $this->__('Submit Request'); ?>" type="submit">
+            	<span><?php echo $this->__("Buscar"); ?></span>
+        	</button>
+    	</div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-xs-2"></div>
+</form>
+</div>
+<script type="text/javascript">
+     new VarienForm("wk_rma_guest_login", true);
+</script>
