@@ -1,0 +1,9 @@
+<?php
+/** @var Aplazame_Aplazame_Block_Product_Widget $this */
+?>
+<div
+  data-aplazame-simulator=""
+  data-view="product"
+  data-amount="<?php echo Aplazame_Sdk_Serializer_Decimal::fromFloat($this->getFinalPrice())->jsonSerialize(); ?>"
+  data-currency="<?php echo Mage::app()->getStore()->getCurrentCurrencyCode(); ?>"
+></div>

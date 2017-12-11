@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Aplazame_Aplazame>
+            <version>0.4.5</version>
+        </Aplazame_Aplazame>
+    </modules>
+    <global>
+        <models>
+            <aplazame>
+                <class>Aplazame_Aplazame_Model</class>
+            </aplazame>
+        </models>
+        <blocks>
+            <aplazame>
+                <class>Aplazame_Aplazame_Block</class>
+            </aplazame>
+            <checkout>
+                <rewrite>
+                    <onepage_billing>Aplazame_Aplazame_Block_Checkout_Onepage_Billing</onepage_billing>
+                    <onepage_shipping>Aplazame_Aplazame_Block_Checkout_Onepage_Shipping</onepage_shipping>
+                </rewrite>
+            </checkout>
+        </blocks>
+        <helpers>
+            <aplazame>
+                <class>Aplazame_Aplazame_Helper</class>
+            </aplazame>
+        </helpers>
+    </global>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Aplazame_Aplazame after="Mage_Adminhtml">Aplazame_Aplazame_AdminHtml</Aplazame_Aplazame>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <aplazame>
+                    <file>aplazame.xml</file>
+                </aplazame>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Aplazame_Aplazame>
+                    <files>
+                        <default>Aplazame_Aplazame.csv</default>
+                    </files>
+                </Aplazame_Aplazame>
+            </modules>
+        </translate>
+        <events>
+            <order_cancel_after>
+                <observers>
+                    <Aplazame>
+                        <type>singleton</type>
+                        <class>aplazame/observer</class>
+                        <method>salesOrderPaymentCancel</method>
+                    </Aplazame>
+                </observers>
+            </order_cancel_after>
+            <sales_order_payment_refund>
+                <observers>
+                    <Aplazame>
+                        <type>singleton</type>
+                        <class>aplazame/observer</class>
+                        <method>salesOrderPaymentRefund</method>
+                    </Aplazame>
+                </observers>
+            </sales_order_payment_refund>
+            <core_block_abstract_prepare_layout_after>
+                <observers>
+                    <campaignsMassActions>
+                        <type>singleton</type>
+                        <class>aplazame/campaignsObserver</class>
+                        <method>campaignsMassActions</method>
+                    </campaignsMassActions>
+                    <productCampaigns>
+                        <type>singleton</type>
+                        <class>aplazame/campaignsObserver</class>
+                        <method>productCampaigns</method>
+                    </productCampaigns>
+                </observers>
+            </core_block_abstract_prepare_layout_after>
+        </events>
+    </adminhtml>
+
+    <frontend>
+        <routers>
+            <aplazame>
+                <use>standard</use>
+                <args>
+                    <module>Aplazame_Aplazame</module>
+                    <frontName>aplazame</frontName>
+                </args>
+            </aplazame>
+        </routers>
+
+        <layout>
+            <updates>
+                <aplazame>
+                    <file>aplazame.xml</file>
+                </aplazame>
+            </updates>
+        </layout>
+
+    </frontend>
+    <default>
+        <payment>
+            <aplazame>
+                <active>0</active>
+                <sandbox>0</sandbox>
+                <model>aplazame/payment</model>
+                <title>Financialo con Aplazame</title>
+                <secret_api_key backend_model="adminhtml/system_config_backend_encrypted"/>
+                <button>dt:has(input#p_method_aplazame)</button>
+                <instructions><![CDATA[Aplaza o fracciona tu compra con <a href="https://aplazame.com" target="_blank">Aplazame</a>.
+Obtén financiación al instante sólo con tu Nombre y Apellidos, DNI/NIE, Teléfono y tarjeta de débito o crédito.
+Sin comisiones ocultas ni letra pequeña.]]>
+                </instructions>
+            </aplazame>
+        </payment>
+    </default>
+
+</config>

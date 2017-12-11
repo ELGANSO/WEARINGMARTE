@@ -1,0 +1,23 @@
+<layout version="0.1.0">
+    <default>
+        <reference name="head" before="-">
+            <block type="page/html" name="aplazame_common" as="aplazame_common">
+                <action method="setTemplate" ifconfig="payment/aplazame/active">
+                    <template>aplazame/payment/common.phtml</template>
+                </action>
+            </block>
+        </reference>
+    </default>
+    <catalog_product_view>
+        <reference name="product.info.extrahint">
+            <block type="aplazame/product_widget" as="aplazame_widget" name="aplazame.widget" template="aplazame/product/widget.phtml" before="-"/>
+        </reference>
+    </catalog_product_view>
+    <checkout_cart_index>
+        <reference name="checkout.cart">
+            <block type="aplazame/checkout_cart_widget" as="checkout.cart.extra"
+                   name="aplazame.checkout.cart.widget"
+                   template="aplazame/checkout/cart/widget.phtml" before="-"/>
+        </reference>
+    </checkout_cart_index>
+</layout>

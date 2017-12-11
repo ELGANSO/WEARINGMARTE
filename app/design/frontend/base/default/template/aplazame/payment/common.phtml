@@ -1,0 +1,14 @@
+<?php
+    /** @var Aplazame_Aplazame_Model_Api_Client $client */
+    $client = Mage::getModel('aplazame/api_client');
+
+    $aplazameJsUri = getenv('APLAZAME_JS_URI') ? getenv('APLAZAME_JS_URI') : 'https://aplazame.com/static/aplazame.js';
+?>
+
+<script
+  type="text/javascript"
+  src="<?php echo $aplazameJsUri; ?>"
+  data-api-host="<?php echo $client->apiBaseUri; ?>"
+  data-aplazame="publicKey: <?php echo Mage::getStoreConfig('payment/aplazame/public_api_key') ?>"
+  data-sandbox="<?php echo Mage::getStoreConfig('payment/aplazame/sandbox')?'true':'false' ?>"
+></script>
