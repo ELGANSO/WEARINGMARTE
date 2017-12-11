@@ -24,6 +24,9 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /* @var $this Mage_Wishlist_Block_Customer_Wishlist */
+//Redirijo a visto wishlist desde mi cuenta
+header("location: ".Mage::getBaseUrl()."customer/account?show=.my-wishlist");
+exit();
 ?>
 <?php if ($this->helper('wishlist')->isAllow()) : ?>
     <div class="my-wishlist">
