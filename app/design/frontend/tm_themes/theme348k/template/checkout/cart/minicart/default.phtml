@@ -29,21 +29,36 @@
     $isVisibleProduct = $_item->getProduct()->isVisibleInSiteVisibility();
     $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_BEFORE_ORDER_CONFIRM);
 ?>
-<li class="item" xmlns="http://www.w3.org/1999/html">
+<li class="item row" xmlns="http://www.w3.org/1999/html">
+	<div class="col-xs-12 col-md-12 col-lg-12 ">
     <?php if ($this->hasProductUrl()): ?>
-        <a href="<?php echo $this->getProductUrl()?>" title="<?php echo $this->escapeHtml($this->getProductName()) ?>" class="product-image"><img src="<?php echo $this->getProductThumbnail()->resize(100, 100)->setWatermarkSize('30x10'); ?>" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>" /></a>
+        <a href="<?php echo $this->getProductUrl()?>" title="<?php echo $this->escapeHtml($this->getProductName()) ?>" class="product-image"><img src="<?php echo $this->getProductThumbnail()->resize(150, 150)->setWatermarkSize('30x10'); ?>" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>" /></a>
     <?php else: ?>
-        <span class="product-image"><img src="<?php echo $this->getProductThumbnail()->resize(100, 100)->setWatermarkSize('30x10'); ?>" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>" /></span>
+        <span class="product-image"><img src="<?php echo $this->getProductThumbnail()->resize(150, 150)->setWatermarkSize('30x10'); ?>" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>" /></span>
     <?php endif; ?>
+</div>
+<div class="col-xs-12 col-md-12 col-lg-12 " style="height: 65px;">
     <div class="product-details">
-        <p class="product-name"><?php if ($this->hasProductUrl()): ?><a href="<?php echo $this->getProductUrl() ?>"><?php endif; ?><?php echo $this->escapeHtml($this->getProductName()) ?><?php if ($this->hasProductUrl()): ?></a><?php endif; ?></p>
-
+		<div class="col-lg-12 col-md-12 col-xs-12"><a href="<?php echo $this->getProductUrl() ?>"><span><?php echo $this->escapeHtml($this->getProductName()) ?></span></a>
+		</div>
         <div class="product-wrapper">
-
+		<div class="col-lg-6 col-md-6 col-xs-6" style="text-align: left;padding-left: 0px !important;color: #333;"> 
+			<?php if ($_options = $this->getOptionList()):?>
+			S | 
+			<?php foreach ($_options as $_option) : ?>
+                    <?php if (is_array($_option['value'])): ?>
+                    <?php echo nl2br(implode("\n", $_option['value'])) ?>
+                    <?php else: ?>
+                    <?php echo $_option['value'] ?>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+               <?php endif;?>
+		</div>
+		<div class="col-lg-6 col-md-6 col-xs-6">
         <table class="info-wrapper">
             <tbody>
                 <tr>
-                    <th><?php echo $this->__('Price'); ?></th>
+                    <th><?php //echo $this->__('Price'); ?></th>
                     <td>
                         <?php if ($canApplyMsrp): ?>
 
@@ -125,59 +140,41 @@
                         <?php endif; //Can apply MSRP ?>
                     </td>
                 </tr>
+                <!--
                 <tr class="qty-wrapper">
-                    <th><?php echo $this->__('Qty'); ?></th>
+                    <th><?php //echo $this->__('Qty'); ?></th>
                     <td>
                         <input
-                            id="qinput-<?php echo $_item->getId(); ?>"
-                            data-link="<?php echo $this->getAjaxUpdateUrl() ?>"
-                            data-item-id="<?php echo $_item->getId(); ?>"
+                            id="qinput-<?php //echo $_item->getId(); ?>"
+                            data-link="<?php //echo $this->getAjaxUpdateUrl() ?>"
+                            data-item-id="<?php //echo $_item->getId(); ?>"
                             class="qty cart-item-quantity input-text" name=""
-                            value="<?php echo $this->getQty()?>"
-                            <?php if ($this->isOnCheckoutPage()) echo 'disabled'; ?>
+                            value="<?php //echo $this->getQty()?>"
+                            <?php //if ($this->isOnCheckoutPage()) echo 'disabled'; ?>
                             />
 
-                        <button id="qbutton-<?php echo $_item->getId(); ?>"
-                                data-item-id="<?php echo $_item->getId(); ?>"
+                        <button id="qbutton-<?php //echo $_item->getId(); ?>"
+                                data-item-id="<?php //echo $_item->getId(); ?>"
                                 disabled="disabled"
                                 data-update
                                 class="button quantity-button">
-                            <span><span><?php echo $this->__('ok'); ?></span></span>
+                            <span><span><?php //echo $this->__('ok'); ?></span></span>
                         </button>
                     </td>
-                </tr>
+                </tr>-->
             </tbody>
         </table>
+	</div>
+  </div>
 
-        </div>
-
-
-        <?php if ($_options = $this->getOptionList()):?>
-        <div class="truncated">
-          <div class="truncated_full_value">
-            <dl class="item-options">
-                <?php foreach ($_options as $_option) : ?>
-                <dt><?php echo $this->escapeHtml($_option['label']) ?></dt>
-                <dd>
-                    <?php if (is_array($_option['value'])): ?>
-                    <?php echo nl2br(implode("\n", $_option['value'])) ?>
-                    <?php else: ?>
-                    <?php echo $_option['value'] ?>
-                    <?php endif; ?>
-                </dd>
-                <?php endforeach; ?>
-            </dl>
-          </div>
-        <!--a href="#" onclick="return false;" class="details"><?php //echo $this->__('Details') ?></a-->
-        <a href="<?php echo $this->getDeleteUrl() ?>" title="<?php echo $this->__('Remove Item') ?>" class="btn-remove btn-remove2"></a>
-        </div>
-        <?php endif; ?>
+    
 
         <div class="action-icons">
-            <?php if ($isVisibleProduct): ?>
-            <a href="<?php echo $this->getConfigureUrl() ?>" title="<?php echo $this->__('Edit item') ?>" class="btn-edit">
+        	<input class="qty" type="hidden" value="<?php echo  $_item->getQty(); ?>">
+            <?php  if ($isVisibleProduct): ?>
+           <!-- <a href="<?php echo $this->getConfigureUrl() ?>" title="<?php echo $this->__('Edit item') ?>" class="btn-edit">
                 <?php echo $this->__('Edit item')?>
-            </a>
+            </a>-->
                 <?php if (!$this->isOnCheckoutPage()): ?>
                     <a href="<?php echo $this->getAjaxDeleteUrl() ?>" title="<?php echo $this->__('Remove This Item') ?>"
                        data-confirm="<?php echo $this->__('Are you sure you would like to remove this item from the shopping cart?') ?>"
@@ -191,4 +188,5 @@
         </div>
 
     </div>
+  </div>
 </li>

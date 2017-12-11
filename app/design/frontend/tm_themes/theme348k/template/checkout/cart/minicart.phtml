@@ -41,9 +41,9 @@
 
 <a href="<?php echo $this->helper('checkout/cart')->getCartUrl(); ?>" data-target-element="#header-cart" class="skip-link skip-cart <?php if($_cartQty <= 0): ?> no-count<?php endif; ?>">
     <!--span class="icon"></span>
-    <span class="label"><?php echo $this->__('Cart'); ?></span>
-    <span class="count"><?php echo $_cartQty; ?></span-->
-	<span class="count_t"><?php echo $this->__('Bag'); ?><?php echo '('.$_cartQty.')'; ?></span>
+    <span class="label"><?php //echo $this->__('Cart'); ?></span>
+    <span class="count"><?php //echo $_cartQty; ?></span-->
+	<span class="count_t"><?php echo $this->__('Bag')." "; ?><?php echo '(<span id="qty">'.$_cartQty.'</span>)'; ?></span>
 </a>
 
 <div id="header-cart" class="block block-cart skip-content">
