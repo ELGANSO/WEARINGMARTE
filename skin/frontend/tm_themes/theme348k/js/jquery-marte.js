@@ -36,7 +36,7 @@ jQuery( document ).ready(function() {
 	});
 
 	//Compruebo si ha añadido algo al carrito
-	if(jQuery(".messages .success-msg li span").length){
+	if(jQuery(".messages .success-msg li span").length && !jQuery("#message-popup").length){
 		jQuery(".count_t").click();
 	}
 
