@@ -373,7 +373,7 @@ function UGAviaControl(){
 		var stripHeight = g_objStrip.height();
 		var innerHeight = g_objStripInner.height();		
 		
-		
+		console.log(stripHeight+" "+innerHeight);
 		//if all thumbs visible, no need to move
 		if(stripHeight > innerHeight)
 			return(false);

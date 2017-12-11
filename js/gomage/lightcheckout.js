@@ -353,6 +353,8 @@ Lightcheckout = Class.create({
                 parameters: params,
                 onSuccess: function (transport) {
 
+                            //console.log(transport.responseText);
+
                     eval('var response = ' + transport.responseText);
 
                     if (response.messages_block) {

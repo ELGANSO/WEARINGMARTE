@@ -239,14 +239,14 @@ var PointerManager = {
             });
 
             //detect mouse usage
-            $j(document).on('mouseover', function(e) {
+            /*$j(document).on('mouseover', function(e) {
                 if(that.pointerEventLock) {
                     return;
                 }
 
                 that.setPointerEventLockTimeout();
                 that.triggerMouseEvent(e);
-            });
+            });*/
         }
     },
 

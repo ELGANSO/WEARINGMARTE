@@ -67,7 +67,7 @@
 	font-size:12px;
 }
 .glc .sp-methods dt{
-	margin:0 0 5px;
+	/*margin:0 0 5px;*/
 	padding-top:0;
 	color:#5f5f5f;
   font-weight: 700;
@@ -509,14 +509,14 @@
 .simple_overlay input.input-text:focus,
 .simple_overlay select:focus,
 .simple_overlay textarea:focus{
-  background-color:#edf7fd !important;
+  background-color:#edf7fd;
   }
 
 .glc .validation-failed {
-  background: none !important;
-  background-color: #FAEBE7 !important;
-  border-style: dashed !important;
-  border-color: #EB340A !important;
+  background: none ;
+  background-color: #FAEBE7;
+  border-style: dashed;
+  border-color: #EB340A;
 }
   
 /* Gift message */
@@ -740,7 +740,7 @@
   
 /* Sagepay fix */
 #gcheckout-payment-methods dl dt label{	
-	padding:0 !important;
+	padding:0;
 	background:none !important;
 }
 .glc #gcheckout-payment-methods dl dt.gcheckout-onepage-sagepay label{
@@ -1049,7 +1049,7 @@
 	margin:0;
 	padding:0;
 	background:none;
-	opacity:.87;
+	opacity:1;
   }
 .validation-advice-container{
 	padding:4px 10px;
@@ -1774,12 +1774,12 @@ table, thead, table thead th {
 
 
 #checkout-review-table-wrapper table .price{
-	font-size: 18px !important; 
+	font-size: 18px; 
     color: inherit !important;
     font-weight: inherit !important;
 }
 #checkout-review-table-wrapper table tfoot tr td{
-	padding:10px 0 0 0 !important;
+	padding:10px 0 0 0;
 }
 #checkout-review-table-wrapper table tfoot tr td::after{
 	position: inherit;

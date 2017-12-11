@@ -114,12 +114,12 @@ Object.extend(Validation, {
         //if($(elm).hasClassName('absolute-advice')) {
         var dimensions = $(elm).getDimensions();
         var originalPosition = Position.cumulativeOffset(elm);
-
-        advice._adviceTop = (originalPosition[1]);
+       
+        advice._adviceTop = (originalPosition[1] + 60);
         if (useRtl) {
             advice._adviceLeft = (originalPosition[0] - 100 + (elm.offsetWidth > 40 ? 0 : -21));
         } else {
-            advice._adviceLeft = (originalPosition[0] + (elm.offsetWidth > 40 ? elm.offsetWidth - 40 : -21));
+            advice._adviceLeft = (originalPosition[0]);
         }
         advice._adviceWidth = (dimensions.width);
         advice._adviceAbsolutize = true;
