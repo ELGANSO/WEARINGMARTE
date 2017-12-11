@@ -39,7 +39,7 @@
     <?php foreach ($this->getStores() as $_lang): ?>
         <?php $_selected = ($_lang->getId() == $this->getCurrentStoreId()) ? ' class="selected"' : '' ?>
 		<li>
-			<a <?php echo $_selected ;?> href="<?php echo $_lang->getCurrentUrl() ?>" title="<?php echo $this->htmlEscape($_lang->getLocaleCode()) ?>"><?php echo $this->htmlEscape($_lang->getName()) ?></a>
+			<a <?php echo $_selected ;?> href="<?php echo $_lang->getCurrentUrl() ?>" title="<?php //echo $this->htmlEscape($_lang->getLocaleCode()) ?>"><?php echo $this->htmlEscape($_lang->getLocaleCode()) ?></a>
 		</li>
     <?php endforeach; ?>
 	</ul>

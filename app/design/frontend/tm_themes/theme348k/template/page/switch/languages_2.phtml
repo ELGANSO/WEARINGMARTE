@@ -35,12 +35,12 @@
 
 <div class="header-button lang-list full_mode">
 
-    <div class="header-button-title"><span class="label"><?php echo $this->__('Your Language:') ?></span> <span class="current"><?php $locale = Mage::app()->getStore()->getName(); echo $locale; ?></span></div>
+    <div class="header-button-title"><span class="label"><?php echo $this->__('Your Language:') ?></span> <span class="current"><?php $locale = Mage::app()->getStore()->getCode(); echo $locale; ?></span></div>
     <ul>
     <?php foreach ($this->getStores() as $_lang): ?>
         <?php $_selected = ($_lang->getId() == $this->getCurrentStoreId()) ? ' class="selected"' : '' ?>
         <li>
-            <a <?php echo $_selected ;?> href="<?php echo $_lang->getCurrentUrl() ?>" title="<?php echo $this->htmlEscape($_lang->getLocaleCode()) ?>"><span><?php echo $this->htmlEscape($_lang->getName()) ?></span><span class="mobile-part"><?php echo substr($this->htmlEscape($_lang->getLocaleCode()), 0, 2) ?></span></a>
+            <a <?php echo $_selected ;?> href="<?php echo $_lang->getCurrentUrl() ?>" title="<?php //echo $this->htmlEscape($_lang->getLocaleCode()) ?>"><span><?php echo explode("_",$this->htmlEscape($_lang->getLocaleCode()))[0] ?></span><span class="mobile-part"><?php echo explode("_",substr($this->htmlEscape($_lang->getLocaleCode()), 0, 2))[0] ?></span></a>
         </li>
     <?php endforeach; ?>
     </ul>
