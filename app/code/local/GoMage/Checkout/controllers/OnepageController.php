@@ -116,7 +116,7 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                         $couponCode = '';
                     } elseif (!strlen($couponCode)) {
                         $calculator->result->error   = true;
-                        $calculator->result->message = $this->__('Coupon code "%s" is not valid.', Mage::helper('core')->htmlEscape($couponCode));
+                        $calculator->result->message = "2 ".$this->__('Coupon code "%s" is not valid.', Mage::helper('core')->htmlEscape($couponCode));
                     }
 
                     if (!$calculator->result->error) {
@@ -128,14 +128,14 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
                             if ($couponCode) {
                                 if ($couponCode == $this->getOnepage()->getQuote()->getCouponCode()) {
-                                    $calculator->result->message = $this->__('Coupon code "%s" was applied successfully.', Mage::helper('core')->htmlEscape($couponCode));
+                                    $calculator->result->message = "1 ".$this->__('Coupon code "%s" was applied successfully.', Mage::helper('core')->htmlEscape($couponCode));
                                 } else {
                                     $calculator->result->error   = true;
-                                    $calculator->result->message = $this->__('Coupon code "%s" is not valid.', Mage::helper('core')->htmlEscape($couponCode));
+                                    $calculator->result->message = "2 ".$this->__('Coupon code "%s" is not valid.', Mage::helper('core')->htmlEscape($couponCode));
                                 }
 
                             } else {
-                                $calculator->result->message = $this->__('Coupon code was canceled successfully.');
+                                $calculator->result->message = "1 ".$this->__('Coupon code was canceled successfully.');
                             }
 
                             if ($calculator->result->error) {

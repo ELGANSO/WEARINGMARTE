@@ -79,6 +79,7 @@ class GoMage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
             //$this->a(Mage::getStoreConfig('gomage_activation/lightcheckout/key'), intval(Mage::getStoreConfig('gomage_activation/lightcheckout/count')), implode(',', $allsites));
         }
         array_push($allsites,1);
+	array_push($allsites,2);
         return $allsites;
     }
 

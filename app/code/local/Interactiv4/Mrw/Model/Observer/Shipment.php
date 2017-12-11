@@ -72,7 +72,7 @@ class Interactiv4_Mrw_Model_Observer_Shipment {
      * @param Varien_Event_Observer $o
      */
     public function afterSave(Varien_Event_Observer $o) {
-        
+       return true;//IMPORTANTE COMENTAR SI ALGUN DIA SE TRABAJA CON MRW 
         
         $shipment = $o->getEvent()->getShipment();
         if ($this->_shipment === $shipment) { // Sólo debemos pasar por aquí una vez para cada envío.
