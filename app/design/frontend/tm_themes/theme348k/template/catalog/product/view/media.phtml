@@ -44,11 +44,11 @@
     if(!$_product_type_center_image){
 ?>
 <!--LISTA DE IMAGENES LATERALES-->
-<?php if (count($this->getGalleryImages()) > 0): ?>
+<?php if(!count($this->getGalleryImages()) > 0): ?>
     <?php $img_mode = ($_product_type_large_image) ? 'large-image' : 'normal-image' ?>
     <!-- <div class="more-views">
         <ul class="product-image-thumbs more-views-carousel" data-imgmode="<?php echo $img_mode; ?>">
-        <?php $i=0; foreach ($this->getGalleryImages() as $_image): ?>
+        <?php /* $i=0; foreach ($this->getGalleryImages() as $_image): ?>
             <?php if ($this->isGalleryImageVisible($_image)): ?>
                 <?php //Mage::log('variable imagen',null,'marte.log')?>
                 <?php //Mage::log($_image,null,'marte.log')?>
@@ -61,14 +61,15 @@
                 </a>
             </li>
             <?php endif; ?>
-        <?php $i++; endforeach; ?>
+        <?php $i++; endforeach; */?>
         </ul>
     </div>-->
 <?php endif; ?>
 
 <!--IMAGEN PRINCIPAL-->
 
-<div class="product-image product-image-zoom" style="cursor: cell;">
+<!--<div class="product-image product-image-zoom" style="cursor: cell;">-->
+<div class="product-image product-image-zoom cursorPlus" >
     <div class="product-image-gallery">
         <img id="image-main"
             class="gallery-image visible mySlides"
@@ -88,6 +89,7 @@
         <?php $i++; endforeach; ?>
         <div class="slides-botton" onclick="plusDivs(-1)" id= "flechas-up" ></div>
         <div class="slides-botton" onclick="plusDivs(1)" id= "flechas-down"></div>
+        <div class="bx-controls-direction"><a class="bx-prev" href=""></a><a class="bx-next" href=""></a></div>
     </div>
         <script>
         var slideIndex = 1;
@@ -107,6 +109,10 @@
           }
           x[slideIndex-1].style.display = "block"; 
           x[slideIndex-1].style.height= "100%" ;
+          jQuery('.zoomWindow').css('background-image','url('+jQuery(x[slideIndex-1]).attr("data-zoom-image")+')');
+          jQuery('.zoomWindow').css('top','50%');
+          jQuery('.zoomWindow').css('left','50%');
+          console.log(jQuery(x[slideIndex-1]).attr("src"));
         }
         </script>
 

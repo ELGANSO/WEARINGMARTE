@@ -31,15 +31,14 @@
         <span id="h1-producto" ><?php echo $this->__('Completa tu look') ?></span> <!--Añadir a traducciones-->
     </div>
 
-    <div class="row">
-    	<div class="col-lg-2 col-md-2 col-xs-0"></div>
-    	<div class="col-lg-8 col-md-8 col-xs-12">
+    <div class="row completa-tu-look-row">
     <?php foreach($this->getItems() as $_item): ?>
         
             <div class="product col-xs-6 col-sm-6 col-md-6 col-lg-6" id="style-cambia-look">
-
-                <a href="<?php echo $_item->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_item->getName()) ?>" class=""><img src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')/*->resize(280,347) */?>" alt="<?php echo $this->escapeHtml($_item->getName()) ?>" style="width: 100%;"/>
-                </a>
+				<div class="product-img">
+	                <a href="<?php echo $_item->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_item->getName()) ?>" class=""><img src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')/*->resize(280,347) */?>" alt="<?php echo $this->escapeHtml($_item->getName()) ?>" style="width: 100%;"/>
+	                </a>
+	            </div>
                 <div class="style-texto-producto row">
                 	<!--NOMBRE-->
                 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -49,15 +48,10 @@
                 			<?php echo $this->getPriceHtml($_item, true, '-related') ?>
                 		</div>
                 	</div>
-                	<!--VER PRODUCTO-->
-                	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                		<a id="style-ver-producto" href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->__('Ver Producto') ?></a>
-                	</div>
+                	
                 </div>
             </div>
     <?php endforeach ?> 
-    	</div>
-    	<div class="col-lg-2 col-md-2 col-xs-0"></div>
     </div>               
             
                 

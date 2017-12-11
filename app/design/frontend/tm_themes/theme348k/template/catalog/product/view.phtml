@@ -58,7 +58,12 @@
 <script type="text/javascript">
     var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
 </script>
-<div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
+<style> .wrapper { margin-top: 25px;} </style>
+<div class="top-message">
+	<h4> <?php echo $this->__('Devoluciones gratis y gastos de envío gratis a partir de 90€');?> </h4>
+</div>
+
+<div id="messages_product_view"><?php //echo $this->getMessagesBlock()->toHtml() ?></div>
 <div class="product-view <?php echo $indicate_class; ?>" itemscope itemtype="https://schema.org/Offer">
     <div class="product-essential row">
         <form action="<?php echo str_replace("http:","https:",$this->getSubmitUrl($_product)) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
@@ -68,185 +73,217 @@
                 <input type="hidden" name="related_product" id="related-products-field" value="" />
             </div>
 
-            <div class="product-img-box col-lg-12 col-md-12 col-xs-12   <?php //echo $grid_cols_1 ?>" id="style-img">
+            <div class="product-img-box col-lg-9 col-md-9 col-xs-12   <?php //echo $grid_cols_1 ?>" id="style-img">
                 <div class="product-name">
                     <h2><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h2>
                 </div>
                 <?php echo $this->getChildHtml('media') ?>
             </div>
 			
-			<div class=" row <?php //echo $grid_cols_2 ?>" id="product-info">
-				<div class="col-lg-1 col-md-1 col-xs-1"></div>
-				<div class="col-lg-10 col-md-10 col-xs-10">
+			<div class="<?php //echo $grid_cols_2 ?>" id="product-info">
+				<div class="col-lg-3 col-md-3 col-xs-12">
 					<div class="row">
-                    <!-- center mode 
-                    <?php if($_product_type_center_image){ ?>
-                    <div class="price-info" itemprop="price">
-                        <?php //echo $this->getPriceHtml($_product); ?>
-                        <?php //echo $this->getChildHtml('bundle_prices') ?>
-                        <?php //echo $this->getTierPriceHtml() ?>
-                    </div>
+	                    <!-- center mode 
+	                    <?php //if($_product_type_center_image){ ?>
+	                    <div class="price-info" itemprop="price">
+	                        <?php //echo $this->getPriceHtml($_product); ?>
+	                        <?php //echo $this->getChildHtml('bundle_prices') ?>
+	                        <?php //echo $this->getTierPriceHtml() ?>
+	                    </div>
 
-                    <?php }?>-->
-                    <!-- /center mode -->
-                <!--REFERENCIA Y STOCK
+	                    <?php // }?>-->
+	                    <!-- /center mode -->
+						<!--REFERENCIA Y STOCK
 
-	            	<div class="additional-info">
-	            		<div class="product-sku"><?php //echo $this->__('Product Code: ') . '<span class="sku-number">' . nl2br($_product->getSku()) . '</span>'; ?></div>
-                        <?php// echo $this->getChildHtml('product_type_data') ?>
-	            		<?php //echo $this->getChildHtml('product_type_availability'); ?>
-                        <div class="clear"></div>
-	            	</div>
-                -->
-                 <!--NOMBRE PRODUCTO-->
-	                <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 product-name secondary" itemprop="name">
-	                    <span class="h1"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></span>
-                		<!--SHORT DESCRIPTION-->
-                		<?php $_description = $this->getProduct()->getShortDescription(); ?>
-                   		<?php if ($_description): ?>
-            				<?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $_description, 'description') ?> 
-                    	<?php endif; ?>
-                		<!--/SHORT DESCRIPTION-->
-		                <!--PRECIO-->
-          				<?php echo $this->getPriceHtml($_product); ?>
-	                    <?php echo $this->getChildHtml('bundle_prices') ?>
-	                    <?php echo $this->getTierPriceHtml() ?>
-                		<!--/PRECIO-->
-	                </div>
-           			
-           			<!--Color y tallas--> 
-					<div class="col-lg-4 col-md-4 col-xs-6 talla">
-				
-						<?php
-							$config = $_product->getTypeInstance(true);
-							if($_product->getTypeId() == 'configurable'){
-							foreach($config->getConfigurableAttributesAsArray($_product) as $attributes)
-					            { 
-					                ?>
-		                            <div class="tallas-productos">
-										<?php if($_product->getStockItem() && $_product->getStockItem()->getIsInStock()): ?>
-											
-			                            	<select id = "super_attribute<?php echo $attributes['attribute_id'] ?>" name = "super_attribute[<?php echo $attributes['attribute_id'] ?>]">
-			                            	<option><?php echo $this->__('Seleccione una talla') ?></option>
-			                                <?php
-			                                $i = 1;
-			                                foreach($attributes["values"] as $values)
-			                                { ?>
-			                                 <option value ="<?php echo $values['value_index']?>">
-			                                 	<?php echo $values["label"]?>
-			                                 </option>
-			                          		<?php 
-			                          		}
-			                                ?>
-			                                </select>
-			                             <?php else:?>
-											 <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
-										<?php endif?>
-		                                </span>
-		                            </div>
-					        <?php
-					            }
-					            }?>
-						
-		            </div>
-				
-					<!-- ADD CARRITO -->
-	            <div class="add-to-cart-wrapper col-lg-4 col-md-4 col-xs-6">
-	                <?php echo $this->getChildHtml('other');?>
-		                <?php if ($_product->isSaleable()):?>
-		                    <?php  //echo $this->getChildChildHtml('container1', '', true, true) ?>
-		                    <?php echo $this->getChildHtml('addtocart') ?>
-		                <?php endif;?>
-                </div>
+						<div class="additional-info">
+							<div class="product-sku"><?php //echo $this->__('Product Code: ') . '<span class="sku-number">' . nl2br($_product->getSku()) . '</span>'; ?></div>
+								<?php// echo $this->getChildHtml('product_type_data') ?>
+								<?php //echo $this->getChildHtml('product_type_availability'); ?>
+							<div class="clear"></div>
+						</div>
+						-->
+	                	<!--NOMBRE PRODUCTO-->
+		                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 product-name secondary" itemprop="name">
+		                    <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+		                    <!--PRECIO-->
+	          				<?php echo $this->getPriceHtml($_product); ?>
+		                    <?php echo $this->getChildHtml('bundle_prices') ?>
+		                    <?php echo $this->getTierPriceHtml() ?>
+	                		<!--/PRECIO-->
+	                		<!-- Aplazame -->
+	                		<?php echo $this->getChildHtml('extrahint') ?>
+	                		<!--SHORT DESCRIPTION-->
+	                		<p class="short-description">
+	                			<?php $_description = $this->getProduct()->getShortDescription(); ?>
+		                   		<?php if ($_description): ?>
+		            				<?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $_description, 'description') ?> 
+		                    	<?php endif; ?>
+		                    </p>
+	                		<!--/SHORT DESCRIPTION-->
+		                </div>
+	           			
+	           			<!--Color y tallas--> 
+						<div class="col-lg-12 col-md-12 col-xs-12 talla">
 
-                <!--/ AddCARRITO-->
-                 
+							<?php
+								$config = $_product->getTypeInstance(true);
+								if($_product->getTypeId() == 'configurable'){
+								foreach($config->getConfigurableAttributesAsArray($_product) as $attributes)
+						            { 
+						                ?>
+			                            <div class="tallas-productos">
+											<?php if($_product->getStockItem() && $_product->getStockItem()->getIsInStock()): ?>
+											<span style="padding:0 0 15px 15px"><?php echo $this->__("Sizes") ?></span>
+											<ul class="sizes">
+				                           <?php foreach($attributes["values"] as $values)
+				                                { ?>
+				                                 <li class="sizeInput" data-value ="<?php echo $values['value_index']?>">
+				                                 	<?php echo $values["label"]?>
+				                                 </li>
+				                          		<?php 
+				                          		}
+				                                ?>
+				                            </ul>
+				                            	<div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
+				                                <input type="hidden" id = "super_attribute<?php echo $attributes['attribute_id'] ?>" name = "super_attribute[<?php echo $attributes['attribute_id'] ?>]" value="">
+				                             <?php else:?>
+												 <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+											<?php endif?>
+			                                </span>
+			                            </div>
+						        <?php
+						            }
+						            }?>
+							
+			            </div>
+
+			            <!--Llamada Modal Guia de tallas-->
+			            <div class="panel panel-default" style="border:none !important;">
+			            	<div aria-controls="collapseTwo-prod" aria-expanded="true" data-target="#collapseTwo-prod" data-parent="#accordion-prod" data-toggle="collapse" id="headingTwo-prod" role="tab" class="pan-heading-prod">
+			            		<div class="guia-de-tallas col-lg-12 col-md-12 col-xs-12 talla">
+			            			<a class="accordion-toggle uppercase" data-toggle="modal" data-target="#guia-de-tallas-modal"><?php echo $this->__("Find my size"); ?></a>
+			            		</div>
+		            		</div>
+	            		</div>
+	            		<!--FIN Llamada Modal Guia de tallas-->
+					
+						<!-- ADD CARRITO -->
+						<div class="add-to-cart-wrapper col-lg-12 col-md-12 col-xs-12">
+							<?php echo $this->getChildHtml('other');?>
+							<?php if ($_product->isSaleable()):?>
+								<?php  //echo $this->getChildChildHtml('container1', '', true, true) ?>
+								<?php echo $this->getChildHtml('addtocart') ?>
+							<?php endif;?>
+						</div>
+	                	<!-- FIN ADD CARRITO -->
+						<!-- Whislist -->
+						<div class="add-Whislist col-lg-12 col-md-12 col-xs-12">
+							<?php if ($this->helper('wishlist')->isAllow()) : ?>
+								<div id="productWishlist">
+									<a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist">
+									<span><?php echo $this->__('Save for later') ?></span></a>
+								</div>
+							<?php endif; ?>
+						</div>
+						<!--/ FIN Whislist-->
+	                 
 					</div>
 
 				</div>
-	          </div>
+			</div>
 
                 <!--/div-->
                 <?php // echo $this->getChildHtml('alert_urls') ?>
-
-	            <div class="clear"></div>
+			
+	            <!--<div class="clear"></div>-->
 	            <?php if ($_product->isSaleable() && $this->hasOptions()):?>
 	                <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
 	            <?php endif;?>
+
+	            <p>ESTO ES UNA PRUEBA</p>
+
 	            <div class="col-lg-1 col-md-1 col-xs-1"></div>
 	            </div> <!-- Cierre product info -->
+
 	        </div>
-            <!--VIDEO PRODUCTO-->
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="style-video">                    
-                        <?php echo "<img src='".Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."wysiwyg/video-producto.png'/>"; ?>
-                    </div>
-                </div>
-            <!--/VIDEO PRODUCTO--> 
-            <div class="row">
-            	<div class="col-lg-2 col-md-2 col-xs-12"></div>   
+
+            <div class="row product-description">
+  				<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+	            	<?php $_description = $this->getProduct()->getDescription(); ?>
+	           	 <?php if ($_description): ?>
+	                		<h4 class="title"><?php echo $this->__('Información de producto') ?></h4>
+			                <div class="std">
+			                    <?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $_description, 'description') ?>
+			                </div>
+	            		<?php endif; ?>
+		        </div>
+
 				<!--IMAGENES PROPIEDADES-->
-                    <div class=" imagenes-prop iconos_producto col-xs-12 col-sm-4 col-md-4 col-lg-4 ">
-                        <div class="style-texto-producto col-lg-12 col-md-12 col-xs-12">
-				        	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-				            	<?php $_description = $this->getProduct()->getDescription(); ?>
-				           	 <?php if ($_description): ?>
-				                		<p><?php echo $this->__('Features') ?></p>
-						                <div class="std">
-						                    <?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $_description, 'description') ?>
-						                </div>
-				            		<?php endif; ?>
-				        </div>
-                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">                    
-                            <?php echo "<img src='".Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."wysiwyg/prop14.png'/>"; ?>
-                            <p id="style-prop">Nombre</p>
+                    <div class=" col-xs-12 col-sm-3 col-md-3 col-lg-3 propiedades">
+                    	 <div class="col-lg-12 col-md-12 col-xs-12">
+                        	<h4 class="title"><?php echo $this->__('Composition') ?></h4>
                         </div>
-                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">                    
-                            <?php echo "<img src='".Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."wysiwyg/prop2.png'/>"; ?>
-                            <p id="style-prop">Nombre</p>
-                        </div>
-                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">                    
-                            <?php echo "<img src='".Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."wysiwyg/prop3.png'/>"; ?>
-                            <p id="style-prop">Nombre</p>
-                        </div>
-                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">                    
-                            <?php echo "<img src='".Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."wysiwyg/prop14.png'/>"; ?>
-                            <p id="style-prop">Nombre</p>
-                        </div>
+                        <div class="col-lg-12 col-md-12 col-xs-12">
+							<div class=" col-lg-12 col-md-12 col-xs-12" style="padding: 0;"> 
+                        	 	<?php $_composicion = $this->getProduct()->getComposicion(); ?>
+				            <?php if ($_composicion): ?>
+				                <div class="std">
+				                    <?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $_composicion, 'composicion') ?>
+				                </div>
+				            <?php endif; ?>
+                        	 </div>	
+	                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" style="padding: 0;">                    
+	                            <?php echo "<img src='".Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."wysiwyg/prop14.png'/>"; ?>
+	                            <p id="style-prop">Nombre</p>
+	                        </div>
+	                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" style="padding: 0;">                    
+	                            <?php echo "<img src='".Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."wysiwyg/prop2.png'/>"; ?>
+	                            <p id="style-prop">Nombre</p>
+	                        </div>
+	                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" style="padding: 0;">                    
+	                            <?php echo "<img src='".Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."wysiwyg/prop3.png'/>"; ?>
+	                            <p id="style-prop">Nombre</p>
+	                        </div>
+	                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" style="padding: 0;">                    
+	                            <?php echo "<img src='".Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."wysiwyg/prop14.png'/>"; ?>
+	                            <p id="style-prop">Nombre</p>
+	                        </div>
                         
                     </div>
                 <!--/IMAGENES PROPIEDADES-->
 					
-                 <!--  A�ADIR COMENTARIOS
+                 <!--  AÑADIR COMENTARIOS
 
                     <div class="extra-info">
                         <?php //echo $this->getReviewsSummaryHtml($_product, 'default', false)?>
                     </div>
                 -->
                  </div>  		
-                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 ">
-                 	
-	            	<div class="col-lg-12 col-md-12 col-xs-12 style-texto-producto">
-	            		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-				            <?php $_composicion = $this->getProduct()->getComposicion(); ?>
-				            <?php if ($_composicion): ?>
-				                <p><?php echo $this->__('Composition') ?></p>
-				                <div class="std">
-				                    <?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $_composicion, 'composicion') ?>
-				                </div>
-				            <?php endif; ?>
-				        </div>        
-				        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 style-texto-producto">
+                 <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 ">
+	            		 <div class="col-lg-12 col-md-12 col-xs-12">
+                        	<h4 class="title"><?php echo $this->__('Product Care') ?></h4>
+                        </div>       
+				        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				            <?php $_cuidadoproducto = $this->getProduct()->getCuidadoproducto(); ?>
 				            <?php if ($_cuidadoproducto): ?>
-				                <p><?php echo $this->__('Product Care') ?></p>
 				                <div class="std">
 				                    <?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $_cuidadoproducto, 'cuidadoproducto') ?>
 				                </div>
 				            <?php endif; ?>
-				        </div>
-	            	</div>  
-            </div>
+				        </div> 
+            	</div>
+                 <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 ">
+	            		 <div class="col-lg-12 col-md-12 col-xs-12">
+                        	<h4 class="title"><?php echo $this->__('Gastos de envío y devoluciones gratis') ?></h4>
+                        </div>       
+				        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				                <div class="std">
+				                    <p>Find out more about our <a href="#">delivery options</a></p>
+				                    <p>Please try items in the comfort of your own
+finished with a natural enzyme for an extra propiedades. home. If you don't like them, or they don't fit,office for free.</p>
+				                </div>
+				        </div> 
+            	</div>
         </form>
 
         <script type="text/javascript">
@@ -256,7 +293,6 @@
                 if (this.validator.validate()) {
                     var form = this.form;
                     var oldUrl = form.action;
-
                     if (url) {
                        form.action = url;
                     }
@@ -299,6 +335,17 @@
                 }
             }.bind(productAddToCartForm);
         //]]>
+
+        /* Selector de tallas*/
+        	jQuery(document).ready(function(){
+        		jQuery(".sizes li").click(function(){
+        			jQuery(this).parent().find(".selected").removeClass("selected");
+        			jQuery(this).addClass("selected");
+        			//Asigno talla
+        			jQuery("#super_attribute135").val(jQuery(this).attr("data-value"));
+        		});
+        	});
+        /* FIN Selector de tallas*/
         </script>
 
         <!-- COMPARTIR EN REDES SOCIALES-->
@@ -311,12 +358,128 @@
     
         
     </div>
-
-
-
-    <?php echo $this->getChildHtml('related_products') ?>
-    
+    <img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?>home/ficha-producto.png" style="width:100%;margin-top: 75px;"/>
+	<div class="related-products">
+    	<?php echo $this->getChildHtml('related_products') ?>
+    </div>   
     <?php echo $this->getChildHtml('upsell_products') ?>
     <?php echo $this->getChildHtml('product_additional_data') ?>
+
+	<!-- modal window - GUIA DE TALLAS -->
+	<div id="guia-de-tallas-modal" class="modal fade  col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxs-12">
+		<div class="modal-dialog modal-dialog-guia-tallas">
+			<div class="modal-content modal-content-guia-tallas ">
+				<div class="modal-header guia-de-tallas-modal-header">
+					<a class="btn btn-close" data-dismiss="modal" style="float:right; padding: 0 !important;">
+						<button type="button" class="close guia-de-tallas-modal-close" aria-label="Close">
+							<span aria-hidden="true" style="font-size: 40px">&times;</span>
+						</button>
+					</a>
+					<h4 class="modal-title uppercase modal-title-guia-de-tallas"><?php echo Mage::helper('catalog')->__('Find your size'); ?></h4>
+				</div>
+
+				<div class="modal-body">
+				<!--INICIO STEPERS-->
+					<div class="container">
+
+						<div class="row bs-wizard" style="border-bottom:0;">
+
+							<div id="guia-tallas-1" class="bs-wizard-step active" style="width:20%; float:left;">
+								<div id="stepnum-1" class="text-center bs-wizard-stepnum active">Measuring guide</div>
+								<div class="progress">
+									<div class="progress-bar"></div>
+								</div>
+								<a href="#" class="bs-wizard-dot"></a>
+							</div>
+
+							<div id="guia-tallas-2" class="bs-wizard-step disabled" style="width:20%; float:left;">
+								<div id="stepnum-2" class="text-center bs-wizard-stepnum disabled">Body Length</div>
+								<div class="progress">
+									<div class="progress-bar"></div>
+								</div>
+								<a href="#" class="bs-wizard-dot"></a>
+							</div>
+
+							<div id="guia-tallas-3" class="bs-wizard-step disabled"  style="width:20%; float:left;"><!-- complete -->
+								<div id="stepnum-3" class="text-center bs-wizard-stepnum disabled">Chest width</div>
+								<div class="progress">
+									<div class="progress-bar"></div>
+								</div>
+								<a href="#" class="bs-wizard-dot"></a>
+							</div>
+
+							<div id="guia-tallas-4" class="bs-wizard-step disabled"  style="width:20%; float:left;"><!-- active -->
+								<div id="stepnum-4" class="text-center bs-wizard-stepnum disabled">Bottom width</div>
+								<div class="progress">
+									<div class="progress-bar"></div>
+								</div>
+								<a href="#" class="bs-wizard-dot"></a>
+							</div>
+
+							<div id="guia-tallas-5" class="bs-wizard-step disabled" style="width:20%; float:left;"><!-- active -->
+								<div id="stepnum-5" class="text-center bs-wizard-stepnum disabled">Sleevelength</div>
+								<div class="progress">
+									<div class="progress-bar"></div>
+								</div>
+								<a href="#" class="bs-wizard-dot"></a>
+							</div>
+
+						</div>
+						<div id="guia-tallas-body-1" class="row guia-tallas-body">
+							<?php if(Mage::registry('current_category')->getId() != 4):?>
+								<?php echo "<img src='".Mage::getBaseUrl('media')."wysiwyg/guia_tallas/hombre/guia_tallas_man_1".".jpg' style='width:100%;margin:0 auto;'/>"; ?>
+							<?php else: ?>
+								<?php echo "<img src='".Mage::getBaseUrl('media')."wysiwyg/guia_tallas/mujer/guia_tallas_woman_1".".jpg' style='width:100%;margin:0 auto;'/>"; ?>
+							<?php endif;?>
+						</div>
+
+						<div id="guia-tallas-body-2" class="row guia-tallas-body" style="display:none;">
+							<?php if(Mage::registry('current_category')->getId() != 4):?>
+								<?php echo "<img src='".Mage::getBaseUrl('media')."wysiwyg/guia_tallas/hombre/guia_tallas_man_2".".jpg' style='width:100%;'/>"; ?>
+							<?php else: ?>
+								<?php echo "<img src='".Mage::getBaseUrl('media')."wysiwyg/guia_tallas/mujer/guia_tallas_woman_2".".jpg' style='width:100%;'/>"; ?>
+							<?php endif;?>
+
+						</div>
+
+						<div id="guia-tallas-body-3" class="row guia-tallas-body" style="display:none;">
+							<?php if(Mage::registry('current_category')->getId() != 4):?>
+								<?php echo "<img src='".Mage::getBaseUrl('media')."wysiwyg/guia_tallas/hombre/guia_tallas_man_3".".jpg' style='width:100%;'/>"; ?>
+							<?php else: ?>
+								<?php echo "<img src='".Mage::getBaseUrl('media')."wysiwyg/guia_tallas/mujer/guia_tallas_woman_3".".jpg' style='width:100%;'/>"; ?>
+							<?php endif;?>
+
+						</div>
+
+						<div id="guia-tallas-body-4" class="row guia-tallas-body" style="display:none;">
+							<?php if(Mage::registry('current_category')->getId() != 4):?>
+								<?php echo "<img src='".Mage::getBaseUrl('media')."wysiwyg/guia_tallas/hombre/guia_tallas_man_4".".jpg' style='width:100%;'/>"; ?>
+							<?php else: ?>
+								<?php echo "<img src='".Mage::getBaseUrl('media')."wysiwyg/guia_tallas/mujer/guia_tallas_woman_4".".jpg' style='width:100%;'/>"; ?>
+							<?php endif;?>
+
+						</div>
+
+						<div id="guia-tallas-body-5" class="row guia-tallas-body" style="display:none;">
+							<?php if(Mage::registry('current_category')->getId() != 4):?>
+								<?php echo "<img src='".Mage::getBaseUrl('media')."wysiwyg/guia_tallas/hombre/guia_tallas_man_5".".jpg' style='width:100%;'/>"; ?>
+							<?php else: ?>
+								<?php echo "<img src='".Mage::getBaseUrl('media')."wysiwyg/guia_tallas/mujer/guia_tallas_woman_5".".jpg' style='width:100%;'/>"; ?>
+							<?php endif;?>
+
+						</div>
+					</div>
+				<!--FIN STEPERS-->
+				</div>
+				<div class="modal-footer modal-footer-guia-de-tallas">
+					<div class="row">
+						<p><?php echo Mage::helper('catalog')->__('IMPORTANTE: Te recomendamos que midas una hoodie que tengas por casa y lo midas sobre una mesa y no con ella puesta.'); ?></p>
+					</div>
+				</div>      
+			</div>
+		</div>
+
+	</div>
+	<!-- /.modal - DISPONIBILIDAD EN TIENDAS -->
 
 </div>
