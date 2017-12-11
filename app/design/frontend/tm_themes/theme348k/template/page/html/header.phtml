@@ -97,7 +97,17 @@ $theme = $this->helper('customlogo');
                     <!--?php echo $this->getChildHtml('topLinks') ?-->
                         <div class="links">
                         <ul>
-                            <li onclick="<?php if (!Mage::getSingleton('customer/session')->isLoggedIn()) {?> abrirlogin() <?php } ?>"><a href="<?php echo Mage::getUrl('customer/account/login'); ?>" ><span><?php echo $this->__('Sign in') ?></span></a></li>
+                            <li onclick="<?php if (!Mage::getSingleton('customer/session')->isLoggedIn()) {?> abrirlogin() <?php } ?>"><a href="<?php echo Mage::getUrl('customer/account/login'); ?>" ><span>
+                            	<?php 	if (!Mage::getSingleton('customer/session')->isLoggedIn())
+                            			{ 
+                            				echo $this->__('Sign in');
+                            			}
+                            			else{ 
+                            				echo Mage::getSingleton('customer/session')->getCustomer()->getFirstname();
+                            			}
+                            	?>
+                            		
+                            	</span></a></li>
                             <li><a href=""><span><?php echo $this->__('Saved') ?></span></a></li>
                         </ul>
                         </div>
@@ -109,7 +119,16 @@ $theme = $this->helper('customlogo');
 		                    <?php //echo $this->getChildHtml('currency_switcher') ?>
 		                </div>
                         <ul>
-                            <li onclick="<?php if (!Mage::getSingleton('customer/session')->isLoggedIn()) {?> abrirlogin() <?php } ?>"><a class="menu-web" href="<?php echo Mage::getUrl('customer/account/login'); ?>"><span><?php echo $this->__('Sign in') ?></span></a></li>
+                            <li onclick="<?php if (!Mage::getSingleton('customer/session')->isLoggedIn()) {?> abrirlogin() <?php } ?>"><a class="menu-web" href="<?php echo Mage::getUrl('customer/account/login'); ?>"><span>
+                            		<?php 	if (!Mage::getSingleton('customer/session')->isLoggedIn())
+                            			{ 
+                            				echo $this->__('Sign in');
+                            			}
+                            			else{ 
+                            				echo Mage::getSingleton('customer/session')->getCustomer()->getFirstname();
+                            			}
+                            	?>
+                            </span></a></li>
                             <li><a class="menu-web" href=""><span><?php echo $this->__('Saved') ?></span></a></li>
                             <div class="header-minicart desktop">
                                 <?php echo $this->getChildHtml('minicart_head'); ?>
