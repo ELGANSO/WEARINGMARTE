@@ -1,0 +1,108 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<div class="dashboard row">
+	<div class="col-lg-2 col-md-2-col-xs-12"></div>
+	<div class="col-lg-2 col-md-2-col-xs-12">
+		<div class="page-title">
+	        <h1><?php echo $this->__('My Account') ?></h1>
+	    </div>
+	    <ul class="account-menu">
+	    	<li data-value=".my-wishlist"><span class="glyphicon"/></span><?php echo $this->__('Wishlist');?></li>
+	    	<li data-value=".box-recent"><span class="glyphicon"/></span><?php echo $this->__('Pedidos');?></li>
+	    	<li data-value=".box-address"><span class="glyphicon"/></span><?php echo $this->__('Direcciones');?></li>
+	    	<li data-value=".edit-account"><span class="glyphicon"/></span> <?php echo $this->__('Detalles cuenta');?></li>
+	    </ul>
+	    <a href="<?php echo Mage::getBaseUrl().'customer/account/logout/' ?>" id="logout"><?php echo $this->__('Log out');?></a>
+	</div>
+	<div class="col-lg-6 col-md-6-col-xs-12">
+	    <?php //echo $this->getMessagesBlock()->toHtml() ?>
+	    <?php echo $this->getChildHtml('hello') ?>
+	    <?php echo $this->getChildHtml('top') ?>
+	    <div class="box-account box-info">
+	        <div class="box-head">
+	            <h2><?php echo $this->__('Account Information') ?></h2>
+	        </div>
+	        <?php /* Extensions placeholder */ ?>
+	        <?php echo $this->getChildHtml('customer.account.dashboard.extra') ?>
+	        <?php echo $this->getChildHtml('info') ?>
+	        <?php echo $this->getChildHtml('address') ?>
+	        <?php
+			echo  Mage::app()->getLayout()->createBlock('wishlist/customer_wishlist')->setTemplate('customer/wishlist.phtml')->toHtml(); 
+		 ?>
+	    </div>
+	    <?php echo $this->getChildHtml('info1') ?>
+	    <?php echo $this->getChildHtml('info2') ?>
+	</div>
+    <div class="col-lg-2 col-md-2-col-xs-12"></div>
+</div>
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+
+		//Gestiona menu lateral
+		jQuery(".account-menu li ").click(function(){
+			var id = jQuery(this).parent().find(".active").attr('data-value');
+			var newId = jQuery(this).attr('data-value');
+			console.log(id);
+			console.log(newId);
+			if(id != undefined){
+				if(id == ".box-recent"){
+					//Oculto el pedido individual
+					jQuery(".order").hide();
+					jQuery(".orders").fadeIn("slow");
+				}
+				jQuery(this).parent().parent().parent().find(id).hide();
+				jQuery(this).parent().find(".active").removeClass("active");
+				jQuery(this).parent().find(".glyphicon-play").removeClass("glyphicon-play");
+			}
+			else{
+				jQuery(this).parent().parent().parent().find('.welcome-msg').hide();
+			}
+			
+			jQuery(this).addClass('active');
+			jQuery(this).find("span").addClass('glyphicon-play');
+			jQuery(this).parent().parent().parent().find(newId).fadeIn('slow');
+		});
+		//Si viene por parametro la sección que quiere ver, la activo
+		var show = getParameterByName('show');
+		console.log(show.length);
+		if(show.length > 0){
+			console.log(jQuery('.account-menu '+show));
+			jQuery('.account-menu li[data-value="'+show+'"]').click();
+		}
+	});
+
+
+	function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+</script>

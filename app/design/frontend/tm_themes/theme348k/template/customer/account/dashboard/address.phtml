@@ -24,32 +24,32 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<div class="box-account box-info">
+<div class="box-account box-info box-address">
     <div class="box-head">
         <h2><?php echo $this->__('Address Book') ?></h2>
         <a href="<?php echo $this->getAddressBookUrl() ?>"><?php echo $this->__('Manage Addresses') ?></a>
     </div>
-
+	
+	<div class="account-title">
+        <h1><?php echo $this->__('Direcciones') ?></h1>
+        <p class="description row"><?php echo $this->__('Las siguientes direcciones serán utilizadas por defecto en la página de pago'); ?></p>
+    </div>
     <div class="row">
          <div class="col-xs-12 col-sm-6">
             <div class="box">
-                <div class="box-title">
-                    <h3 class="billing-title"><?php echo $this->__('Default Billing Address') ?></h3>
-                    <a href="<?php echo $this->getPrimaryBillingAddressEditUrl() ?>"><?php echo $this->__('Edit Address') ?></a>
-                </div>
+                <h3 class="billing-title"><?php echo $this->__('Billing Address') ?></h3>
                 <div class="box-content">
                     <address><?php echo $this->getPrimaryBillingAddressHtml() ?></address>
+                    <a href="<?php echo $this->getPrimaryBillingAddressEditUrl() ?>"><?php echo $this->__('Edit') ?></a>
                 </div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-6">
             <div class="box">
-                <div class="box-title">
-                    <h3 class="shipping-title"><?php echo $this->__('Default Shipping Address') ?></h3>
-                    <a href="<?php echo $this->getPrimaryShippingAddressEditUrl() ?>"><?php echo $this->__('Edit Address') ?></a>
-                </div>
+                <h3 class="shipping-title"><?php echo $this->__('Shipping Address') ?></h3>
                 <div class="box-content">
                     <address><?php echo $this->getPrimaryShippingAddressHtml() ?></address>
+                    <a href="<?php echo $this->getPrimaryShippingAddressEditUrl() ?>"><?php echo $this->__('Edit') ?></a>
                 </div>
             </div>
         </div>

@@ -47,21 +47,19 @@ For checkout/onepage/shipping.phtml:
 <li class="fields">
 
     <div class="field name-firstname">
-        <label for="<?php echo $this->getFieldId('firstname')?>" class="required"><em>*</em><?php echo $this->getStoreLabel('firstname') ?></label>
         <div class="input-box">
-            <input type="text" id="<?php echo $this->getFieldId('firstname')?>" name="<?php echo $this->getFieldName('firstname')?>" value="<?php echo $this->escapeHtml($this->getObject()->getFirstname()) ?>" title="<?php echo $this->getStoreLabel('firstname') ?>" maxlength="255" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('firstname') ?>" <?php echo $this->getFieldParams() ?> />
+            <input type="text" id="<?php echo $this->getFieldId('firstname')?>" name="<?php echo $this->getFieldName('firstname')?>" value="<?php echo $this->escapeHtml($this->getObject()->getFirstname()) ?>" title="<?php echo $this->getStoreLabel('firstname') ?>" maxlength="255" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('firstname') ?>" <?php echo $this->getFieldParams() ?> placeholder="<?php echo $this->getStoreLabel('firstname') ?>*" />
         </div>
     </div>
     
     <?php if ($this->showPrefix()): ?>
     <div class="field">
         <div class="field name-prefix">
-            <label for="<?php echo $this->getFieldId('prefix')?>"<?php if ($this->isPrefixRequired()) echo ' class="required"' ?>><?php if ($this->isPrefixRequired()) echo '<em>*</em>' ?><?php echo $this->getStoreLabel('prefix') ?></label>
             <div class="input-box">
                 <?php if ($this->getPrefixOptions() === false): ?>
-                    <input type="text" id="<?php echo $this->getFieldId('prefix')?>" name="<?php echo $this->getFieldName('prefix')?>" value="<?php echo $this->escapeHtml($this->getObject()->getPrefix()) ?>" title="<?php echo $this->getStoreLabel('prefix') ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('prefix') ?>" <?php echo $this->getFieldParams() ?> />
+                    <input type="text" id="<?php echo $this->getFieldId('prefix')?>" name="<?php echo $this->getFieldName('prefix')?>" value="<?php echo $this->escapeHtml($this->getObject()->getPrefix()) ?>" title="<?php echo $this->getStoreLabel('prefix') ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('prefix') ?>" <?php echo $this->getFieldParams() ?> placeholder="<?php echo $this->getStoreLabel('prefix') ?>*" />
                 <?php else: ?>
-                    <select id="<?php echo $this->getFieldId('prefix')?>" name="<?php echo $this->getFieldName('prefix')?>" title="<?php echo $this->getStoreLabel('prefix') ?>" class="<?php echo $this->helper('customer/address')->getAttributeValidationClass('prefix') ?>" <?php echo $this->getFieldParams() ?>>
+                    <select id="<?php echo $this->getFieldId('prefix')?>" name="<?php echo $this->getFieldName('prefix')?>" title="<?php echo $this->getStoreLabel('prefix') ?>" class="<?php echo $this->helper('customer/address')->getAttributeValidationClass('prefix') ?>" <?php echo $this->getFieldParams() ?> placeholder="<?php echo $this->getStoreLabel('prefix') ?>*">
                     <?php foreach ($this->getPrefixOptions() as $_option): ?>
                         <option value="<?php echo $_option?>"<?php if ($this->getObject()->getPrefix()==$_option):?> selected="selected"<?php endif; ?>><?php echo $this->__($_option)?></option>
                     <?php endforeach; ?>
@@ -77,19 +75,17 @@ For checkout/onepage/shipping.phtml:
 <li class="fields">
 
     <div class="field name-lastname">
-        <label for="<?php echo $this->getFieldId('lastname')?>" class="required"><em>*</em><?php echo $this->getStoreLabel('lastname') ?></label>
         <div class="input-box">
-            <input type="text" id="<?php echo $this->getFieldId('lastname')?>" name="<?php echo $this->getFieldName('lastname')?>" value="<?php echo $this->escapeHtml($this->getObject()->getLastname()) ?>" title="<?php echo $this->getStoreLabel('lastname') ?>" maxlength="255" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('lastname') ?>" <?php echo $this->getFieldParams() ?> />
+            <input type="text" id="<?php echo $this->getFieldId('lastname')?>" name="<?php echo $this->getFieldName('lastname')?>" value="<?php echo $this->escapeHtml($this->getObject()->getLastname()) ?>" title="<?php echo $this->getStoreLabel('lastname') ?>" maxlength="255" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('lastname') ?>" <?php echo $this->getFieldParams() ?> placeholder="<?php echo $this->getStoreLabel('lastname') ?>*" />
         </div>
     </div>
-
-    <?php if ($this->showMiddlename()): ?>
+	<?php //No muestro middlename?>
+    <?php if ($this->showMiddlename() && 0==1): ?>
         <div class="field">
         <?php $isMiddlenameRequired = $this->isMiddlenameRequired(); ?>
             <div class="field name-middlename">
-                <label for="<?php echo $this->getFieldId('middlename')?>"<?php echo $isMiddlenameRequired ? ' class="required"' : '' ?>><?php echo $isMiddlenameRequired ? '<em>*</em>' : '' ?><?php echo $this->getStoreLabel('middlename') ?></label>
                 <div class="input-box">
-                    <input type="text" id="<?php echo $this->getFieldId('middlename')?>" name="<?php echo $this->getFieldName('middlename')?>" value="<?php echo $this->escapeHtml($this->getObject()->getMiddlename()) ?>" title="<?php echo $this->getStoreLabel('middlename') ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('middlename') ?>" <?php echo $this->getFieldParams() ?> />
+                    <input type="text" id="<?php echo $this->getFieldId('middlename')?>" name="<?php echo $this->getFieldName('middlename')?>" value="<?php echo $this->escapeHtml($this->getObject()->getMiddlename()) ?>" title="<?php echo $this->getStoreLabel('middlename') ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('middlename') ?>" <?php echo $this->getFieldParams() ?> placeholder="<?php echo $this->getStoreLabel('middlename') ?>"/>
                 </div>
             </div>
         </div>
