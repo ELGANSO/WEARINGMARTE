@@ -271,6 +271,7 @@ Customer account home dashboard layout
                 <block type="customer/account_dashboard_info" name="customer_account_dashboard_info" as="info" template="customer/account/dashboard/info.phtml"/>
                 <block type="customer/account_dashboard_newsletter" name="customer_account_dashboard_newsletter" as="newsletter" template="customer/account/dashboard/newsletter.phtml"/>
                 <block type="customer/account_dashboard_address" name="customer_account_dashboard_address" as="address" template="customer/account/dashboard/address.phtml"/>
+                <!-- <block type="wishlist/customer_wishlist" as="wishlist" name="customer.wishlist" template="wishlist/view.phtml">-->
             </block>
         </reference>
 
