@@ -59,12 +59,12 @@
 <?php if ($_order): ?>
     <?php $_items = $_order->getAllItems(); ?>
     <?php $_itemCount = count($_items); ?>
-    <tr style="color:#777777;">
+    <!--tr style="color:#777777;">
 		<td width="100px" height="30" align="center" style=" text-transform: uppercase;"></span></td>
 		<td width="260px" align="left" ><?php echo $this->__('Description') ?></td>
 		<td width="80px" align="center"><?php echo $this->__('Qty') ?></td>
 		<td width="80px" align="right" style="padding-right:20px;"><?php echo $this->__('Subtotal') ?></td>
-	</tr>
+	</tr-->
 	
 	<?php $i=0; foreach ($_order->getAllItems() as $_item): ?>
 		<?php if($_item->getPrice() > 0):?>
@@ -73,17 +73,17 @@
 				$_product= Mage::getSingleton('catalog/product')->load($_item->getProduct()->getId());
 
 				$imageHelper  = Mage::helper('catalog/image');
-				$urlImage = (string)Mage::helper('catalog/image')->init($_product, 'thumbnail')->resize(75);
+				$urlImage = (string)Mage::helper('catalog/image')->init($_product, 'thumbnail')->resize(90);
 				Mage::log($urlImage,null,'mail_template.log');
 			?>
 			
 			<tr>
-				<td height="85" width="100px" align="center" valign="middle" style="border-top:1px dotted #DEDEDE;" class="img"><img src="<?php echo $urlImage?>" width="75" /></td>
-				<td align="left" width="260px" style="border-top:1px dotted #DEDEDE; color:#777777;"> <?php echo $_item->getName(); ?><br />
+				<td height="85" width="100px" align="center" valign="middle" style="border-bottom:1px #DEDEDE;" class="img"><img src="<?php echo $urlImage?>" width="75" /></td>
+				<td align="left" width="260px" style="border-bottom:1px #DEDEDE; color:#777777;"> <?php echo $_item->getName(); ?><br />
 					<span style="font-size:10px; color:#8F8F8F;"> <?php echo $_item->getSku(); ?></span>
 				</td>
-				<td align="center" width="80px" style="border-top:1px dotted #DEDEDE;"><?php echo explode('.',$_item['qty_ordered'])[0]; ?></td>
-				<td align="right" width="80px" style="padding-right:10px; border-top:1px dotted #DEDEDE;"> 
+				<td align="center" width="80px" style="border-bottom:1px #DEDEDE;"><?php echo explode('.',$_item['qty_ordered'])[0]; ?></td>
+				<td align="right" width="80px" style="padding-right:10px; border-bottom:1px #DEDEDE;"> 
 					<span style="color:#777777;"> 
             	<?php if ($this->helper('tax')->displaySalesPriceExclTax($_order->getStore()) || $this->helper('tax')->displaySalesBothPrices($_order->getStore())): ?>
             <?php if ($this->helper('tax')->displaySalesBothPrices($_order->getStore())): ?>
@@ -174,45 +174,12 @@
 <?php endif; ?>
 
 
-    <?php $_items = $_order->getAllItems(); ?>
-    <?php $_itemCount = count($_items); ?>
-    <tr>
-        <td>
-            <table class="items" cellpadding="0" cellspacing="0" border="0">
-                <thead>
-                    <tr>
-                        <th class="cell-name">
-                            <?php if($_itemCount > 1): ?>
-                                <?php echo $this->__('Items in your order'); ?>
-                            <?php else: ?>
-                                <?php echo $this->__('Item in your order'); ?>
-                            <?php endif; ?>
-                        </th>
-                        <th class="cell-name align-center">
-                            <?php echo $this->__('Qty'); ?>
-                        </th>
-                        <th class="cell-name align-right">
-                            <?php echo $this->__('Price'); ?>
-                        </th>
-                    </tr>
-                </thead>
-            <?php $i=0; foreach ($_order->getAllItems() as $_item): ?>
-            <?php if($_item->getParentItem()) continue; else $i++; ?>
-                <?php echo $this->getItemHtml($_item) ?>
-            <?php endforeach; ?>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <?php echo $this->getChildHtml('order_totals') ?>
-        </td>
-    </tr>
+   
     <?php if ($this->helper('giftmessage/message')->isMessagesAvailable('order', $_order, $_order->getStore()) && $_order->getGiftMessageId()): ?>
         <?php $_giftMessage = $this->helper('giftmessage/message')->getGiftMessage($_order->getGiftMessageId()); ?>
         <?php if ($_giftMessage): ?>
             <br />
-            <table cellspacing="0" cellpadding="0" border="0" width="100%" style="border:1px solid #EAEAEA;">
+            <table cellspacing="0" cellpadding="0" border="0" width="100%" style="border-bottom:1px solid #EAEAEA;">
                 <thead>
                     <tr>
                         <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><strong><?php echo $this->__('Gift Message for this Order') ?></strong></th>
