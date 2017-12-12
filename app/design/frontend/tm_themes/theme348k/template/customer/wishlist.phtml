@@ -48,7 +48,7 @@ $wishlist = Mage::getModel('wishlist/wishlist')->loadByCustomer(Mage::getSinglet
             </div>
             <div class="col-lg-2 col-md-3 col-xs-3"><span><?php echo number_format($item->getPrice(),2) ?>€</span></div>
             <div class="col-lg-3 col-md-3 col-xs-3">
-            	<a href="<?php echo $item->getProduct()->getProductUrl()?>" class="ver-producto"> Ver Producto </a>
+            	<a href="<?php echo $item->getProduct()->getProductUrl()?>" class="ver-producto"> <?php echo $this->__('Ver Producto')?> </a>
             </div>
         </div>
     <?php endforeach ?>

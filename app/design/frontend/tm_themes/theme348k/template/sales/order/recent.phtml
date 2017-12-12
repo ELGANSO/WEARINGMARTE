@@ -37,7 +37,7 @@
             		if($qty > 1) $text = "artículos"; else $text = "artículo";
             		$date = explode("/",$this->formatDate($_order->getCreatedAtStoreDate()));
             		$month = $this->__(date('F',strtotime($this->formatDate($_order->getCreatedAtStoreDate()))));
-            		$de = $this->__("de");
+            		$de = $this->__("");//Han pedido quitar el de
             	 ?>
                 <div class="row item">
                     <div class="col-lg-2 col-md-2 col-xs-4"><?php echo "#".$_order->getRealOrderId() ?></div>

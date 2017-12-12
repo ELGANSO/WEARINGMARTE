@@ -44,11 +44,17 @@
     }   
 
 ?>
+<?php
+    $_category = Mage::getModel('catalog/category')
+                ->setStoreId(Mage::app()->getStore()->getId())
+                ->load(Mage::registry('current_category')->getId());
 
-<?php if(!$_productCollection->count()): ?>
-<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
-<?php else: ?>
-	<!-- Menú Categorías lateral izquierdo -->
+    if ($_imgUrl = $_category->getImageUrl()) {
+        $_imgHtml = '<p class="category-image"><img src="'.$_imgUrl.'" alt="'.$this->escapeHtml($_category->getName()).'" title="'.$this->escapeHtml($_category->getName()).'" /></p>';
+        $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
+    }
+  ?>
+  <!-- Menú Categorías lateral izquierdo -->
 	<div class="col-lg-2 col-md-2 col-xs-0 categories">
 		<?php $_helperCat = Mage::helper('catalog/category') ?>
 		<?php $_categories = $_helperCat->getStoreCategories() ?>
@@ -81,13 +87,24 @@
 		<?php endif; ?>
 	</div>
 	<!-- Fin Menú Categorias -->
+<?php if(!$_productCollection->count()): ?>
+<div class="category-products col-lg-8 col-md-8 col-xs-12">
+    <?php echo $_imgHtml; ?>
+	<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+</div>
+<?php else: ?>
+	
     <div class="category-products col-lg-8 col-md-8 col-xs-12">
-    <?php //echo $this->getToolbarHtml() ?>
+    <?php
+    //Imagen categoria
+    echo $_imgHtml;
+ ?>
 
     <?php // List mode ?>
 
     <?php if($this->getMode()!='grid'): ?>
     <?php $_iterator = 0; ?>
+
     <ul class="products-list" id="products-list">
     <?php foreach ($_productCollection as $_product): ?>
         <li class="item<?php if( ++$_iterator == sizeof($_productCollection) ): ?> last<?php endif; ?>" itemscope itemtype="http://schema.org/product">
@@ -190,7 +207,7 @@
     <?php // Grid Mode ?>
     <?php $_collectionSize = $_productCollection->count() ?>
     <?php //$_columnCount = $this->getColumnCount(); ?>
-    <?php $_columnCount = 2; $j=1?>
+    <?php $_columnCount = 2; $j=2?>
     <ul class="products-grid row">
 
     <?php $i=0; foreach ($_productCollection as $_product): ?>
@@ -209,7 +226,16 @@
                 <div class="item_wrap">
                 <?php if ($this->helper('wishlist')->isAllow()) : ?>
                 	<div id="wishlist">
-                        <a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist"><!--<span><?php //echo $this->__('Add to Wishlist') ?></span>--></a>
+                        <a 
+						<?php 	if (Mage::getSingleton('customer/session')->isLoggedIn())
+                            			{ 
+                            				echo 'href="'.$this->helper('wishlist')->getAddUrl($_product).'"';
+                            			}
+                            			else{ 
+                            				echo 'onclick="abrirLogin2()"';
+                            			}
+                            	?>
+                         class="link-wishlist"><!--<span><?php //echo $this->__('Add to Wishlist') ?></span>--></a>
                     </div>
                 <?php endif; ?>
                     <div class="product-image-container">

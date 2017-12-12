@@ -108,10 +108,24 @@ $theme = $this->helper('customlogo');
                             	?>
                             		
                             	</span></a></li>
-                            <li><a href=""><span><?php echo $this->__('Saved') ?></span></a></li>
+
+                            <li><a 
+								<?php 	if (Mage::getSingleton('customer/session')->isLoggedIn())
+                        			{ 
+                        				echo 'href="/customer/account?show=.my-wishlist"';
+                        			}
+                        			else{ 
+                        				echo 'onclick="abrirLogin2()"';
+                        			}
+                        	?>
+                            	><span><?php echo $this->__('Saved') ?></span></a></li>
                         </ul>
                         </div>
-
+<script type="text/javascript">
+	function abrirLogin2(){
+		jQuery(".menu-web")[0].click();
+	}
+</script>
                     </div>
                     <div id="header-right">
                     	<div class="header-switchers">
@@ -129,7 +143,23 @@ $theme = $this->helper('customlogo');
                             			}
                             	?>
                             </span></a></li>
-                            <li><a class="menu-web" href=""><span><?php echo $this->__('Saved') ?></span></a></li>
+                            <li><a class="menu-web"
+							<?php 	if (Mage::getSingleton('customer/session')->isLoggedIn())
+                        			{ 
+                        				echo 'href="/customer/account?show=.my-wishlist"';
+                        			}
+                        			else{ 
+                        				echo 'onclick="abrirLogin2()"';
+                        			}
+                        	?>
+	
+                            	><span><?php echo $this->__('Saved') ?><?php
+                            		if (Mage::getSingleton('customer/session')->isLoggedIn())
+                        			{ 
+                        				$wishlist = Mage::getModel('wishlist/wishlist')->loadByCustomer(Mage::getSingleton('customer/session')->getCustomer(), true);
+                    					echo ' ('.$wishlist->getItemsCount().')';
+                        			}?>
+                            	</span></a></li>
                             <div class="header-minicart desktop">
                                 <?php echo $this->getChildHtml('minicart_head'); ?>
                             </div>

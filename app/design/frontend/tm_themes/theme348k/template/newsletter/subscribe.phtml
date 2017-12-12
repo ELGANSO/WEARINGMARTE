@@ -35,7 +35,8 @@
         <div class="col-xs-12 col-md-12 col-lg-12">
         <form action="<?php echo $this->getFormActionUrl() ?>" method="post" id="newsletter-validate-detail">
             <div class="input-box">
-               <input type="email" spellcheck="false" name="email" id="newsletter" placeholder="<?php echo $this->__('Enter please your e-mail') ?>" title="<?php echo $this->__('Sign up for our newsletter') ?>" class="input-text required-entry validate-email" onkeypress="enviar(event)"  />
+               <input type="email" spellcheck="false" name="email" id="newsletter" placeholder="<?php echo $this->__('Enter please your e-mail') ?>" title="<?php echo $this->__('Sign up for our newsletter') ?>" class="input-text required-entry validate-email" onkeypress="enviar(event)" style="display: inline" />
+               <img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?>wysiwyg/flecha-newsletter.png" width="20" onclick="enviar(1)" style="display: inline; margin-left: -40px;"/>
             </div>
             <!--en el ejemplo no tiene boton de subscribirse
             <div id="subscribirse" class="actions">
@@ -51,7 +52,7 @@
 
         function enviar(e) {
 		  tecla = (document.all) ? e.keyCode : e.which;
-		  if (tecla==13) jQuery("#newsletter-validate-detail").submit();
+		  if (tecla==13 || e == 1) jQuery("#newsletter-validate-detail").submit();
 		}
         </script>
     </div></div>
