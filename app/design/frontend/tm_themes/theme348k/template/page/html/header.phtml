@@ -112,7 +112,7 @@ $theme = $this->helper('customlogo');
                             <li><a 
 								<?php 	if (Mage::getSingleton('customer/session')->isLoggedIn())
                         			{ 
-                        				echo 'href="/customer/account?show=.my-wishlist"';
+                        				echo 'href="'.Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'/customer/account?show=.my-wishlist"';
                         			}
                         			else{ 
                         				echo 'onclick="abrirLogin2()"';
@@ -146,7 +146,7 @@ $theme = $this->helper('customlogo');
                             <li><a class="menu-web"
 							<?php 	if (Mage::getSingleton('customer/session')->isLoggedIn())
                         			{ 
-                        				echo 'href="/customer/account?show=.my-wishlist"';
+                        				echo 'href="'.Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK).'customer/account?show=.my-wishlist"';
                         			}
                         			else{ 
                         				echo 'onclick="abrirLogin2()"';

@@ -249,6 +249,19 @@ a #img_twitter{
     .top-links .skip-content.skip-active{width:130px;}
     #header-cart{width: auto;}
 }
+@media only screen and (max-width: 991px){
+.skip-content.skip-active {
+    background: #ffffff;
+    position: fixed !important;
+    top: 49px !important;
+    width: 100%;
+    z-index: 999;
+    padding: 0 10px;
+    -webkit-box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.35);
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.35);
+}
+}
 .top-links a {color:black;font-size: 16px;text-transform: none;padding-left: 15px;}
 .top-links {
     position: relative;
@@ -325,6 +338,9 @@ a #img_twitter{
         width: 98vw;
         left:1%;
     }
+    .product-img-box .product-image img{
+    	max-height: 100% !important;
+    }
 }
 #overlay.active {opacity: 0.7;}
 #overlay {background: #fff;}
@@ -355,21 +371,23 @@ a #img_twitter{
 /**SLIDER IMAGEN**/
 #flechas-up  {
     position: absolute;
-    top: 45%;
+    top: 43%;
     left: 5px;
     /*width: 25px;
     height: 25px;*/
     width: 35px;
     height: 35px;
     /*background: url("/media/wysiwyg/flechas-up.png") no-repeat ;*/
-    background: url("/media/wysiwyg/flechas-up.png") 35px 0;
-    cursor: pointer;
-    background-color: white;    
-    }
-#flechas-up:hover {
     background: url("/media/wysiwyg/flechas-up.png") 0 -35px;
     cursor: pointer;
     background-color: white;
+    border: 1px solid #333;    
+    }
+#flechas-up:hover {
+    background: url("/media/wysiwyg/flechas-up.png") 35px 0;
+    cursor: pointer;
+    background-color: white;
+    border-color: #dedede;
 }
 #flechas-down  {
     position: absolute;
@@ -379,14 +397,16 @@ a #img_twitter{
     height: 25px;*/
     width: 35px;
     height: 35px;
-    background: url("/media/wysiwyg/flechas-down.png") 35px 0;
-    cursor: pointer;
-    background-color: white;
-}
-#flechas-down:hover {
     background: url("/media/wysiwyg/flechas-down.png") 0 -35px;
     cursor: pointer;
     background-color: white;
+    border: 1px solid #333;
+}
+#flechas-down:hover {
+    background: url("/media/wysiwyg/flechas-down.png") 35px 0;
+    cursor: pointer;
+    background-color: white;
+    border-color: #dedede;
 }
 /**IMAGEN PRODUCTO**/
 .product-image-gallery{
@@ -793,8 +813,14 @@ img .product-image-gallery {
     padding: 10px;
 }
 #product-info .link-wishlist:before{
-	color: #fff;
-    text-shadow: rgb(51, 51, 51) 1px 0px 0px, rgb(51, 51, 51) 0.540302px 0.841471px 0px, rgb(51, 51, 51) -0.416147px 0.909297px 0px, rgb(51, 51, 51) -0.989992px 0.14112px 0px, rgb(51, 51, 51) -0.653644px -0.756802px 0px, rgb(51, 51, 51) 0.283662px -0.958924px 0px, rgb(51, 51, 51) 0.96017px -0.279415px 0px;
+	
+    background-image: url(/media/wysiwyg/icono-corazonx2.png);
+    background-repeat: no-repeat;
+    background-size: 20px;
+    position: relative;
+    top: 18px;
+    left: 10px;
+    color: #fff;
 }
 .product-description{
 	margin-top:75px;
@@ -1069,8 +1095,8 @@ body.customer-account .data-table tbody tr.first {
 
 /* Bolsa*/
 .minicart-actions{ 
-	position: absolute !important;
-    bottom: 0; 
+	position: fixed !important;
+    bottom: -20px; 
     width: 100%;
     height: 59px;
 }
@@ -1627,7 +1653,11 @@ h3.product-name { padding-top: 10px; }
 #cart-sidebar {
 	overflow-y: scroll;
 	margin-top:40px;
-	height: 90vh;
+	height: 80vh;
+}
+.stop-scrolling {
+  height: 100%;
+  overflow: hidden;
 }
 .product-image {width:100%;}
 .product-wrapper a span, .product-details a span{ 
@@ -1659,8 +1689,8 @@ h3.product-name { padding-top: 10px; }
 	padding-bottom:50px;
 }
 .minicart-wrapper .block-content {
-	position: absolute !important;
-    bottom: 55px;
+	position: fixed !important;
+    bottom: 35px;
     height: 55px;
     width: 100%;
     background-color: #fafafa;
@@ -1743,10 +1773,14 @@ h3.product-name { padding-top: 10px; }
     border-bottom: 1px solid #333;
 }
 .propiedades img{
-    width: 90px;
-    height: 90px;
+    width: 100%;
+    height: 100%;
     margin: 0 auto;
     margin-top: 15px;
+}
+.propiedades .row div {
+    margin-right: 5px;
+    margin-bottom: 15px;
 }
 .products-grid .price-box {
     margin: -10px 0 2px;
@@ -2072,7 +2106,7 @@ label.required:after, span.required:after{ color: #333 !important; }
     	margin-right: -15px;
 	}
 	.top-message h4{
-	    font-size: 11px;
+	    font-size: 9px;
 	    padding-top: 6px;
 	}
 	.product-description div{
@@ -2278,7 +2312,12 @@ label.required:after, span.required:after{ color: #333 !important; }
 	#cupones button{
 		margin:20px !important;
 	}
-
+	.header-minicart .product-details .action-icons{
+		right: 40px !important;
+	}
+	#cart-sidebar .remove:before{
+		display: none;
+	}
 }
 
 /****ESTILOS GUIA DE TALLAS***/
@@ -2347,6 +2386,9 @@ label.required:after, span.required:after{ color: #333 !important; }
 	.product-image-container {
     	height: 1450px !important;
     	overflow: hidden;
+	}
+	#flechas-up{
+		top:48%;
 	}
 
 }
@@ -2523,4 +2565,20 @@ label.required:after, span.required:after{ color: #333 !important; }
 }
 .product-image, .no-touch .product-img-box .product-image:not(.zoom-available):hover{
 	background: #fff !important;
+}
+.header-switchers .header-button.full_mode .header-button-title .current::after {
+    background-image: url(/media/wysiwyg/arrow_down.png);
+    background-size: 20px;
+    display: block;
+    background-repeat: no-repeat;
+    background-origin: 0;
+    margin-right: 15px;
+    font-size: 54px;
+    position: absolute;
+    top: 0;
+    left: 15px;
+    color:#fff !important;
+}
+.header-switchers .header-button.full_mode .header-button-title .current{
+	margin-right: 20px;
 }

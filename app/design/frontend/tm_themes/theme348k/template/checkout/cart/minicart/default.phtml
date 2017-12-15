@@ -44,7 +44,7 @@
         <div class="product-wrapper">
 		<div class="col-lg-6 col-md-6 col-xs-6" style="text-align: left;padding-left: 0px !important;color: #333;"> 
 			<?php if ($_options = $this->getOptionList()):?>
-			S | 
+			<?php echo $this->__("Size ");?>
 			<?php foreach ($_options as $_option) : ?>
                     <?php if (is_array($_option['value'])): ?>
                     <?php echo nl2br(implode("\n", $_option['value'])) ?>

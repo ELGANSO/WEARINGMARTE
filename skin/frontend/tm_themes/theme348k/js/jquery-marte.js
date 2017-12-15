@@ -21,16 +21,20 @@ jQuery( document ).ready(function() {
 		}
 	});
 	//fondo blanco al abrir carrito
-	jQuery(".skip-cart, #bag-active, .minicart-wrapper .close, .remove").click(function(){
-		if(jQuery("#bag-active").css('display') !== 'none') {
+	jQuery(".skip-cart, #bag-active, .minicart-wrapper .close, .remove, .skip-active").click(function(){
+		console.log("Detectado");
+		if(jQuery("#bag-active").css('display') !== 'none' || jQuery('body').hasClass('stop-scrolling') ) {
 			
 			jQuery("#bag-active").hide();
+			jQuery('body').removeClass('stop-scrolling');
 
 		}else{
 			if(jQuery(window).width() >= 1024){
 				jQuery("#bagcount").text(jQuery(".count_t").text());
 				jQuery("#bag-active").show();
+
 			}
+			jQuery('body').addClass('stop-scrolling');
 			
 		}
 	});
@@ -46,7 +50,9 @@ jQuery( document ).ready(function() {
 		if(window.confirm){
 			var old = parseInt(jQuery(".count_t #qty").text());
 			old -= parseInt(jQuery(this).parent().find('.qty').val());
+			jQuery(this).parent().parent().parent().parent().remove();
 			jQuery(".count_t #qty").text(old);
+			jQuery(".mobile .count").text("("+old+")");
 			jQuery("#bag-active").hide();
 		}
 	});
