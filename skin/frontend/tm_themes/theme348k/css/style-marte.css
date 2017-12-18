@@ -253,7 +253,7 @@ a #img_twitter{
 .skip-content.skip-active {
     background: #ffffff;
     position: fixed !important;
-    top: 49px !important;
+    top: 60px !important;
     width: 100%;
     z-index: 999;
     padding: 0 10px;
@@ -1095,8 +1095,8 @@ body.customer-account .data-table tbody tr.first {
 
 /* Bolsa*/
 .minicart-actions{ 
-	position: fixed !important;
-    bottom: -20px; 
+	position: absolute !important;
+    bottom: 0px; 
     width: 100%;
     height: 59px;
 }
@@ -1689,8 +1689,8 @@ h3.product-name { padding-top: 10px; }
 	padding-bottom:50px;
 }
 .minicart-wrapper .block-content {
-	position: fixed !important;
-    bottom: 35px;
+	position: absolute !important;
+    bottom: 55px;
     height: 55px;
     width: 100%;
     background-color: #fafafa;
@@ -2106,7 +2106,7 @@ label.required:after, span.required:after{ color: #333 !important; }
     	margin-right: -15px;
 	}
 	.top-message h4{
-	    font-size: 9px;
+	    font-size: 8px;
 	    padding-top: 6px;
 	}
 	.product-description div{
@@ -2182,7 +2182,7 @@ label.required:after, span.required:after{ color: #333 !important; }
 		padding-right: 5px;
 	}
 	.my-wishlist .item div span, .my-wishlist .item div a{
-		top:0 !important;
+		top:50% !important;
 	}
 	.box-recent .item div a, .box-recent .item div span{
 		top: 40% !important;
@@ -2317,6 +2317,19 @@ label.required:after, span.required:after{ color: #333 !important; }
 	}
 	#cart-sidebar .remove:before{
 		display: none;
+	}
+	.minicart-wrapper .block-content {
+		position: fixed !important;
+	    bottom: 35px;
+	    height: 55px;
+	    width: 100%;
+	    background-color: #fafafa;
+	}
+	.minicart-actions {
+    position: fixed !important;
+    bottom: -25px;
+    width: 100%;
+    height: 59px;
 	}
 }
 
@@ -2573,7 +2586,7 @@ label.required:after, span.required:after{ color: #333 !important; }
     background-repeat: no-repeat;
     background-origin: 0;
     margin-right: 15px;
-    font-size: 54px;
+    font-size: 20px;
     position: absolute;
     top: 0;
     left: 15px;
