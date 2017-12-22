@@ -1,0 +1,18 @@
+/** i4redsyspro redirect ajustes visuales **/
+.i4redsyspro-container
+{
+	margin:100px;
+	padding:15px;
+	text-align:center;
+}
+
+.redirecting-text, .i4redsyspro-redirect-msg
+{
+	font-size: 1.1em;
+	color: #1F7AD3 !important;
+    margin:1em 0;
+}
+
+.youama-ajaxlogin-loader, .youama-login-window, .youama-register-window, .youama_ajaxlogin-temp-error{
+	display:none;
+}
