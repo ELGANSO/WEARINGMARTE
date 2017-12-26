@@ -16,15 +16,17 @@ RmaSystem.Admin.newRmaPage = (function()
         ui.Form = root;
         ui.ResolutionType = root.find('[name="resolution_type"]');
         ui.SizeCells = root.find(".size-cell");
+        ui.QtyCells = root.find(".qty-cell");
         ui.CheckAll = root.find(".check_all");
         ui.ProductCheckboxes = root.find(".order-items-table tbody input[type='checkbox']");
 
         // Asignamos los manejadores de eventos
-        ui.ResolutionType.change(updateSizeCells);
+        ui.ResolutionType.change(updateSizeAndQtyCells);
         ui.Form.submit(validate);
         ui.CheckAll.change(toggleAll);
+        ui.ProductCheckboxes.change(toggleSelectors);
 
-        updateSizeCells();
+        updateSizeAndQtyCells();
     }
 
     function toggleAll()
@@ -32,9 +34,21 @@ RmaSystem.Admin.newRmaPage = (function()
         ui.ProductCheckboxes.prop("checked", this.checked);
     }
 
-    function updateSizeCells()
+    function toggleSelectors()
     {
-        ui.SizeCells.toggle(getResolutionType() == RmaSystem.Constants.ResolutionTypeExchange);
+        var itemId = $(this).data("item-id");
+        var sizeSelector = $("#requested_size_" + itemId);
+        var qtySelector = $("#return_item_" + itemId);
+        sizeSelector.prop("disabled", !this.checked);
+        qtySelector.prop("disabled", !this.checked);
+    }
+
+    function updateSizeAndQtyCells()
+    {
+        var isExchange = getResolutionType() === RmaSystem.Constants.ResolutionTypeExchange;
+        var isRefund = getResolutionType() === RmaSystem.Constants.ResolutionTypeRefund;
+        ui.SizeCells.toggle(isExchange);
+        ui.QtyCells.toggle(isRefund);
     }
 
     function getCheckedProducts()
@@ -44,7 +58,7 @@ RmaSystem.Admin.newRmaPage = (function()
 
     function getResolutionType()
     {
-        return ui.ResolutionType.filter(":checked").val();
+        return parseInt(ui.ResolutionType.filter(":checked").val(), 10);
     }
 
     function getRequestedSizeValueForItemId(itemId)
@@ -72,7 +86,7 @@ RmaSystem.Admin.newRmaPage = (function()
 
             // Si la acción a realizar es el cambio de talla, comprobamos que
             // todos los items marcados tengan seleccionada una nueva talla
-            if(getResolutionType() == RmaSystem.Constants.ResolutionTypeExchange)
+            if(getResolutionType() === RmaSystem.Constants.ResolutionTypeExchange)
             {
                 var checkedProducts = getCheckedProducts();
                 for(var i=0; i<checkedProducts.length; i++)

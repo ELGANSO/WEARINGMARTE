@@ -1,11 +1,17 @@
+<?php
+/** @var Webkul_RmaSystem_Block_Adminhtml_Rma_New_Renderer_Orderitems_Block $this */
+?>
 <div class="grid">
     <table class="order-items-table">
         <thead>
         <tr class="headings">
             <th><label><input type="checkbox" class="check_all"></label></th>
+            <th>SKU</th>
             <th>Nombre</th>
+            <th>Unid.</th>
             <th class="size-cell">Talla original</td>
             <th class="size-cell">Nueva talla</td>
+            <th class="qty-cell">Devolver</th>
             <th>Precio</th>
         </tr>
         </thead>
@@ -16,6 +22,7 @@
                 <label>
                     <input
                         type="checkbox"
+                        class="item-checkbox"
                         name="item_checked[<?= $item->getId() ?>]"
                         data-item-id="<?= $item->getId() ?>"
                         data-item-name="<?= $item->getProduct()['name'] ?>"
@@ -26,23 +33,25 @@
                     name="item_reason[<?= $item->getId() ?>]"
                     value="<?= Webkul_RmaSystem_Model_Constants::ReasonDefault ?>"
                     >
-                <input
-                    type="hidden"
-                    name="return_item[<?= $item->getId() ?>]"
-                    value="<?= (int) $item->getQtyOrdered() ?>"
-                    >
             </td>
+            <td><?= $item->getProduct()->getSku() ?></td>
             <td><?= $item->getProduct()->getName() ?></td>
+            <td><?= $this->getQtyAvailableForRefund($item) ?></td>
             <td class="size-cell"><?= $this->getItemSize($item) ?></td>
             <td class="size-cell">
                 <label>
-                    <select name="requested_size[<?= $item->getId() ?>]" style="width: auto;">
+                    <select id="requested_size_<?= $item->getId() ?>" name="requested_size[<?= $item->getId() ?>]" style="width: auto;" disabled>
                         <option value="">(No cambiar)</option>
                         <?php foreach ($this->getHelper()->getOtherAvailableSizes($item) as $size)
                         { ?>
                             <option value="<?= $size->getProductId() ?>"><?= $size->getDescription() ?></option>
                         <?php } ?>
                     </select>
+                </label>
+            </td>
+            <td class="qty-cell">
+                <label>
+                    <input type="number" id="return_item_<?= $item->getId() ?>" name="return_item[<?= $item->getId() ?>]" min="1" max="<?= $this->getQtyAvailableForRefund($item) ?>" value="<?= $this->getQtyAvailableForRefund($item) ?>" disabled>
                 </label>
             </td>
             <td><?= $this->getFormattedPrice($item) ?></td>
@@ -53,12 +62,21 @@
 </div>
 
 <style type="text/css">
-    .size-cell
+    .size-cell, .qty-cell
     {
         display: none;
     }
     .columns .form-list td.value
     {
         width: auto;
+    }
+    .order-items-table input[type=number]
+    {
+        font: 12px/1.5em Arial, Helvetica, sans-serif;
+        width: 40px;
+    }
+    .order-items-table tbody td
+    {
+        vertical-align: middle;
     }
 </style>

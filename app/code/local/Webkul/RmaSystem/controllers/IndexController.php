@@ -83,7 +83,7 @@
             /** @var Mage_Sales_Model_Order_Item $item */
             foreach ($all_items as $item)
             {
-                if(!$helper->orderItemQuailifiesForRma($item->getId()))
+             	if(!$helper->orderItemQuailifiesForRma($item))
                 {
                     continue;
                 }

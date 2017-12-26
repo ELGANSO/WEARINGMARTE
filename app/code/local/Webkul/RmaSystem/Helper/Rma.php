@@ -171,13 +171,26 @@ class Webkul_RmaSystem_Helper_Rma extends Mage_Core_Helper_Abstract
      */
     private static function saveRmaItems(Webkul_RmaSystem_Model_Rma $rma, $postData)
     {
+        $helper = Mage::helper('rmasystem');
+
         foreach ($postData['item_checked'] as $key => $item)
         {
+            // Obtenemos la cantidad
+            $qty = $postData['return_item'][$key];
+
+            // Si se trata de un cambio de talla, metemos todas las unidades
+            // de la línea de pedido dentro de la devolución
+            if($rma->isSizeExchange())
+            {
+                $orderItem = Mage::getModel('sales/order_item')->load($key);
+                $qty = $helper->getQtyAvailableForRefund($orderItem);
+            }
+
             $rmaItem = Mage::getModel('rmasystem/items')
                 ->setData('rma_id', $rma->getId())
                 ->setData('item_id', $key)
                 ->setData('reason_id', $postData['item_reason'][$key])
-                ->setData('qty', $postData['return_item'][$key]);
+                ->setData('qty', $qty);
 
             if ($rma['resolution_type'] == Webkul_RmaSystem_Model_Constants::ResolutionTypeExchange)
             {

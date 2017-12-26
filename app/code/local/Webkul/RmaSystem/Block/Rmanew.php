@@ -1,8 +1,6 @@
 <?php
-
 class Webkul_RmaSystem_Block_Rmanew extends Mage_Core_Block_Template
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -19,7 +17,6 @@ class Webkul_RmaSystem_Block_Rmanew extends Mage_Core_Block_Template
             $collection->addFieldToFilter("customer_id", $customer_id);
         } else
             $collection = Mage::getModel("sales/order")->getCollection()->addFieldToFilter("customer_id", $customer_id);
-
         $allowed_days = Mage::getStoreConfig("rmasystem/rmasystem/valid-days", Mage::app()->getStore());
         if ($allowed_days != "")
         {
@@ -37,30 +34,27 @@ class Webkul_RmaSystem_Block_Rmanew extends Mage_Core_Block_Template
         if ($filter_data["price"] != "")
             $collection->addFieldToFilter("grand_total", array("gteq" => $filter_data["price"]));
         $collection->setOrder('increment_id', 'ASC');
-
         $sorting_data = Mage::getSingleton("customer/session")->getSortingData();
         if ($sorting_data["attr"] != "" && $sorting_data["direction"] != "")
             $collection->setOrder($sorting_data["attr"], $sorting_data["direction"]);
-
         // Evitamos mostrar pedidos cuyos todos sus productos estén ya implicados
-        // en una devolución pendiente
+        // en una devolución abierta
         $collection->getSelect()->where(sprintf(
             '
-                (SELECT COUNT(1)
+                (SELECT COALESCE(SUM(qty_ordered - qty_refunded), 0)
                 FROM sales_flat_order_item
                 WHERE order_id = main_table.entity_id AND parent_item_id IS NULL) 
                 > 
-                (SELECT COUNT(1)
+                (SELECT COALESCE(SUM(qty), 0)
                 FROM wk_rma_items
-                INNER JOIN wk_rma ON wk_rma_items.rma_id = wk_rma.id AND status NOT IN (%s,%s)
+                INNER JOIN wk_rma ON wk_rma_items.rma_id = wk_rma.id AND status NOT IN (%s, %s, %s)
                 WHERE wk_rma.order_id = main_table.entity_id)',
+            Webkul_RmaSystem_Model_Constants::StatusAccepted,
             Webkul_RmaSystem_Model_Constants::StatusDenied,
             Webkul_RmaSystem_Model_Constants::StatusCancelled
         ));
-
         $this->setCollection($collection);
     }
-
     protected function _prepareLayout()
     {
         $this->_injectCalendarControlJsCSSInHTMLPageHead();
@@ -72,12 +66,10 @@ class Webkul_RmaSystem_Block_Rmanew extends Mage_Core_Block_Template
         $this->getCollection()->load();
         return $this;
     }
-
     public function getPagerHtml()
     {
         return $this->getChildHtml("pager");
     }
-
     /**
      * @return string
      */
@@ -87,7 +79,6 @@ class Webkul_RmaSystem_Block_Rmanew extends Mage_Core_Block_Template
         $dateFormat = Varien_Date::convertZendToStrftime($dateFormat, true, false);
         return $dateFormat;
     }
-
     // http://inchoo.net/magento/reusing-magento-calendar-control/
     private function _injectCalendarControlJsCSSInHTMLPageHead()
     {
@@ -98,12 +89,10 @@ class Webkul_RmaSystem_Block_Rmanew extends Mage_Core_Block_Template
                 array('template' => 'page/js/calendar.phtml')
             )
         );
-
         $this->getLayout()->getBlock('head')
             ->addItem('js_css', 'calendar/calendar-win2k-1.css')
             ->addJs('calendar/calendar.js')
             ->addJs('calendar/calendar-setup.js');
-
         return $this;
     }
 }
