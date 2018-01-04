@@ -1,0 +1,212 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+
+$_helper = $this->helper('catalog/output');
+
+$modules = Mage::getConfig()->getNode('modules')->children();
+$modulesArray = (array)$modules;
+if(isset($modulesArray['Tm_ProductListGallery'])) {
+    $gallery_helper = $this->helper('productlistgallery/data'); 
+}
+$storeId = Mage::app()->getStore()->getId();
+$summaryData = Mage::getModel('review/review_summary')->setStoreId($storeId);
+
+
+?>
+<?php if (($_products = $this->getProductCollection()) && $_products->getSize()): ?>
+<div class="widget widget-new-products">
+    <div class="widget-title">
+        <h2><?php echo $this->__('New Products') ?></h2>
+    </div>
+    <div class="carousel_nav">
+        <a class="btns prev_new"><span class="material-design-keyboard54"></span></a>
+        <a class="btns next_new"><span class="material-design-keyboard53"></span></a>
+    </div>
+    <div class="owl-carousel-wrapper owl-new-products products-grid">
+        <div class="owl-carousel owl-new" id="owl-new-products">
+        <?php $_columnCount = 2; ?>
+
+        <?php $i=0; foreach ($_products->getItems() as $_product): ?>
+        <?php $_productId = $_product->getId(); ?>
+
+        <?php if ($i++%$_columnCount==0): ?>
+        <div class="carousel_col">
+        <?php endif ?>
+            <div class="item index_item" itemscope itemtype="http://schema.org/product">
+                <div class="item_placeholder"></div>
+                <div class="item_wrap">
+                    <div class="product-image-container">
+                        <?php $_product_new = Mage::getModel('catalog/product')->load($_product->getId()); ?>
+                        <div class="label-product">
+                            <?php if($_product_new->getNew()){echo '<span class="new">'.$this->__('New').'</span>';  }?>
+                            <?php if($_product_new->getSale()){echo '<span class="sale">'.$this->__('Sale').'</span>';  }?>
+                        </div>
+                        <?php if ($gallery_helper->getHomeGridData('type_hover') == 'carusel_images'): ?>
+                            <?php include("include_gallery.phtml"); ?>
+                        <?php else: ?>
+
+                        <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image" itemprop="url">
+                            <img id="product-collection-image-<?php echo $_productId; ?>" src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($gallery_helper->getHomeGridData('image_width'), $gallery_helper->getHomeGridData('image_height')); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" width="<?php echo $gallery_helper->getHomeGridData('image_width'); ?>" height="<?php echo $gallery_helper->getHomeGridData('image_height'); ?>" itemprop="image" />
+                        </a>
+                        <?php endif ?>
+
+                        <?php if($gallery_helper->getHomeGridData('type_hover') == 'thumbnails'): ?>
+                            <ul class="product-thumbs">
+                                <?php $count_thumbs = 1;
+                                foreach ($_product->load($_product->getId())->getMediaGalleryImages() as $image):
+                                    if($count_thumbs <= 3): ?>
+                                    <li class="product-thumb">
+                                        <a href="<?php echo $this->helper('catalog/image')->init($_product, 'small_image', $image->getFile())->resize($gallery_helper->getHomeGridData('image_width')); ?>">
+                                           <img src="<?php echo $this->helper('catalog/image')->init($_product, 'thumbnail', $image->getFile())->resize($gallery_helper->getHomeGridData('thumb_size_w'), $gallery_helper->getHomeGridData('thumb_size_h')); ?>" width="<?php echo $gallery_helper->getHomeGridData('thumb_size_w'); ?>" height="<?php echo $gallery_helper->getHomeGridData('thumb_size_h'); ?>" alt="" />
+                                        </a>
+                                    </li>
+                                    <?php endif ?>
+                                <?php $count_thumbs++; ?>
+                                <?php endforeach ?>
+                            </ul>
+                        <?php endif ?>
+                    </div> 
+
+                    <div class="product-details">
+                        <h2 class="product-name" itemprop="name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a></h2>
+                        <?php echo $this->getPriceHtml($_product, true) ?>
+                        <?php
+                        // Provides extra bloc->keepFrame(false)s on which to hang some features for products in the list
+                        // Features providing UI elements targeting this block will display directly below the product name
+                        if ($this->getChild('name.after')) {
+                            $_nameAfterChildren = $this->getChild('name.after')->getSortedChildren();
+                            foreach ($_nameAfterChildren as $_nameAfterChildName) {
+                                $_nameAfterChild = $this->getChild('name.after')->getChild($_nameAfterChildName);
+                                $_nameAfterChild->setProduct($_product);
+                                
+                                echo $_nameAfterChild->toHtml();
+                            }
+                        }
+                        ?>
+
+                        <?php
+                        $summaryData->load($_product->getId());
+                        if($summaryData['rating_summary']):
+                            echo $this->getReviewsSummaryHtml($_product, 'short');
+                        endif;
+                        ?>
+                        <div class="actions">
+                            <?php if(!$_product->canConfigure() && $_product->isSaleable()): ?>
+                                <a href="<?php echo $this->getAddToCartUrl($_product) ?>" class="btns_cart" title="<?php echo $this->__('Add to Cart') ?>"><span class="fl-line-icon-set-shopping63"></span></a>
+                            <?php elseif($_product->getStockItem() && $_product->getStockItem()->getIsInStock()): ?>
+                                <a title="<?php echo $this->__('View Details') ?>" class="btns_info" href="<?php echo $_product->getProductUrl() ?>"><span class="fa fa-info"></span></a>
+                            <?php else: ?>
+                                <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                            <?php endif; ?>
+                            <ul class="add-to-links">
+                                <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                                    <li><a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist"><span><?php echo $this->__('Add to Wishlist') ?></span></a></li>
+                                <?php endif; ?>
+                                <?php if($_compareUrl=$this->getAddToCompareUrl($_product)): ?>
+                                    <li><a href="<?php echo $_compareUrl ?>" class="link-compare"><span><?php echo $this->__('Add to Compare') ?></span></a></li>
+                                <?php endif; ?>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        <?php if ($i%$_columnCount==0 || $i==count($_products)): ?>
+        </div>
+        <?php endif ?>
+
+        <?php endforeach; ?>
+        </div>
+    </div>
+</div>
+
+    <script>
+        jQuery(document).ready(function() {
+
+            var owl = jQuery("#owl-new-products");
+
+            owl.owlCarousel({
+
+                autoHeight : false,
+                pagination : false,
+                items : 4,
+                itemsDesktop : [1199, 3],
+                itemsDesktopSmall : [991, 3],
+                itemsTablet : [768, 2],
+                itemsMobile : [479, 1]
+
+            });
+
+            function MageResize() {
+                setTimeout(function () {
+                    var bodyWidthTest=jQuery('.wrapper').width();
+                    if(bodyWidthTest>=1200){
+
+                        jQuery(".owl-new-products .item .item_placeholder").removeAttr("style");
+                        var prod_img_height = jQuery( ".owl-new-products .item .product-image" ).height();
+                        jQuery(".owl-new-products .item .product-image-container").height(prod_img_height);
+                        //alert (prod_img_height);
+
+
+                        jQuery('.owl-new-products .item').hover(function() {
+                            var bodyWidthTest2=jQuery('.wrapper').width();
+                            if(bodyWidthTest2>=1200){
+                                jQuery(".item_placeholder", this).height(prod_img_height);
+                            }
+                        }, function() {
+                            var bodyWidthTest2=jQuery('.wrapper').width();
+                            if(bodyWidthTest2>=1200){
+                                jQuery(".item_placeholder", this).height(0);
+                            }
+                        });
+
+                    } else {
+                        jQuery(".owl-new-products .item .item_placeholder").removeAttr("style");
+                        jQuery(".owl-new-products .item .product-image-container").removeAttr("style");
+                    }
+                }, 2000);
+
+
+            }
+
+            jQuery(window).bind('resize load', MageResize);
+
+
+
+            // Custom Navigation Events
+            jQuery(".next_new").click(function(){
+                owl.trigger('owl.next');
+            })
+            jQuery(".prev_new").click(function(){
+                owl.trigger('owl.prev');
+            })
+
+        });
+    </script>
+<?php endif; ?>

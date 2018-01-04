@@ -1,0 +1,548 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product view template
+ *
+ * @see Mage_Catalog_Block_Product_View
+ * @see Mage_Review_Block_Product_View
+ */
+?>
+<?php 
+    global $_product_type_normal_image, $_product_type_large_image, $_product_type_center_image;
+
+    /* Select type of product view (only one) */
+    $_product_type_normal_image = false;
+    $_product_type_large_image  = true;
+    $_product_type_center_image = false;
+
+?>
+<?php 
+    if( $_product_type_normal_image ){
+        $grid_cols_1 = $grid_cols_2 = 'col-sm-6';
+        $indicate_class = 'normal-image-type';
+    }else if( $_product_type_large_image ){
+        $grid_cols_1 = 'col-lg-9 col-sm-6';
+        $grid_cols_2 = 'col-lg-3 col-sm-6';
+        $indicate_class = 'large-image-type';
+    }else if( $_product_type_center_image ){
+        $grid_cols_1 = $grid_cols_2 = 'col-sm-12';
+        $indicate_class = 'center-image-type';
+    }
+?>
+<?php $_helper = $this->helper('catalog/output'); ?>
+<?php $_product = $this->getProduct(); ?>
+<script type="text/javascript">
+    var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+</script>
+<style> .wrapper { margin-top: 25px;} 
+.skip-content.skip-active {
+	top:60px !important;
+}
+</style>
+<div class="top-message">
+	<h4> <?php echo $this->__('Esta semana por Navidad, envíos gratis en toda la Península');?> </h4>
+</div>
+
+<div id="messages_product_view"><?php //echo $this->getMessagesBlock()->toHtml() ?></div>
+
+<div class="product-view <?php echo $indicate_class; ?>" itemscope itemtype="https://schema.org/Offer">
+	<div class="product-essential row row-eq-height">
+		<div class="product-img-box col-lg-9 col-md-9 col-xs-12   <?php //echo $grid_cols_1 ?>" id="style-img">
+			<div class="product-name">
+				<h2><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h2>
+			</div>
+			<?php echo $this->getChildHtml('media') ?>
+			<!-- Whislist -->
+		<?php if ($this->helper('wishlist')->isAllow()) : ?>
+			<div id="productWishlist">
+				<a 
+				<?php 	if (Mage::getSingleton('customer/session')->isLoggedIn())
+        			{ 
+        				echo 'href="'.$this->helper('wishlist')->getAddUrl($_product).'"';
+        			}
+        			else{ 
+        				echo 'onclick="abrirLogin2()"';
+        			}
+        	?>
+				
+				class="link-wishlist">
+				</a>
+			</div>
+		<?php endif; ?>
+	<!--/ FIN Whislist-->
+		</div>
+
+		<div class="col-lg-3 col-md-3 col-xs-12">
+	    	<form action="<?php echo str_replace("http:","https:",$this->getSubmitUrl($_product)) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+				<?php echo $this->getBlockHtml('formkey') ?>
+				<div class="no-display">
+					<input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
+					<input type="hidden" name="related_product" id="related-products-field" value="" />
+				</div>
+
+				<div class="<?php //echo $grid_cols_2 ?>" id="product-info">
+					<div class="row">
+
+						<!--NOMBRE PRODUCTO-->
+						<div class="col-xs-8 col-sm-8 col-md-12 col-lg-12 product-name secondary" itemprop="name">
+							<h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+
+							<!--PRECIO-->
+							<?php echo $this->getPriceHtml($_product); ?>
+							<?php echo $this->getChildHtml('bundle_prices') ?>
+							<?php echo $this->getTierPriceHtml() ?>
+							<!--/PRECIO-->
+
+
+						</div>
+						<div class="col-xs-4 col-md-4 col-lg 12 aplazame">
+							<button type="button" class="btn btn-info" data-toggle="modal" data-target="#infoModal">
+  								+ info
+							</button>
+														<!-- Aplazame -->
+							<?php echo $this->getChildHtml('extrahint') ?>
+						</div>
+				</div>
+						<!--Color y tallas--> 
+						<div class="col-lg-2 col-md-4 col-xs-4 talla collapse" id="tallas" style="padding: 0;">
+
+							<?php
+							$config = $_product->getTypeInstance(true);
+							if($_product->getTypeId() == 'configurable'){
+								foreach($config->getConfigurableAttributesAsArray($_product) as $attributes)
+								{ 
+							?>
+									<div class="tallas-productos">
+										<?php if($_product->getStockItem() && $_product->getStockItem()->getIsInStock()): ?>
+											<ul class="sizes">
+											<?php foreach($attributes["values"] as $values)
+											{ 
+											?>
+												<li class="sizeInput" data-value ="<?php echo $values['value_index']?>">
+													<?php echo $values["label"]?>
+												</li>
+											<?php 
+											}
+											?>
+											</ul>
+											<div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
+											<input type="hidden" id = "super_attribute<?php echo $attributes['attribute_id'] ?>" name = "super_attribute[<?php echo $attributes['attribute_id'] ?>]" value="">
+										<?php else:?>
+											<p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+										<?php endif?>
+										<!--</span>-->
+									</div>
+							<?php
+								}
+							}
+							?>
+							<!--Llamada Modal Guia de tallas-->
+						<div class="panel panel-default col-lg-3 col-xs-12" style="border:none !important;box-shadow:none !important;padding: 15px 0 0 0;    margin-bottom: 0;">
+							<div aria-controls="collapseTwo-prod" aria-expanded="true" data-target="#collapseTwo-prod" data-parent="#accordion-prod" data-toggle="collapse" id="headingTwo-prod" role="tab" class="pan-heading-prod">
+								<div class="guia-de-tallas col-lg-12 col-md-12 col-xs-12 talla">
+									<a class="accordion-toggle uppercase" data-toggle="modal" data-target="#guia-de-tallas-modal"><?php echo $this->__("Find my size"); ?></a>
+								</div>
+							</div>
+						</div>
+						<!--FIN Llamada Modal Guia de tallas-->
+						</div>
+
+						
+						<div class="row" style="margin-top: 5px; margin-left: -10px; margin-right: -10px;">
+						<div class="col-lg-4 col-md-4 col-xs-4" style="padding: 0;">
+						  <a class="btn btn-outline-dark btnsizes" data-toggle="collapse" href="#tallas" aria-expanded="false" aria-controls="collapseExample"><?php echo $this->__("Sizes") ?></a>
+						</div>
+						<!-- ADD CARRITO -->
+						<div class="col-lg-8 col-md-8 col-xs-8"  style="padding: 0;">
+							<div class="add-to-cart-wrapper">
+								<?php echo $this->getChildHtml('other');?>
+								<?php if ($_product->isSaleable()):?>
+									<?php echo $this->getChildHtml('addtocart') ?>
+								<?php endif;?>
+							</div>
+						</div>
+						<!-- FIN ADD CARRITO -->
+					</div>
+
+						
+
+					</div>
+			</form>
+			
+
+			<?php if ($_product->isSaleable() && $this->hasOptions()):?>
+				<?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+			<?php endif;?>
+
+		           <!-- <div class="col-lg-1 col-md-1 col-xs-1"></div>-->
+		</div>
+	</div> <!-- Cierre product info -->
+
+
+
+        <script type="text/javascript">
+        //<![CDATA[
+            var productAddToCartForm = new VarienForm('product_addtocart_form');
+            productAddToCartForm.submit = function(button, url) {
+                if (this.validator.validate()) {
+                    var form = this.form;
+                    var oldUrl = form.action;
+                    if (url) {
+                       form.action = url;
+                    }
+                    var e = null;
+                    try {
+                        this.form.submit();
+                    } catch (e) {
+                    }
+                    this.form.action = oldUrl;
+                    if (e) {
+                        throw e;
+                    }
+
+                    if (button && button != 'undefined') {
+                        button.disabled = true;
+                    }
+                }
+            }.bind(productAddToCartForm);
+
+            productAddToCartForm.submitLight = function(button, url){
+                if(this.validator) {
+                    var nv = Validation.methods;
+                    delete Validation.methods['required-entry'];
+                    delete Validation.methods['validate-one-required'];
+                    delete Validation.methods['validate-one-required-by-name'];
+                    // Remove custom datetime validators
+                    for (var methodName in Validation.methods) {
+                        if (methodName.match(/^validate-datetime-.*/i)) {
+                            delete Validation.methods[methodName];
+                        }
+                    }
+
+                    if (this.validator.validate()) {
+                        if (url) {
+                            this.form.action = url;
+                        }
+                        this.form.submit();
+                    }
+                    Object.extend(Validation.methods, nv);
+                }
+            }.bind(productAddToCartForm);
+        //]]>
+
+        /* Selector de tallas*/
+        	jQuery(document).ready(function(){
+        		jQuery(".sizes li").click(function(){
+        			jQuery(this).parent().find(".selected").removeClass("selected");
+        			jQuery(this).addClass("selected");
+        			//Asigno talla
+        			jQuery("#super_attribute135").val(jQuery(this).attr("data-value"));
+        		});
+        	});
+        /* FIN Selector de tallas*/
+        </script>
+
+        <!-- COMPARTIR EN REDES SOCIALES-->
+        <!-- <div class="clear"></div>
+        <div class="prod_socials"><?php //echo $this->getChildHtml('alert_urls') ?></div> 
+        -->
+
+    </div>
+
+    
+        
+    </div>
+    <img src="<?php echo Mage::helper('catalog/image')->init($_product, 'imagen_tejidos');?>" class="img-properties" style="width:100%;margin-top: 75px;"/>
+	<div class="related-products">
+    	<?php echo $this->getChildHtml('related_products') ?>
+    </div>   
+    <?php echo $this->getChildHtml('upsell_products') ?>
+    <?php echo $this->getChildHtml('product_additional_data') ?>
+
+	<!-- modal window - GUIA DE TALLAS -->
+	<div id="guia-de-tallas-modal" class="modal fade  col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxs-12">
+		<div class="modal-dialog modal-dialog-guia-tallas">
+			<div class="modal-content modal-content-guia-tallas ">
+				<div class="modal-header guia-de-tallas-modal-header">
+					<a class="btn btn-close" data-dismiss="modal" style="float:right; padding: 0 !important;">
+						<button type="button" class="close guia-de-tallas-modal-close" aria-label="Close">
+							<span aria-hidden="true" style="font-size: 40px">&times;</span>
+						</button>
+					</a>
+					<h4 class="modal-title uppercase modal-title-guia-de-tallas"><?php echo Mage::helper('catalog')->__('Find your size'); ?></h4>
+				</div>
+
+				<div class="modal-body">
+				<!--INICIO STEPERS-->
+					<div class="container">
+
+						<div class="row bs-wizard" style="border-bottom:0;">
+
+							<div id="guia-tallas-1" class="bs-wizard-step active" style="width:20%; float:left;">
+								<div id="stepnum-1" class="text-center bs-wizard-stepnum active">Measuring guide</div>
+								<div class="progress">
+									<div class="progress-bar"></div>
+								</div>
+								<a href="#" class="bs-wizard-dot"></a>
+							</div>
+
+							<div id="guia-tallas-2" class="bs-wizard-step disabled" style="width:20%; float:left;">
+								<div id="stepnum-2" class="text-center bs-wizard-stepnum disabled">Body Length</div>
+								<div class="progress">
+									<div class="progress-bar"></div>
+								</div>
+								<a href="#" class="bs-wizard-dot"></a>
+							</div>
+
+							<div id="guia-tallas-3" class="bs-wizard-step disabled"  style="width:20%; float:left;"><!-- complete -->
+								<div id="stepnum-3" class="text-center bs-wizard-stepnum disabled">Chest width</div>
+								<div class="progress">
+									<div class="progress-bar"></div>
+								</div>
+								<a href="#" class="bs-wizard-dot"></a>
+							</div>
+
+							<div id="guia-tallas-4" class="bs-wizard-step disabled"  style="width:20%; float:left;"><!-- active -->
+								<div id="stepnum-4" class="text-center bs-wizard-stepnum disabled">Bottom width</div>
+								<div class="progress">
+									<div class="progress-bar"></div>
+								</div>
+								<a href="#" class="bs-wizard-dot"></a>
+							</div>
+
+							<div id="guia-tallas-5" class="bs-wizard-step disabled" style="width:20%; float:left;"><!-- active -->
+								<div id="stepnum-5" class="text-center bs-wizard-stepnum disabled">Sleevelength</div>
+								<div class="progress">
+									<div class="progress-bar"></div>
+								</div>
+								<a href="#" class="bs-wizard-dot"></a>
+							</div>
+
+						</div>
+						<div id="guia-tallas-body-1" class="row guia-tallas-body">
+							<?php if(Mage::registry('current_category')->getId() != 4):?>
+								<?php echo "<img src='".Mage::getBaseUrl('media')."wysiwyg/guia_tallas/hombre/guia_tallas_man_1".".jpg' style='width:100%;margin:0 auto;'/>"; ?>
+							<?php else: ?>
+								<?php echo "<img src='".Mage::getBaseUrl('media')."wysiwyg/guia_tallas/mujer/guia_tallas_woman_1".".jpg' style='width:100%;margin:0 auto;'/>"; ?>
+							<?php endif;?>
+						</div>
+
+						<div id="guia-tallas-body-2" class="row guia-tallas-body" style="display:none;">
+							<?php if(Mage::registry('current_category')->getId() != 4):?>
+								<?php echo "<img src='".Mage::getBaseUrl('media')."wysiwyg/guia_tallas/hombre/guia_tallas_man_2".".jpg' style='width:100%;'/>"; ?>
+							<?php else: ?>
+								<?php echo "<img src='".Mage::getBaseUrl('media')."wysiwyg/guia_tallas/mujer/guia_tallas_woman_2".".jpg' style='width:100%;'/>"; ?>
+							<?php endif;?>
+
+						</div>
+
+						<div id="guia-tallas-body-3" class="row guia-tallas-body" style="display:none;">
+							<?php if(Mage::registry('current_category')->getId() != 4):?>
+								<?php echo "<img src='".Mage::getBaseUrl('media')."wysiwyg/guia_tallas/hombre/guia_tallas_man_3".".jpg' style='width:100%;'/>"; ?>
+							<?php else: ?>
+								<?php echo "<img src='".Mage::getBaseUrl('media')."wysiwyg/guia_tallas/mujer/guia_tallas_woman_3".".jpg' style='width:100%;'/>"; ?>
+							<?php endif;?>
+
+						</div>
+
+						<div id="guia-tallas-body-4" class="row guia-tallas-body" style="display:none;">
+							<?php if(Mage::registry('current_category')->getId() != 4):?>
+								<?php echo "<img src='".Mage::getBaseUrl('media')."wysiwyg/guia_tallas/hombre/guia_tallas_man_4".".jpg' style='width:100%;'/>"; ?>
+							<?php else: ?>
+								<?php echo "<img src='".Mage::getBaseUrl('media')."wysiwyg/guia_tallas/mujer/guia_tallas_woman_4".".jpg' style='width:100%;'/>"; ?>
+							<?php endif;?>
+
+						</div>
+
+						<div id="guia-tallas-body-5" class="row guia-tallas-body" style="display:none;">
+							<?php if(Mage::registry('current_category')->getId() != 4):?>
+								<?php echo "<img src='".Mage::getBaseUrl('media')."wysiwyg/guia_tallas/hombre/guia_tallas_man_5".".jpg' style='width:100%;'/>"; ?>
+							<?php else: ?>
+								<?php echo "<img src='".Mage::getBaseUrl('media')."wysiwyg/guia_tallas/mujer/guia_tallas_woman_5".".jpg' style='width:100%;'/>"; ?>
+							<?php endif;?>
+
+						</div>
+					</div>
+				<!--FIN STEPERS-->
+				</div>
+				<div class="modal-footer modal-footer-guia-de-tallas">
+					<div class="row">
+						<p><?php echo Mage::helper('catalog')->__('IMPORTANTE: Te recomendamos que midas una hoodie que tengas por casa y lo midas sobre una mesa y no con ella puesta.'); ?></p>
+					</div>
+				</div>      
+			</div>
+		</div>
+
+	</div>
+	<!-- /.modal - DISPONIBILIDAD EN TIENDAS -->
+	<!-- Modal info de producto -->
+	<div class="modal fade"  id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <div id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="card">
+    <div class="card-header" role="tab" id="headingOne">
+      <h5 class="mb-0">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <?php echo $this->__('Información del producto'); ?>
+        </a>
+      </h5>
+    </div>
+
+    <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+		<!--SHORT DESCRIPTION-->
+		<p class="short-description">
+			<?php $_description = $this->getProduct()->getShortDescription(); ?>
+			<?php if ($_description): ?>
+				<?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $_description, 'description') ?> 
+			<?php endif; ?>
+		</p>
+		<!--/SHORT DESCRIPTION-->
+		 <!-- Medidas modelo -->
+						<?php $_medidas_modelo = $this->getProduct()->getMedidasModelo(); ?>
+						<?php if ($_description): ?>
+							<div class="col-lg-12 col-md-12 col-xs-12">
+								<div id="medidasModelo">
+									<p class="medidas-modelo"><?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $this->getProduct()->getMedidasModelo()); ?>
+									</p>
+								</div>
+							</div>
+						<?php endif;?>
+						<!--/ FIN Medidas modelo-->
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab" id="headingTwo">
+      <h5 class="mb-0">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+         <?php echo $this->__('Composition') ?>
+        </a>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+      		<!--IMAGENES PROPIEDADES-->
+			<div class="col-lg-12 col-md-12 col-xs-12">
+				<div class=" col-lg-12 col-md-12 col-xs-12" style="padding: 0;"> 
+					<?php $_composicion = $this->getProduct()->getComposicion(); ?>
+					<?php if ($_composicion): ?>
+						<div class="std">
+							<?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $_composicion, 'composicion') ?>
+						</div>
+					<?php endif; ?>
+				</div>	
+			</div>
+		</div>  	
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab" id="headingThree">
+      <h5 class="mb-0">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          <?php echo $this->__('Product Care') ?>
+        </a>
+      </h5>
+    </div>
+    <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<?php $_cuidadoproducto = $this->getProduct()->getCuidadoproducto(); ?>
+				<?php if ($_cuidadoproducto): ?>
+					<div class="std">
+						<?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $_cuidadoproducto, 'cuidadoproducto') ?>
+					</div>
+				<?php endif; ?>
+			</div> 
+    </div>
+  </div>
+
+<div class="card">
+    <div class="card-header" role="tab" id="headingFour">
+      <h5 class="mb-0">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          <?php echo $this->__('Gastos de envío y devoluciones') ?>
+        </a>
+      </h5>
+    </div>
+    <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="std">
+					<p><?php echo $this->__("Find out more about our")?> <a href="<?php echo Mage::getBaseUrl();?>devoluciones"><?php echo $this->__("delivery options")?>.</a></p>
+					<p><?php echo $this->__("Please try items in the comfort of your own home. If you don't like them, or they don't fit, we'll happily collect them from your home or office for free.")?></p>
+
+				</div>
+			</div> 
+  </div>
+</div>
+	      </div>
+	    </div>
+	   
+	  </div>
+	</div>
+<!-- Fin Modal info -->
+</div>
+
+<script type="text/javascript">
+
+	jQuery(document).ready(function(){
+		
+ //IE, Opera, Safari
+ jQuery('body').bind('touchmove', function(e){
+
+ 	if(jQuery(window).scrollTop() >= jQuery('#contenido-suscribe').offset().top + jQuery('#contenido-suscribe').outerHeight() - (window.innerHeight )-100) {
+    	jQuery("#product-info").fadeOut( "slow" );
+    }else{
+    	jQuery("#product-info").fadeIn();
+    }
+
+ });
+
+ //Firefox
+ jQuery('body').bind('touchmove', function(e){
+     
+      if(jQuery(window).scrollTop() >= jQuery('#contenido-suscribe').offset().top + jQuery('#contenido-suscribe').outerHeight() - (window.innerHeight )-100) {
+        	jQuery("#product-info").fadeOut( "slow" );
+	    }else{
+	    	jQuery("#product-info").fadeIn();
+	    }
+ });
+
+  jQuery('body').bind('mousewheel', function(e){
+
+      if(jQuery(window).scrollTop() >= jQuery('#contenido-suscribe').offset().top + jQuery('#contenido-suscribe').outerHeight() - (window.innerHeight )-100) {
+        	jQuery("#product-info").fadeOut( "slow" );
+	    }else{
+	    	jQuery("#product-info").fadeIn();
+	    }
+
+ });
+
+	});
+</script>
