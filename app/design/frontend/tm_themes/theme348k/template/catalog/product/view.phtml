@@ -67,14 +67,14 @@
 
 <div class="product-view <?php echo $indicate_class; ?>" itemscope itemtype="https://schema.org/Offer">
 	<div class="product-essential row row-eq-height">
-		<div class="product-img-box col-lg-9 col-md-9 col-xs-12   <?php //echo $grid_cols_1 ?>" id="style-img">
+		<div class="product-img-box col-lg-8 col-md-8 col-xs-12   <?php //echo $grid_cols_1 ?>" id="style-img">
 			<div class="product-name">
 				<h2><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h2>
 			</div>
 			<?php echo $this->getChildHtml('media') ?>
 		</div>
 
-		<div class="col-lg-3 col-md-3 col-xs-12">
+		<div class="col-lg-4 col-md-4 col-xs-12 lateralDerecho fixed">
 	    	<form action="<?php echo str_replace("http:","https:",$this->getSubmitUrl($_product)) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
 				<?php echo $this->getBlockHtml('formkey') ?>
 				<div class="no-display">
@@ -83,7 +83,7 @@
 				</div>
 
 				<div class="<?php //echo $grid_cols_2 ?>" id="product-info">
-					<div class="row">
+					<div class="row" style="margin-left: 0">
 
 						<!--NOMBRE PRODUCTO-->
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 product-name secondary" itemprop="name">
@@ -107,6 +107,17 @@
 							</p>
 							<!--/SHORT DESCRIPTION-->
 						</div>
+						<!-- Medidas modelo -->
+						<?php $_medidas_modelo = $this->getProduct()->getMedidasModelo(); ?>
+						<?php if ($_description): ?>
+							<div class="col-lg-12 col-md-12 col-xs-12">
+								<div id="medidasModelo">
+									<p class="medidas-modelo"><?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $this->getProduct()->getMedidasModelo()); ?>
+									</p>
+								</div>
+							</div>
+						<?php endif;?>
+						<!--/ FIN Medidas modelo-->
 
 						<!--Color y tallas--> 
 						<div class="col-lg-12 col-md-12 col-xs-12 talla">
@@ -142,10 +153,8 @@
 								}
 							}
 							?>
-						</div>
-
-						<!--Llamada Modal Guia de tallas-->
-						<div class="panel panel-default" style="border:none !important;">
+							<!--Llamada Modal Guia de tallas-->
+						<div class="panel panel-default find-my-size" style="border:none !important;">
 							<div aria-controls="collapseTwo-prod" aria-expanded="true" data-target="#collapseTwo-prod" data-parent="#accordion-prod" data-toggle="collapse" id="headingTwo-prod" role="tab" class="pan-heading-prod">
 								<div class="guia-de-tallas col-lg-12 col-md-12 col-xs-12 talla">
 									<a class="accordion-toggle uppercase" data-toggle="modal" data-target="#guia-de-tallas-modal"><?php echo $this->__("Find my size"); ?></a>
@@ -153,6 +162,9 @@
 							</div>
 						</div>
 						<!--FIN Llamada Modal Guia de tallas-->
+						</div>
+
+						
 
 						<!-- ADD CARRITO -->
 						<div class="add-to-cart-wrapper col-lg-12 col-md-12 col-xs-12">
@@ -187,17 +199,7 @@
 
 
 
-						<!-- Medidas modelo -->
-						<?php $_medidas_modelo = $this->getProduct()->getMedidasModelo(); ?>
-						<?php if ($_description): ?>
-							<div class="col-lg-12 col-md-12 col-xs-12">
-								<div id="medidasModelo">
-									<p class="medidas-modelo"><?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $this->getProduct()->getMedidasModelo()); ?>
-									</p>
-								</div>
-							</div>
-						<?php endif;?>
-						<!--/ FIN Medidas modelo-->
+						
 
 					</div>
 
@@ -469,3 +471,62 @@
 	<!-- /.modal - DISPONIBILIDAD EN TIENDAS -->
 
 </div>
+<script type="text/javascript">
+
+	jQuery(document).ready(function(){
+		
+ //IE, Opera, Safari
+ jQuery('body').bind('mousewheel', function(e){
+
+ 	var x = -100;
+ 	if(jQuery(window).width() >= 1600){ x = 0}
+ 	if(jQuery(window).width() >= 2000){ x = 500}
+
+     if(jQuery(window).scrollTop() >= jQuery('.product-image-gallery').offset().top + jQuery('.product-image-gallery').outerHeight() - (window.innerHeight - x )) {
+        	
+        	jQuery(".lateralDerecho").removeClass("fixed");
+        	jQuery(".lateralDerecho").addClass("absolute");
+        	jQuery(".absolute").css("top",jQuery('.product-image-gallery').outerHeight()-jQuery('.lateralDerecho').height());
+        	jQuery("#flechas-up").css("position","absolute");
+        	jQuery("#flechas-down").css("position","absolute");
+        	//
+	        
+	    }else{
+
+	    	jQuery(".lateralDerecho").removeClass("absolute");
+        	jQuery(".lateralDerecho").addClass("fixed");
+        	jQuery(".lateralDerecho").css("top","50px");
+        	jQuery("#flechas-up").css("position","fixed");
+        	jQuery("#flechas-down").css("position","fixed");
+	    }
+
+ });
+
+ //Firefox
+ jQuery('body').bind('DOMMouseScroll', function(e){
+    
+    var x = -100;
+ 	if(jQuery(window).width() >= 1600){ x = 0}
+ 	if(jQuery(window).width() >= 2000){ x = 500}
+
+     if(jQuery(window).scrollTop() >= jQuery('.product-image-gallery').offset().top + jQuery('.product-image-gallery').outerHeight() - (window.innerHeight - x)) {
+        	
+        	jQuery(".lateralDerecho").removeClass("fixed");
+        	jQuery(".lateralDerecho").addClass("absolute");
+        	jQuery(".absolute").css("top",jQuery('.product-image-gallery').outerHeight()-jQuery('.lateralDerecho').height());
+        	jQuery("#flechas-up").css("position","absolute");
+        	jQuery("#flechas-down").css("position","absolute");
+	        
+	    }else{
+
+	    	jQuery(".lateralDerecho").removeClass("absolute");
+        	jQuery(".lateralDerecho").addClass("fixed");
+        	jQuery(".lateralDerecho").css("top","50px");
+        	jQuery("#flechas-up").css("position","fixed");
+        	jQuery("#flechas-down").css("position","fixed");
+	    }
+ });
+
+
+	});
+</script>
