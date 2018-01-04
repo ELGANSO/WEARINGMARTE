@@ -21,27 +21,58 @@ jQuery( document ).ready(function() {
 		}
 	});
 	//fondo blanco al abrir carrito
-	jQuery(".skip-cart, #bag-active, .minicart-wrapper .close, .remove, .skip-active").click(function(){
-		console.log("Detectado");
+	jQuery(".skip-cart, #bag-active, .skip-link, .close, .remove, .skip-active,.btn-cart").click(function(){
+		
 		if(jQuery("#bag-active").css('display') !== 'none' || jQuery('body').hasClass('stop-scrolling') ) {
-			
+
 			jQuery("#bag-active").hide();
 			jQuery('body').removeClass('stop-scrolling');
 
 		}else{
 			if(jQuery(window).width() >= 1024){
 				jQuery("#bagcount").text(jQuery(".count_t").text());
-				jQuery("#bag-active").show();
-
+					if(jQuery("#header-cart").css("display") != 'none'){
+						jQuery("#bag-active").show();
+					}
 			}
 			jQuery('body').addClass('stop-scrolling');
 			
 		}
 	});
 
+	jQuery(".modal-content .close").click(function(){
+		jQuery('body').removeClass('stop-scrolling');
+	});
+
+	jQuery(".page-header-container .skip-link .iconMenu").click(function(){
+		jQuery("#bag-active").hide();
+	});
+
+	jQuery(" .remove,#bag-active,#header-account, #menu-active").click(function(){
+		jQuery('body').removeClass('stop-scrolling');
+
+	});
+	if(jQuery("#messages_product_view .messages .notice-msg li span").length){
+		jQuery("#messages_product_view .messages .notice-msg li span").hide();
+		jQuery("#messages_product_view .messages .notice-msg li").hide();
+		jQuery(".btnsizes").hover(function() {
+		  jQuery(this).css("border-color","red");
+		  jQuery(this).css("color","red");
+		});
+		jQuery(".btnsizes").addClass("error");
+		jQuery(".btnsizes").css("border-color","red");
+		jQuery(".btnsizes").css("color","red");
+	}
+
+
 	//Compruebo si ha añadido algo al carrito
 	if(jQuery(".messages .success-msg li span").length && !jQuery("#message-popup").length){
-		jQuery(".count_t").click();
+		if(jQuery(window).width() >= 1024){
+			jQuery(".count_t").click();
+		}else{
+			jQuery(".skip-cart").click();
+			jQuery('body').addClass('stop-scrolling');
+		}
 	}
 
 	//Actualizar cantidad del carrito
@@ -157,6 +188,11 @@ jQuery( document ).ready(function() {
 				jQuery(".guia-tallas-body").hide();
 				jQuery("#guia-tallas-body-5").show();
 			});
+
+		jQuery(".card-header a").click(function(){
+			jQuery(".collapse").removeClass("in");
+			jQuery(this).parent().find(".collapse").addClass("in");
+		});
 
 });
 

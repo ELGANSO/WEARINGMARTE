@@ -253,7 +253,7 @@ a #img_twitter{
 .skip-content.skip-active {
     background: #ffffff;
     position: fixed !important;
-    top: 60px !important;
+    top: 45px !important;
     width: 100%;
     z-index: 999;
     padding: 0 10px;
@@ -370,8 +370,8 @@ a #img_twitter{
 
 /**SLIDER IMAGEN**/
 #flechas-up  {
-    position: absolute;
-    top: 43%;
+    position: fixed;
+    top: 48%;
     left: 5px;
     /*width: 25px;
     height: 25px;*/
@@ -390,8 +390,8 @@ a #img_twitter{
     border-color: #dedede;
 }
 #flechas-down  {
-    position: absolute;
-    top: 50%;
+    position: fixed;
+    top: 54%;
     left: 5px;
     /*width: 25px;
     height: 25px;*/
@@ -411,12 +411,16 @@ a #img_twitter{
 /**IMAGEN PRODUCTO**/
 .product-image-gallery{
     width: 100%;
-    height: 140vh;
+    /*height: 140vh;*/
     background: #fff;
 }  
-  
-img .product-image-gallery {
-    height: 100%;
+#image-main{
+	height: initial !important;
+	width: 100%;
+}
+.product-image-gallery img {
+    height: initial !important;
+    width: 100%;
 }  
 #product-info div .row {
 	margin-left: 30px;
@@ -911,7 +915,7 @@ a:focus{
  }
 .short-description{
 	margin-top: 40px;
-	margin-bottom: 40px;
+	margin-bottom: 15px;
 	color:#333;
 	font-size: 13px !important;
 	line-height: 20px;
@@ -921,13 +925,14 @@ a:focus{
 }
 .tallas-productos span{ color:#333; font-size: 13px !important;     line-height: 20px; }
 .sizes li {
-	margin: 10px;
+	margin: 0px;
 	height: 25px;
-    width: 30px;
+    width: 25px;
     text-align: center;
     padding-top: 2px;
     color:#333;
     cursor: pointer;
+    margin-right: 5px
 }
 .sizes .selected{
 	border:1px solid #000;
@@ -954,7 +959,7 @@ a:focus{
 	float: left;
 	display: block;
 	width: 100%;
-	margin-top: 30px;
+	margin-top: 15px;
 }
 #add-cart-style button{
 	display: block;
@@ -981,7 +986,7 @@ a:focus{
 }
 .tallas-productos {
     float: left;
-    width: 100%;
+    width: 60%;
     display: block;
     padding: 0;
     margin-bottom: 15px;
@@ -1320,6 +1325,9 @@ body.customer-account .data-table tbody tr.first {
 }
 .input-box .error{
 	border-bottom: 1px solid #fd5353 !important;
+}
+.error, .error:hover, .error:active{
+	color: red !important
 }
 .remove {
 	font-size: 15px;
@@ -2270,14 +2278,11 @@ label.required:after, span.required:after{ color: #333 !important; }
 		padding-left:0;
 		padding-right: 0;
 	}
-	.medidas-modelo{
-		margin-top:30px !important;
-	}
 	.product-description{
 		margin-top: 30px;
 	}
 	.img-properties{
-		margin-top: 30px !important;
+		margin-top: -15px !important;
 	}
 	#newsletter-validate-detail img{
 		margin-left: -20px !important;
@@ -2330,6 +2335,120 @@ label.required:after, span.required:after{ color: #333 !important; }
     bottom: -25px;
     width: 100%;
     height: 59px;
+	}
+	.product-name h1{
+		margin-top: 20px;
+		font-weight: bold;
+	}
+	#style-nombre-look{
+		font-weight: bold;
+		cursor: pointer;
+		margin-top: 10px;
+	}
+	.verProducto{
+		display:none !important;
+		text-decoration: underline;
+		margin-top: 15px;
+	}
+	#productWishlist {
+	    margin: 0 auto;
+	    width: auto;
+	    position: absolute;
+	    right: 0;
+	    bottom: 15px;
+	}
+	.link-compare::before, .link-wishlist::before {
+	    font-size: 0px;
+	    padding: 10px;
+	    background: url(/media/wysiwyg/icono-corazonx2.png);
+	    background-size: 100%;
+	    background-repeat: no-repeat;
+	    margin-right: 15px;
+	    width: 30px;
+	    height: 30px;
+	}
+	.related-products{
+		margin-top: 15px;
+	}
+	#add-cart-style{
+		margin-top: 0;
+	}
+	.bs-wizard > .bs-wizard-step > .bs-wizard-dot{
+		margin-top: 10px !important;
+		top: 61px !important;
+	}
+	.bs-wizard > .bs-wizard-step .bs-wizard-stepnum{
+		min-height: 60px;
+	}
+	.tallas-productos{
+		margin-bottom: 0 !important;
+	}
+	#flechas-up{
+	    top: 42%;
+	    position: absolute !important;
+	}
+	#flechas-down{
+		position: absolute !important;
+		top:50% !important;
+	}
+	.add-to-cart-wrapper{
+		padding: 0;
+	}
+	#product-info {
+	    width: 100%;
+	    position: fixed;
+	    bottom: 0;
+	    left: 0;
+	    z-index: 1;
+	    background: #fff;
+	    padding-left: 10px;
+	    padding-right: 10px;
+	}
+	.btnsizes{
+		width: 100%;
+		text-align: center;
+		color: #333;
+		border: 1px solid #333;
+		border-radius: 0;
+		height: 50px;
+		font-size: 14px;
+		letter-spacing: 2px;
+		padding-top:15px;
+	}
+	#tallas{
+		padding: 0px;
+	    position: fixed;
+	    bottom: 50px;
+	    left:0;
+	    background: #fff;
+	}
+	.sizes{ display: block; }
+	.sizes li {
+		margin: 10px auto;
+	}
+	.guia-de-tallas{
+		text-align: center;
+		padding: 0px !important;
+	}
+	.collapse div{
+		margin-top: 15px;
+    	margin-bottom: 15px;
+	}
+	.modal-content{
+		height: 200vh !important;
+	}
+	.product-view .add-to-cart{
+		margin-bottom: 0px !important;
+	}
+	.short-description{
+	    margin-left: 15px;
+    	margin-right: 15px;
+	}
+	.std .row div{
+		margin-right: 3%;
+	}
+	.padding-s .std .row div{
+		margin-right: 0;
 	}
 }
 
@@ -2388,6 +2507,7 @@ label.required:after, span.required:after{ color: #333 !important; }
 @media only screen and (min-width: 1200px) {
 	.modal-dialog-guia-tallas{
 		width:65% !important;
+		margin: 0 auto !important;
 	}
 
 }
@@ -2403,9 +2523,20 @@ label.required:after, span.required:after{ color: #333 !important; }
 	#flechas-up{
 		top:48%;
 	}
+	#product-info{
+		max-width: 430px;
+		margin: 30% auto;
+	}
+		.product-description{
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 90px;
 
 }
-@media only screen and (min-width: 1920px) and (max-width: 2399px) {
+
+}
+@media only screen and (min-width: 1400px) and (max-width: 2399px) {
 
 	.item {
     	height: 1150px;
@@ -2414,7 +2545,16 @@ label.required:after, span.required:after{ color: #333 !important; }
     	height: 900px !important;
     	overflow: hidden;
 	}
-
+	#product-info{
+		max-width: 430px;
+		margin: 30% auto;
+	}
+	.product-description{
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 90px;
+}
 }
 .modal-content-guia-tallas{
 	margin-top: 50px;
@@ -2440,6 +2580,10 @@ label.required:after, span.required:after{ color: #333 !important; }
 	text-align:center;
 	letter-spacing: 2px !important;
 	margin-top: 20px !important;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
 }
 
 .guia-de-tallas-modal-header{
@@ -2570,12 +2714,12 @@ label.required:after, span.required:after{ color: #333 !important; }
 /****FIN ESTILOS GUIA DE TALLAS***/
 
 .medidas-modelo{
-	margin-top: 150px;
-	margin-bottom: 40px;
 	color:#333;
 	font-size: 11px !important;
 	line-height: 20px;
+	margin-bottom: 30px
 }
+
 .product-image, .no-touch .product-img-box .product-image:not(.zoom-available):hover{
 	background: #fff !important;
 }
@@ -2594,4 +2738,97 @@ label.required:after, span.required:after{ color: #333 !important; }
 }
 .header-switchers .header-button.full_mode .header-button-title .current{
 	margin-right: 20px;
+	font-size: 12px;
+}
+#messages_product_view{
+	width: 200%;
+}
+.btn-info, .btn-info:hover, .btn-info:active, .btn-info:visited, .btn-info:focus{
+	margin-top: 5px;
+	background:none;
+	color:#333;
+	border:none;
+    float: right;
+    margin-right: -15px;
+	box-shadow: none;
+}
+.modal-header .close {
+    margin-top: -7px;
+    float: left;
+}
+#accordion h5 a, #accordion h5 a:hover, #accordion h5 a:active, #accordion h5 a:focus{
+	text-transform: initial;
+    font-size: 16px;
+    font-weight: 600;
+}
+#accordion h5{
+	border-bottom: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+}
+#accordion h5 a::after{
+	background: url(/media/wysiwyg/arrow_down.png);
+	background-size: 20px;
+	width: 20px;
+	height: 15px;
+	display: block;
+	float: right;
+	content: "-";
+	font-size: 0px;
+}
+#accordion{
+	margin-top: 30px;
+}
+.modal-content{
+	height: 100vh;
+}
+.modal-dialog{
+	margin: 0;
+}
+.modal .close{
+	color: #000 !important;
+    text-shadow: none;
+    opacity: 1;
+    font-size: 41px;
+    font-weight: 100;
+    margin-left: 10px;
+}
+.modal-header {
+	border-bottom: none;
+	min-height: 50px;
+}
+.verProducto{
+	display: none;
+}
+.aplazame div{
+	right: 35px;
+    position: relative;
+    width: 130px;
+    margin-top: 40px;
+    height: 40px;
+}
+.modal-open{
+	overflow: scroll !important;
+}
+.fixed{
+	position: fixed;
+    right: 0;
+    top: 50px;
+}
+.absolute{
+	position: absolute;
+	right: 0;
+	padding-right: 0;
+}
+.lateralDerecho {
+	padding-left: 60px;
+    padding-right: 60px;
+}
+.find-my-size{
+	width: 38%;
+    float: left;
+    box-shadow: none;
+    padding-top: 4px;
 }
