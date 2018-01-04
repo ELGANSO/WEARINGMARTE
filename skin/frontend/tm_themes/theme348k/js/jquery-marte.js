@@ -74,6 +74,10 @@ jQuery( document ).ready(function() {
 			jQuery('body').addClass('stop-scrolling');
 		}
 	}
+	jQuery(".youama-window-outside .close").click(function(){
+		console.log("entro");
+		jQuery('body').removeClass('stop-scrolling');
+	});
 
 	//Actualizar cantidad del carrito
 	jQuery("#cart-sidebar .remove").click(function(){
