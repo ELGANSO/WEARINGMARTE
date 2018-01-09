@@ -1,0 +1,4 @@
+<?php $i = 1;?>
+<?php foreach($this->getOptions() as $option) :?>
+<label><?php echo $option?></label><input type="radio" name="rebajado" value="<?php echo $i; ?>">
+<?php $i++; endforeach;?>
