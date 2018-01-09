@@ -97,7 +97,8 @@ class GoMage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         try {
 
             if ($this->isFormkeyValidationOnCheckoutEnabled() && !$this->_validateFormKey()) {
-                Mage::throwException('Invalid form key');
+                if($action != 'discount')
+                	Mage::throwException('Invalid form key');
             }
 
             switch ($action) :
