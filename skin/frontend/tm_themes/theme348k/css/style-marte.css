@@ -2450,6 +2450,32 @@ label.required:after, span.required:after{ color: #333 !important; }
 	.padding-s .std .row div{
 		margin-right: 0;
 	}
+	.mobile-cart .header-switchers{
+	    display: block;
+	    position: absolute;
+	    right: 50px;
+	    top: 9px;
+	}
+	.mobile-cart .header-switchers .header-button.full_mode .header-button-title .current::after{
+		left: 0px !important;
+		top:9px !important;
+	}
+	.mobile-cart .header-switchers .header-button ul li a .mobile-part {
+    	display: block;
+	}
+	.mobile-cart .header-switchers .header-button ul{
+		left:0;
+	}
+	.mobile-cart .header-switchers .header-button.full_mode .header-button-title .current{
+		font-size: 14px !important;
+	    margin-right: 5px !important;
+	}
+	.no-touch #header-account a:hover, .header-button .header-button-title:hover{
+		background: #fff !important;
+	}
+	.header-switchers .header-button.full_mode .header-button-title:hover .current{
+		color:#333;
+	}
 }
 
 /****ESTILOS GUIA DE TALLAS***/
