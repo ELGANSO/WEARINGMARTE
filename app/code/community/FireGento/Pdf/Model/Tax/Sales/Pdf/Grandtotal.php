@@ -87,7 +87,7 @@ class FireGento_Pdf_Model_Tax_Sales_Pdf_Grandtotal extends Mage_Tax_Model_Sales_
         } else {
             $totals[] = array(
                 'amount' => $this->getAmountPrefix() . $tax,
-                'label' => Mage::helper('tax')->__('Tax') . ':',
+                'label' => Mage::helper('tax')->__('Tax') . ' (I.V.A. 21%):',
                 'font_size' => $fontSize
             );
         }
