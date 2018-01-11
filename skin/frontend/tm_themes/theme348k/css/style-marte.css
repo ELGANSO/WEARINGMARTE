@@ -2858,3 +2858,6 @@ label.required:after, span.required:after{ color: #333 !important; }
     box-shadow: none;
     padding-top: 4px;
 }
+.order .my-account .back-link{
+	display: none;
+}

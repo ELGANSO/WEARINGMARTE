@@ -44,7 +44,7 @@
         	 ?>
             <div class="row item">
                 <div class="col-lg-2 col-md-2 col-xs-2"><?php echo "#".$_order->getRealOrderId() ?></div>
-                <div class="col-lg-3 col-md-3 col-xs-3"><span class="nobr"><?php echo $date[0]." ".$de." ".$month." ".$date[2];  ?></span></div>
+                <div class="col-lg-3 col-md-3 col-xs-3"><span class="nobr"><?php echo $date[0]."/".$date[1]."/".$date[2];  ?></span></div>
                 <div class="col-lg-2 col-md-2 col-xs-2"><span><?php echo $_order->getStatusLabel() ?></span></div>
                 <div class="col-lg-4 col-md-4 col-xs-4">
                 	<?php echo $_order->formatPrice($_order->getGrandTotal()) ?> -

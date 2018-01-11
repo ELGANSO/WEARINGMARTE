@@ -28,9 +28,9 @@
 <?php $_order = $this->getOrder() ?>
 <?php echo $this->getMessagesBlock()->toHtml();
 	$date = explode("/",$this->formatDate($_order->getCreatedAtStoreDate()));
-	$month = $this->__(date('F',strtotime($this->formatDate($_order->getCreatedAtStoreDate()))));
-	$de = $this->__("de");
-	$formatedDate = $date[0]." ".$de." ".$month.", ".$date[2];
+	//$month = $this->__(date('F',strtotime($this->formatDate($_order->getCreatedAtStoreDate()))));
+	//$de = $this->__("de");
+	$formatedDate = $date[0]."/".$date[1]."/".$date[2];
  ?>
 <div class="page-title">
     <p> <?php echo $this->__('El pedido #%s se realizó el %s y esta actualmente ', $_order->getRealOrderId(), $formatedDate) ?>
