@@ -2522,6 +2522,17 @@ label.required:after, span.required:after{ color: #333 !important; }
 		margin-top:10px !important;
 		margin-bottom: 0px !important;
 	}
+	.mobile-cart .header-switchers{
+		right: 105px !important;
+	}
+	.mobile-cart .header-switchers .header-button.full_mode .header-button-title .current{
+		font-size: 18px !important;
+	}
+	.first-home {
+   	 margin-top: 65px !important;
+	}
+
+
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1999px) { 
