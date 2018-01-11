@@ -1,0 +1,11 @@
+<layout version="0.1.0">
+    <default>
+        <reference name="content">
+        </reference>
+    </default>
+    <multipleprices_index_index>
+        <reference name="content">
+            <block type="multipleprices/prices" name="multipleprices" template="multipleprices/prices.phtml" />
+        </reference>
+    </multipleprices_index_index>
+</layout>
