@@ -13,6 +13,7 @@ html, body {
     height: 100%;
     width: 100%;
     overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
 }
 .row2{
 margin-left: 0px !important;
@@ -2579,7 +2580,7 @@ label.required:after, span.required:after{ color: #333 !important; }
     	height: 1150px;
 	}
 	.product-image-container {
-    	height: 900px !important;
+    	height: auto !important;
     	overflow: hidden;
 	}
 	#product-info{
