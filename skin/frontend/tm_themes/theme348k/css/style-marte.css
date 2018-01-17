@@ -2264,7 +2264,7 @@ label.required:after, span.required:after{ color: #333 !important; }
 	    padding: 0;
 	    border: none;
 	    padding-right: 15px;
-	    padding-left: 15px;
+	    padding-left: 10px;
 	    margin-bottom: 30px;
 	}
 	.product-image-gallery img{
@@ -2477,6 +2477,22 @@ label.required:after, span.required:after{ color: #333 !important; }
 	.header-switchers .header-button.full_mode .header-button-title:hover .current{
 		color:#333;
 	}
+    .refounds-wrapper img{
+        float: left;
+        margin-left: 0px !important;
+        margin-bottom: 20px;
+        margin-right: 10px;
+    }
+    .refounds-wrapper p{
+        margin-left: 0 !important;
+    }
+    .refounds-wrapper{
+        height: 60px !important;
+    }
+    .required-input {
+        position: relative;
+        color: red;
+    }
 }
 
 /****ESTILOS GUIA DE TALLAS***/

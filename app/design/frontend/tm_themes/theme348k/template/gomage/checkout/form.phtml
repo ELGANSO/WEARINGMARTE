@@ -142,5 +142,21 @@
    	}
    	console.log(msg);
 };
+    jQuery('.glc button.btn-checkout span span').click(function(){
+        window.setTimeout(function() {
+            var ventana_ancho = jQuery(window).width();
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && ventana_ancho <= '768') {
+                if (jQuery('.validation-advice-container').length > 0) {
+                    var text = jQuery('.validation-advice-container').first().text();
+                    jQuery('.validation-advice-container').hide();
+                    jQuery('.glc .validation-failed').each(function () {
+                        jQuery(this).parent().append("<span class='required-input'>" + text + "</span>");
+                    });
+
+                }
+            }
+        }, 10);
+    });
+    var a = new jQuery.fn.youamaAjaxLogin;
     //]]>
 </script>
