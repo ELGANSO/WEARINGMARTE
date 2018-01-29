@@ -2086,7 +2086,7 @@ label.required:after, span.required:after{ color: #333 !important; }
     .skip-links .logo{display: block;width: 60%;float: left;}
     .skip-link .icon {margin-left:20px;vertical-align: top;}
     .skip-link .count {color:black;}
-    .skip-link:hover, .skip-link.skip-active{background-color: #fff;color:black;}
+    .skip-link:hover, .skip-link.skip-active{background-color: #fff;color:black;margin-left: 5px;width: 65px;}
     .skip-link.skip-active span, .skip-link:hover .label, .skip-link:hover .icon,.skip-link:hover .count{
         color: #000;
     }

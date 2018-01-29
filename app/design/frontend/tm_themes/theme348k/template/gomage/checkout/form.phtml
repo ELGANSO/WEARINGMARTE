@@ -11,6 +11,14 @@
  * @since        Class available since Release 2.0
  */
 ?>
+<?php
+/* Incluyo el ajaxlogin en checkout ya que no carga este bloque en el checkout*/
+echo  Mage::app()->getLayout()
+          ->createBlock('youama_ajaxlogin/ajaxlogin')
+	//->setSomeVariable($variable)
+	      ->setTemplate('youama/ajaxlogin/ajaxlogin.phtml')
+          ->toHtml();
+?>
 <?php echo $this->getBlockHtml('formkey') ?>
 
 <div class="glc-step address" id="gcheckout-onepage-address">
@@ -140,7 +148,6 @@
    	}else{
    		alert(msg);
    	}
-   	console.log(msg);
 };
     jQuery('.glc button.btn-checkout span span').click(function(){
         window.setTimeout(function() {
@@ -157,6 +164,5 @@
             }
         }, 10);
     });
-    var a = new jQuery.fn.youamaAjaxLogin;
     //]]>
 </script>

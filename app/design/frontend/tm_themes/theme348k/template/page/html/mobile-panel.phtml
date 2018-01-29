@@ -45,7 +45,7 @@
                     </div>
                     <div id="mobile-menu3">
                         <ul>
-                            <li onclick="<?php if (!Mage::getSingleton('customer/session')->isLoggedIn()) {?> abrirlogin() <?php } ?>"><a class="menu-web" href="<?php echo Mage::getUrl('customer/account/login'); ?>"><span>
+                            <li onclick="<?php if (!Mage::getSingleton('customer/session')->isLoggedIn()) {?>return abrirlogin() <?php } ?>"><a class="menu-web" href="<?php echo Mage::getUrl('customer/account/login'); ?>"><span>
 									<?php 	if (!Mage::getSingleton('customer/session')->isLoggedIn())
                             			{ 
                             				echo $this->__('Sign in');
@@ -55,7 +55,7 @@
                             			}
                             	?>
                             </span></a></li>
-                            <li><a class="menu-web" href=""><span><?php echo $this->__('Saved') ?></span></a></li>
+                            <li onclick="<?php if (!Mage::getSingleton('customer/session')->isLoggedIn()) {?>return abrirLogin2() <?php } ?>"><a class="menu-web" onclick="<?php if (!Mage::getSingleton('customer/session')->isLoggedIn()) {?>return false; <?php } ?>" href="<?php  echo Mage::getUrl('customer/account/'); ?>?show=.my-wishlist"><span><?php echo $this->__('Saved') ?></span></a></li>
                         </ul>
                     </div>
                         <div class="header-switchers">
