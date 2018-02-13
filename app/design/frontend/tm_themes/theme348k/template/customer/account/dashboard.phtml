@@ -25,84 +25,108 @@
  */
 ?>
 <div class="dashboard row">
-	<div class="col-lg-2 col-md-2-col-xs-12"></div>
-	<div class="col-lg-2 col-md-2-col-xs-12">
-		<div class="page-title">
-	        <h1><?php echo $this->__('My Account') ?></h1>
-	    </div>
-	    <ul class="account-menu">
-	    	<li data-value=".my-wishlist"><span class="glyphicon"/></span><?php echo $this->__('Wishlist');?></li>
-	    	<li data-value=".box-recent"><span class="glyphicon"/></span><?php echo $this->__('Pedidos');?></li>
-	    	<li data-value=".box-address"><span class="glyphicon"/></span><?php echo $this->__('Direcciones');?></li>
-	    	<li data-value=".edit-account"><span class="glyphicon"/></span> <?php echo $this->__('Detalles cuenta');?></li>
-	    </ul>
-	    <a href="<?php echo Mage::getBaseUrl().'customer/account/logout/' ?>" id="logout"><?php echo $this->__('Log out');?></a>
-	</div>
-	<div class="col-lg-6 col-md-6-col-xs-12">
-	    <?php //echo $this->getMessagesBlock()->toHtml() ?>
-	    <?php echo $this->getChildHtml('hello') ?>
-	    <?php echo $this->getChildHtml('top') ?>
-	    <div class="box-account box-info">
-	        <div class="box-head">
-	            <h2><?php echo $this->__('Account Information') ?></h2>
-	        </div>
-	        <?php /* Extensions placeholder */ ?>
-	        <?php echo $this->getChildHtml('customer.account.dashboard.extra') ?>
-	        <?php echo $this->getChildHtml('info') ?>
-	        <?php echo $this->getChildHtml('address') ?>
-	        <?php
-			echo  Mage::app()->getLayout()->createBlock('wishlist/customer_wishlist')->setTemplate('customer/wishlist.phtml')->toHtml(); 
-		 ?>
-	    </div>
-	    <?php echo $this->getChildHtml('info1') ?>
-	    <?php echo $this->getChildHtml('info2') ?>
-	</div>
+    <div class="col-lg-2 col-md-2-col-xs-12"></div>
+    <div class="col-lg-2 col-md-2-col-xs-12">
+        <div class="page-title">
+            <h1><?php echo $this->__('My Account') ?></h1>
+        </div>
+        <li class="account-menu-mobile"><?php echo $this->__('My Account') ?> <span class="glyphicon glyphicon-chevron-down"/></li>
+        <ul class="account-menu">
+            <li data-value=".my-wishlist"><span class="glyphicon"/></span><?php echo $this->__('Wishlist');?></li>
+            <li data-value=".box-recent"><span class="glyphicon"/></span><?php echo $this->__('Pedidos');?></li>
+            <li data-value=".box-address"><span class="glyphicon"/></span><?php echo $this->__('Direcciones');?></li>
+            <li data-value=".edit-account"><span class="glyphicon"/></span> <?php echo $this->__('Detalles cuenta');?></li>
+        </ul>
+
+        <a href="<?php echo Mage::getBaseUrl().'customer/account/logout/' ?>" id="logout"><?php echo $this->__('Log out');?></a>
+    </div>
+    <div class="col-lg-6 col-md-6-col-xs-12">
+		<?php //echo $this->getMessagesBlock()->toHtml() ?>
+		<?php echo $this->getChildHtml('hello') ?>
+		<?php echo $this->getChildHtml('top') ?>
+        <div class="box-account box-info">
+            <div class="box-head">
+                <h2><?php echo $this->__('Account Information') ?></h2>
+            </div>
+			<?php /* Extensions placeholder */ ?>
+			<?php echo $this->getChildHtml('customer.account.dashboard.extra') ?>
+			<?php echo $this->getChildHtml('info') ?>
+			<?php echo $this->getChildHtml('address') ?>
+			<?php
+			echo  Mage::app()->getLayout()->createBlock('wishlist/customer_wishlist')->setTemplate('customer/wishlist.phtml')->toHtml();
+			?>
+        </div>
+		<?php echo $this->getChildHtml('info1') ?>
+		<?php echo $this->getChildHtml('info2') ?>
+    </div>
     <div class="col-lg-2 col-md-2-col-xs-12"></div>
 </div>
 <script type="text/javascript">
-	jQuery(document).ready(function(){
+    jQuery(document).ready(function(){
 
-		//Gestiona menu lateral
-		jQuery(".account-menu li ").click(function(){
-			var id = jQuery(this).parent().find(".active").attr('data-value');
-			var newId = jQuery(this).attr('data-value');
-			console.log(id);
-			console.log(newId);
-			if(id != undefined){
-				if(id == ".box-recent"){
-					//Oculto el pedido individual
-					jQuery(".order").hide();
-					jQuery(".orders").fadeIn("slow");
-				}
-				jQuery(this).parent().parent().parent().find(id).hide();
-				jQuery(this).parent().find(".active").removeClass("active");
-				jQuery(this).parent().find(".glyphicon-play").removeClass("glyphicon-play");
-			}
-			else{
-				jQuery(this).parent().parent().parent().find('.welcome-msg').hide();
-			}
-			
-			jQuery(this).addClass('active');
-			jQuery(this).find("span").addClass('glyphicon-play');
-			jQuery(this).parent().parent().parent().find(newId).fadeIn('slow');
-		});
-		//Si viene por parametro la sección que quiere ver, la activo
-		var show = getParameterByName('show');
-		console.log(show.length);
-		if(show.length > 0){
-			console.log(jQuery('.account-menu '+show));
-			jQuery('.account-menu li[data-value="'+show+'"]').click();
-		}
-	});
+        //Gestiona menu lateral
+        jQuery(".account-menu li").click(function(){
+
+            var id = jQuery(this).parent().find(".active").attr('data-value');
+            var newId = jQuery(this).attr('data-value');
+
+            if(id != undefined){
+                if(id == ".box-recent"){
+                    //Oculto el pedido individual
+                    jQuery(".order").hide();
+                    jQuery(".orders").fadeIn("slow");
+                }
+                jQuery(this).parent().parent().parent().find(id).hide();
+                jQuery(this).parent().find(".active").removeClass("active");
+                jQuery(this).parent().find(".glyphicon-play").removeClass("glyphicon-play");
+            }
+            else{
+                jQuery(this).parent().parent().parent().find('.welcome-msg').hide();
+            }
+
+            jQuery(this).addClass('active');
+            jQuery(this).find("span").addClass('glyphicon-play');
+            jQuery(this).parent().parent().parent().find(newId).fadeIn('slow');
+        });
+
+        //Gestiona menu mvÃ³il
+        jQuery(".account-menu-mobile").click(function(){
+
+          if(jQuery('.account-menu').is(':visible')){
+              jQuery(".account-menu-mobile").css('border-bottom','1px solid #333');
+              jQuery(this).removeClass('active');
+              jQuery(this).find('span').removeClass('glyphicon-chevron-up');
+              jQuery(this).find('span').addClass('glyphicon-chevron-down');
+              jQuery("#logout").css("bottom","-20px");
+              jQuery('.account-menu').fadeOut('fast');
+          }else{
+              jQuery(".account-menu-mobile").css('border-bottom','none');
+              jQuery(this).addClass('active');
+              jQuery(this).find('span').removeClass('glyphicon-chevron-down');
+              jQuery(this).find('span').addClass('glyphicon-chevron-up');
+              jQuery("#logout").css("bottom","-30px");
+              jQuery('.account-menu').fadeIn('slow');
+          }
+        });
+
+        //Si viene por parametro la secciï¿½n que quiere ver, la activo
+        var show = getParameterByName('show');
+        console.log(show.length);
+        if(show.length > 0){
+            console.log(jQuery('.account-menu '+show));
+            jQuery('.account-menu li[data-value="'+show+'"]').click();
+        }
+    });
 
 
-	function getParameterByName(name, url) {
-    if (!url) url = window.location.href;
-    name = name.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
-}
+
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
 </script>
