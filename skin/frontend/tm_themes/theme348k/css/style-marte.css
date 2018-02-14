@@ -2937,3 +2937,6 @@ label.required:after, span.required:after{ color: #333 !important; }
     margin-left: -14px;
     float: right;
 }
+.account-menu-mobile{
+	display: none;
+}
