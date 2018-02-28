@@ -1,6 +1,8 @@
 jQuery( document ).ready(function() {
 	error_movil_web();
 	footer_movil_web();
+	resolveInstagram();
+
 	jQuery(".youama-window-outside .close").click(function() {
 		jQuery("#header-account2").css("display","none");
 	});
@@ -219,5 +221,21 @@ function error_movil_web() {
 		jQuery('#imagen-2').appendTo('#col-2-error');
           jQuery('#texto').appendTo('#col-3-error');
 	} 
+
 }
+
+function resolveInstagram()
+	{
+		var ventana_ancho = jQuery(window).width();
+		var agent = navigator.userAgent.split(" "); 
+		
+		if( agent.indexOf("Instagram") != -1 && /iPhone|iPad|iPod/i.test(navigator.userAgent))
+		{
+		   	jQuery('#product-info').css('padding-bottom','45px');
+	    	jQuery('.minicart-wrapper .block-content').css('bottom','80px');
+	    	jQuery('.minicart-actions').css('bottom','20px');
+	    	jQuery('.collapse div').css('margin-bottom','30px');
+		}
+	}
+
 
