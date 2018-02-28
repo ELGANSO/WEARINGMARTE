@@ -102,7 +102,7 @@
 
 		<?php if(!$this->isCustomerLoggedIn() && $this->getCheckoutMode() != 2): ?>
 			<div id="gcheckout-login-link" class="glc-login-link<?php if (Mage::helper('gomage_checkout')->isLefttoRightWrite()): ?> glc-rtl<?php endif; ?>">
-				<a href="#" onclick="abrirLogin2();return false;" class="login-button" rel="#login-block"><?php echo $this->__('Already registered? Please log in');?> <span><?php echo $this->__('here'); ?></span></a>
+				<a href="#" onclick="checkout.showLoginForm();return false;" class="login-button" rel="#login-block"><?php echo $this->__('Already registered? Please log in');?> <span><?php echo $this->__('here'); ?></span></a>
 			</div>
 			<?php echo $this->getChildHtml('login_before')?>
 		<?php endif;?>

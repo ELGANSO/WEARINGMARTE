@@ -74,6 +74,13 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
                 /* if the payment method cannot be used at this time */
                 continue;
             }
+            //Permito cash on delivery solo en admin
+             $store_id = Mage::app()->getStore()->getStoreId();
+            if($code == 'cashondelivery' && $store_id > 0 )
+            {
+            	continue;
+            }
+
             $sortOrder = (int)$methodInstance->getConfigData('sort_order', $store);
             $methodInstance->setSortOrder($sortOrder);
             $res[] = $methodInstance;
