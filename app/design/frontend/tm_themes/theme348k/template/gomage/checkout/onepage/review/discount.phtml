@@ -15,7 +15,7 @@
     <div class="lightcheckout-discount-form">
 
         <input type="hidden" name="remove" id="remove_coupone" value="0" />
-
+		<input type="hidden" name="form_key" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
 		<label for="coupon_code" id="open_coupon"><span id="flecha-discount" style="padding-right:5px">&#x25B6</span><?php echo $this->__('Discount codes') ?></label>
 
 		<br>

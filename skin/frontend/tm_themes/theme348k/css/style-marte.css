@@ -1170,6 +1170,7 @@ body.customer-account .data-table tbody tr.first {
 }
 #nav .nav-primary{
 	margin-top: 70%;
+    min-width: 240px;
 }
 #nav ul li a{
 	text-align: left;
@@ -2435,7 +2436,7 @@ label.required:after, span.required:after{ color: #333 !important; }
 		padding: 0px !important;
 	}
 	.collapse div{
-		margin-top: 15px;
+		margin-top: 0;
     	margin-bottom: 15px;
 	}
 	.modal-content{
@@ -2936,4 +2937,7 @@ label.required:after, span.required:after{ color: #333 !important; }
     background-size: 14px;
     margin-left: -14px;
     float: right;
+}
+.account-menu-mobile{
+	display: none;
 }
