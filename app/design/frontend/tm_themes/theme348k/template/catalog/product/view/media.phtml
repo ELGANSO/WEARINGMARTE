@@ -102,17 +102,21 @@
         function showDivs(n) {
           var i;
           var x = document.getElementsByClassName("mySlides");
-          if (n > x.length) {slideIndex = 1}    
-          if (n < 1) {slideIndex = x.length}
+            slideIndex = n;
+
+          if (n > x.length -1) {slideIndex = 1}
+          if (n < 1) {slideIndex = x.length-1}
+
           for (i = 0; i < x.length; i++) {
              x[i].style.display = "none";  
           }
-          x[slideIndex-1].style.display = "block"; 
-          x[slideIndex-1].style.height= "100%" ;
-          jQuery('.zoomWindow').css('background-image','url('+jQuery(x[slideIndex-1]).attr("data-zoom-image")+')');
+
+          x[slideIndex].style.display = "block";
+          x[slideIndex].style.height= "100%" ;
+          jQuery('.zoomWindow').css('background-image','url('+jQuery(x[slideIndex]).attr("data-zoom-image")+')');
           jQuery('.zoomWindow').css('top','50%');
           jQuery('.zoomWindow').css('left','50%');
-          console.log(jQuery(x[slideIndex-1]).attr("src"));
+         
         }
         </script>
 
