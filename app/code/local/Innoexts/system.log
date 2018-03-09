@@ -1,0 +1,19 @@
+PHP Fatal error:  Uncaught exception 'Zend_Cache_Exception' with message 'Can't get filling percentage' in /home/elganso/magento/lib/Zend/Cache.php:209
+Stack trace:
+#0 /home/elganso/magento/lib/Zend/Cache/Backend/Memcached.php(403): Zend_Cache::throwException('Can't get filli...')
+#1 /home/elganso/magento/lib/Zend/Cache/Backend/TwoLevels.php(518): Zend_Cache_Backend_Memcached->getFillingPercentage()
+#2 /home/elganso/magento/lib/Zend/Cache/Backend/TwoLevels.php(192): Zend_Cache_Backend_TwoLevels->_getFastFillingPercentage('saving')
+#3 /home/elganso/magento/lib/Zend/Cache/Core.php(390): Zend_Cache_Backend_TwoLevels->save('a:8:{s:10:"bloc...', '6e4_CORE_CACHE_...', Array, NULL)
+#4 /home/elganso/magento/lib/Varien/Cache/Core.php(145): Zend_Cache_Core->save('a:8:{s:10:"bloc...', 'CORE_CACHE_OPTI...', Array, NULL, 8)
+#5 /home/elganso/magento/app/code/core/Mage/Core/Model/Cache.php(403): Varien_Cache_Core->save('a:8:{s:10:"bloc...', 'CORE_CACHE_OPTI...', Array, NULL)
+#6 /home/elganso/magento/app/code/core/Mage/Core/Model/Cache.php(48 in /home/elganso/magento/lib/Zend/Cache.php on line 209
+
+Fatal error: Uncaught exception 'Zend_Cache_Exception' with message 'Can't get filling percentage' in /home/elganso/magento/lib/Zend/Cache.php:209
+Stack trace:
+#0 /home/elganso/magento/lib/Zend/Cache/Backend/Memcached.php(403): Zend_Cache::throwException('Can't get filli...')
+#1 /home/elganso/magento/lib/Zend/Cache/Backend/TwoLevels.php(518): Zend_Cache_Backend_Memcached->getFillingPercentage()
+#2 /home/elganso/magento/lib/Zend/Cache/Backend/TwoLevels.php(192): Zend_Cache_Backend_TwoLevels->_getFastFillingPercentage('saving')
+#3 /home/elganso/magento/lib/Zend/Cache/Core.php(390): Zend_Cache_Backend_TwoLevels->save('a:8:{s:10:"bloc...', '6e4_CORE_CACHE_...', Array, NULL)
+#4 /home/elganso/magento/lib/Varien/Cache/Core.php(145): Zend_Cache_Core->save('a:8:{s:10:"bloc...', 'CORE_CACHE_OPTI...', Array, NULL, 8)
+#5 /home/elganso/magento/app/code/core/Mage/Core/Model/Cache.php(403): Varien_Cache_Core->save('a:8:{s:10:"bloc...', 'CORE_CACHE_OPTI...', Array, NULL)
+#6 /home/elganso/magento/app/code/core/Mage/Core/Model/Cache.php(48 in /home/elganso/magento/lib/Zend/Cache.php on line 209
