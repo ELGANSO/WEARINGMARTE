@@ -222,7 +222,7 @@ php_value max_input_vars 4000
 php_value suhosin.get.max_vars 4000
 php_value suhosin.post.max_vars 4000
 php_value suhosin.request.max_vars 4000
-AuthUserFile "/var/www/marte/syncapi.htpasswd"
+AuthUserFile "/var/www/marte/syncapi/.htpasswd"
 AuthType Basic
 AuthName "sincro"
 require user sincro
