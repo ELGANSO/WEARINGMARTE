@@ -62,12 +62,26 @@ jQuery( document ).ready(function() {
 		  jQuery(this).css("color","red");
 		});
 		jQuery(".btnsizes").addClass("error");
-		jQuery(".btnsizes").css("border-color","red");
+		jQuery(".btnsizes, #tallas").css("border-color","red");
+        jQuery("#tallas").css("border-top","none");
 		jQuery(".btnsizes").css("color","red");
+
+        jQuery(".sizes").addClass("error");
+        //jQuery(".sizes").css("border","1px solid red");
+        jQuery(".sizes li").css("color","red");
+
 	}
 
+	jQuery(".sizes li").click(function(){
+        jQuery(".sizes li").css("color","#333");
+        jQuery(".sizes").removeClass("error");
+        jQuery(".btnsizes").removeClass("error");
+        jQuery(".btnsizes, #tallas").css("border-color","#333");
+        jQuery("#tallas").css("border-top","none");
+        jQuery(".btnsizes").css("color","#333");
+	});
 
-	//Compruebo si ha añadido algo al carrito
+	//Compruebo si ha aï¿½adido algo al carrito
 	if(jQuery(".messages .success-msg li span").length && !jQuery("#message-popup").length){
 		if(jQuery(window).width() >= 1024){
 			jQuery(".count_t").click();
@@ -77,7 +91,6 @@ jQuery( document ).ready(function() {
 		}
 	}
 	jQuery(".youama-window-outside .close").click(function(){
-		console.log("entro");
 		jQuery('body').removeClass('stop-scrolling');
 	});
 
@@ -199,6 +212,14 @@ jQuery( document ).ready(function() {
 			jQuery(".collapse").removeClass("in");
 			jQuery(this).parent().find(".collapse").addClass("in");
 		});
+
+    jQuery(".btnsizes").click(function () {
+
+    	if(!jQuery(this).css("border-bottom").includes('none'))
+			jQuery(this).css("border-bottom","none");
+    	else
+            jQuery(this).css("border","1px solid #333");
+    });
 
 });
 

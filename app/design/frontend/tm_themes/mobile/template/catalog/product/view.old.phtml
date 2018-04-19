@@ -52,68 +52,52 @@
         $grid_cols_1 = $grid_cols_2 = 'col-sm-12';
         $indicate_class = 'center-image-type';
     }
-
 ?>
 <?php $_helper = $this->helper('catalog/output'); ?>
 <?php $_product = $this->getProduct(); ?>
-<?php
-//Preparo imagenes
-$media = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."/catalog/product";
-$path1 = Mage::getResourceModel('catalog/product')->getAttributeRawValue($_product->getId(), 'img_cent_1', Mage::app()->getStore()->getStoreId());
-$path2 = Mage::getResourceModel('catalog/product')->getAttributeRawValue($_product->getId(), 'img_cent_2', Mage::app()->getStore()->getStoreId());
-$path3 = Mage::getResourceModel('catalog/product')->getAttributeRawValue($_product->getId(), 'imagen_tejidos', Mage::app()->getStore()->getStoreId());
-$path4 = Mage::getResourceModel('catalog/product')->getAttributeRawValue($_product->getId(), 'imagen_costes', Mage::app()->getStore()->getStoreId());
-
-    if($path1 != "no_selection" && $path1 != ""){
-	    $img_cent_1 = $media.$path1;
-    }else{
-	    $img_cent_1 = "";
-    }
-    if($path2 != "no_selection" && $path2 != "") {
-	    $img_cent_2 = $media . $path2;
-    }
-    else{
-        $img_cent_2 = "";
-    }
-    if($path3 != "no_selection" && $path3 != "") {
-        $img_tejidos = $media . $path3;
-    }
-    else{
-        $img_tejidos = "";
-    }
-    if($path4 != "no_selection" && $path4 != "") {
-        $img_costes = $media . $path4;
-    }
-    else{
-        $img_costes = "";
-    }
-
-
-
-?>
 <script type="text/javascript">
     var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
 </script>
-<script src="<?php echo $this->getSkinUrl('js/lib/elevatezoom/jquery.elevatezoom.js'); ?>"></script>
-<style> .wrapper { margin-top: 25px;} </style>
-<div class="top-message">
-	<h4> <?php echo $this->__('Cambios y devoluciones gratis');?> </h4>
-</div>
+<style> /*.wrapper { margin-top: 25px;} 
+.skip-content.skip-active {
+	top:60px !important;
+}*/
+</style>
+<!--<div class="top-message">
+	<h4> <?php //echo $this->__('Esta semana por Navidad, envíos gratis en toda la Península');?> </h4>
+</div>-->
 
 <div id="messages_product_view"><?php //echo $this->getMessagesBlock()->toHtml() ?></div>
 
 <div class="product-view <?php echo $indicate_class; ?>" itemscope itemtype="https://schema.org/Offer">
 	<div class="product-essential row row-eq-height">
-        <div class="col-lg-4 col-md-4 col-xs-12"></div>
-		<div class="product-img-box col-lg-4 col-md-4 col-xs-12   <?php //echo $grid_cols_1 ?>" id="style-img">
+		<div class="product-img-box col-lg-9 col-md-9 col-xs-12   <?php //echo $grid_cols_1 ?>" id="style-img">
 			<div class="product-name">
 				<h2><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h2>
 			</div>
 			<?php echo $this->getChildHtml('media') ?>
+			<!-- Whislist -->
+		<?php if ($this->helper('wishlist')->isAllow()) : ?>
+			<div id="productWishlist">
+				<a 
+				<?php 	if (Mage::getSingleton('customer/session')->isLoggedIn())
+        			{ 
+        				echo 'href="'.$this->helper('wishlist')->getAddUrl($_product).'"';
+        			}
+        			else{ 
+        				echo 'onclick="abrirLogin2()"';
+        			}
+        	?>
+				
+				class="link-wishlist">
+				</a>
+			</div>
+		<?php endif; ?>
+	<!--/ FIN Whislist-->
 		</div>
 
-		<div class="col-lg-4 col-md-4 col-xs-12 lateralDerecho">
-	    	<form action="<?php echo str_replace("https:","https:",$this->getSubmitUrl($_product)) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+		<div class="col-lg-3 col-md-3 col-xs-12">
+	    	<form action="<?php echo str_replace("http:","https:",$this->getSubmitUrl($_product)) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
 				<?php echo $this->getBlockHtml('formkey') ?>
 				<div class="no-display">
 					<input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
@@ -121,10 +105,10 @@ $path4 = Mage::getResourceModel('catalog/product')->getAttributeRawValue($_produ
 				</div>
 
 				<div class="<?php //echo $grid_cols_2 ?>" id="product-info">
-					<div class="row" style="margin-left: 0">
+					<div class="row">
 
 						<!--NOMBRE PRODUCTO-->
-						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 product-name secondary" itemprop="name">
+						<div class="col-xs-8 col-sm-8 col-md-12 col-lg-12 product-name secondary" itemprop="name">
 							<h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
 
 							<!--PRECIO-->
@@ -133,21 +117,18 @@ $path4 = Mage::getResourceModel('catalog/product')->getAttributeRawValue($_produ
 							<?php echo $this->getTierPriceHtml() ?>
 							<!--/PRECIO-->
 
-							<!-- Aplazame -->
-							<?php //echo $this->getChildHtml('extrahint') ?>
 
-							<!--SHORT DESCRIPTION-->
-							<p class="short-description">
-								<?php $_description = $this->getProduct()->getShortDescription(); ?>
-								<?php if ($_description): ?>
-									<?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $_description, 'description') ?> 
-								<?php endif; ?>
-							</p>
-							<!--/SHORT DESCRIPTION-->
 						</div>
-
+						<div class="col-xs-4 col-md-4 col-lg 12 aplazame">
+							<button type="button" class="btn btn-info" data-toggle="modal" data-target="#infoModal">
+  								+ info
+							</button>
+														<!-- Aplazame -->
+							<?php echo $this->getChildHtml('extrahint') ?>
+						</div>
+				</div>
 						<!--Color y tallas--> 
-						<div class="col-lg-12 col-md-12 col-xs-12 talla">
+						<div class="col-lg-2 col-md-4 col-xs-4 talla collapse" id="tallas" style="padding: 0;">
 
 							<?php
 							$config = $_product->getTypeInstance(true);
@@ -157,7 +138,6 @@ $path4 = Mage::getResourceModel('catalog/product')->getAttributeRawValue($_produ
 							?>
 									<div class="tallas-productos">
 										<?php if($_product->getStockItem() && $_product->getStockItem()->getIsInStock()): ?>
-											<span><?php echo $this->__("Sizes") ?></span>
 											<ul class="sizes">
 											<?php foreach($attributes["values"] as $values)
 											{ 
@@ -181,7 +161,7 @@ $path4 = Mage::getResourceModel('catalog/product')->getAttributeRawValue($_produ
 							}
 							?>
 							<!--Llamada Modal Guia de tallas-->
-						<div class="panel panel-default find-my-size" style="border:none !important;">
+						<div class="panel panel-default col-lg-3 col-xs-12" style="border:none !important;box-shadow:none !important;padding: 15px 0 0 0;    margin-bottom: 0;">
 							<div aria-controls="collapseTwo-prod" aria-expanded="true" data-target="#collapseTwo-prod" data-parent="#accordion-prod" data-toggle="collapse" id="headingTwo-prod" role="tab" class="pan-heading-prod">
 								<div class="guia-de-tallas col-lg-12 col-md-12 col-xs-12 talla">
 									<a class="accordion-toggle uppercase" data-toggle="modal" data-target="#guia-de-tallas-modal"><?php echo $this->__("Find my size"); ?></a>
@@ -192,59 +172,25 @@ $path4 = Mage::getResourceModel('catalog/product')->getAttributeRawValue($_produ
 						</div>
 
 						
-
+						<div class="row" style="margin-top: 5px; margin-left: -10px; margin-right: -10px;">
+						<div class="col-lg-4 col-md-4 col-xs-4" style="padding: 0;">
+						  <a class="btn btn-outline-dark btnsizes" data-toggle="collapse" href="#tallas" aria-expanded="false" aria-controls="collapseExample"><?php echo $this->__("Sizes") ?></a>
+						</div>
 						<!-- ADD CARRITO -->
-						<div class="add-to-cart-wrapper col-lg-12 col-md-12 col-xs-12">
-							<?php echo $this->getChildHtml('other');?>
-							<?php if ($_product->isSaleable()):?>
-								<?php echo $this->getChildHtml('addtocart') ?>
-							<?php endif;?>
+						<div class="col-lg-8 col-md-8 col-xs-8"  style="padding: 0;">
+							<div class="add-to-cart-wrapper">
+								<?php echo $this->getChildHtml('other');?>
+								<?php if ($_product->isSaleable()):?>
+									<?php echo $this->getChildHtml('addtocart') ?>
+								<?php endif;?>
+							</div>
 						</div>
 						<!-- FIN ADD CARRITO -->
-
-						<!-- Whislist ->
-						<div class="add-Whislist col-lg-12 col-md-12 col-xs-12">
-							<?php /* if ($this->helper('wishlist')->isAllow()) : ?>
-								<div id="productWishlist">
-									<a 
-									<?php 	if (Mage::getSingleton('customer/session')->isLoggedIn())
-                            			{ 
-                            				echo 'href="'.$this->helper('wishlist')->getAddUrl($_product).'"';
-                            			}
-                            			else{ 
-                            				echo 'onclick="abrirLogin2()"';
-                            			}
-                            	?>
-									
-									class="link-wishlist">
-										<span><?php echo $this->__('Save for later') ?></span>
-									</a>
-								</div>
-							<?php endif; */ ?>
-						</div>
-						<!--/ FIN Whislist-->
-
-                        <!-- Medidas modelo -->
-						<?php $_medidas_modelo = $this->getProduct()->getMedidasModelo(); ?>
-						<?php if ($_description): ?>
-                            <div class="col-lg-12 col-md-12 col-xs-12">
-                                <div id="medidasModelo">
-                                    <span class="details"><?php echo $this->__("Details") ?>:</span>
-                                    <p class="medidas-modelo"><?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $this->getProduct()->getMedidasModelo()); ?>
-                                        <a class="accordion-toggle uppercase" data-toggle="modal" data-target="#modal-cuidados"><span class="gota"><?php echo $this->__("Cuidado del producto") ?></span></a>
-                                        <span class="coser"><?php echo $this->__("Envíos y devoluciones gratuitas en Península") ?></span>
-                                    </p>
-                                </div>
-                            </div>
-						<?php endif;?>
-                        <!--/ FIN Medidas modelo-->
-
-
-
-
 					</div>
 
-				</div>
+						
+
+					</div>
 			</form>
 			
 
@@ -256,53 +202,9 @@ $path4 = Mage::getResourceModel('catalog/product')->getAttributeRawValue($_produ
 		</div>
 	</div> <!-- Cierre product info -->
 
-    <div class="row composicion">
-        <h1> <?php echo $this->getProduct()->getTejido(); ?></h1>
-    </div>
-
-    <div class="row imgs-centrales">
-        <div class="col-md-6 col-xs-12">
-	        <?php if($img_cent_1 != ""):?>
-                <img src="<?php echo $img_cent_1; ?>" class="img-properties" style="width:100%;"/>
-	        <?php endif;?>
-        </div>
-        <div class="col-md-6 col-xs-12">
-            <?php if($img_cent_2 != ""):?>
-            <img src="<?php echo $img_cent_2; ?>" class="img-properties" style="width:100%;"/>
-            <?php endif;?>
-        </div>
-    </div>
-
-    <div class="row beneficios">
-        <div class="col-lg-12 col-md-12 col-xs-12">
-            <div class=" col-lg-12 col-md-12 col-xs-12" style="padding: 0;">
-			    <?php $_composicion = $this->getProduct()->getComposicion(); ?>
-			    <?php if ($_composicion): ?>
-                    <div class="std">
-					    <?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $_composicion, 'composicion') ?>
-                    </div>
-			    <?php endif; ?>
-            </div>
-        </div>
-    </div>
-
-    <div class="row imgs-centrales">
-        <div class="col-md-12 col-xs-12">
-			<?php if($img_tejidos != ""):?>
-                <img src="<?php echo $img_tejidos; ?>" class="img-properties" style="width:100%;"/>
-			<?php endif;?>
-        </div>
-    </div>
-    <div class="row imgs-centrales">
-        <div class="col-md-12 col-xs-12">
-			<?php if($img_costes != ""):?>
-                <img src="<?php echo $img_costes; ?>" class="img-properties" style="width:100%;"/>
-			<?php endif;?>
-        </div>
-    </div>
 
 
-    <script type="text/javascript">
+        <script type="text/javascript">
         //<![CDATA[
             var productAddToCartForm = new VarienForm('product_addtocart_form');
             productAddToCartForm.submit = function(button, url) {
@@ -374,6 +276,7 @@ $path4 = Mage::getResourceModel('catalog/product')->getAttributeRawValue($_produ
     
         
     </div>
+    <img src="<?php echo Mage::helper('catalog/image')->init($_product, 'imagen_tejidos');?>" class="img-properties" style="width:100%;margin-top: 75px;"/>
 	<div class="related-products">
     	<?php echo $this->getChildHtml('related_products') ?>
     </div>   
@@ -496,35 +399,150 @@ $path4 = Mage::getResourceModel('catalog/product')->getAttributeRawValue($_produ
 
 	</div>
 	<!-- /.modal - DISPONIBILIDAD EN TIENDAS -->
-
-<div id="modal-cuidados" class="modal fade  col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxs-12">
-    <div class="modal-dialog modal-dialog-guia-tallas">
-        <div class="col-md-4 col-xs-12"></div>
-        <div class="modal-content modal-content-guia-tallas col-md-4 col-xs-12">
-            <div class="modal-header modal-cuidados-header">
-                <a class="btn btn-close" data-dismiss="modal" style="float:right; padding: 0 !important;">
-                    <button type="button" class="close modal-cuidados-close" aria-label="Close">
-                        <span aria-hidden="true" style="font-size: 40px">&times;</span>
-                    </button>
-                </a>
-                <h4 class="modal-title uppercase modal-title-cuidados"><?php echo Mage::helper('catalog')->__('Cuidado del producto'); ?></h4>
-            </div>
-
-            <div class="modal-body">
-                <div class="container">
-	                <?php $_cuidadoproducto = $this->getProduct()->getCuidadoproducto(); ?>
-	                <?php if ($_cuidadoproducto): ?>
-                        <div class="std">
-			                <?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $_cuidadoproducto, 'cuidadoproducto') ?>
-                        </div>
-	                <?php endif; ?>
-
-                </div>
-
-            </div>
-        </div>
-        <div class="col-md-4 col-xs-12"></div>
+	<!-- Modal info de producto -->
+	<div class="modal fade"  id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <div id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="card">
+    <div class="card-header" role="tab" id="headingOne">
+      <h5 class="mb-0">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <?php echo $this->__('Información del producto'); ?>
+        </a>
+      </h5>
     </div>
 
+    <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+		<!--SHORT DESCRIPTION-->
+		<p class="short-description">
+			<?php $_description = $this->getProduct()->getShortDescription(); ?>
+			<?php if ($_description): ?>
+				<?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $_description, 'description') ?> 
+			<?php endif; ?>
+		</p>
+		<!--/SHORT DESCRIPTION-->
+		 <!-- Medidas modelo -->
+						<?php $_medidas_modelo = $this->getProduct()->getMedidasModelo(); ?>
+						<?php if ($_description): ?>
+							<div class="col-lg-12 col-md-12 col-xs-12">
+								<div id="medidasModelo">
+									<p class="medidas-modelo"><?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $this->getProduct()->getMedidasModelo()); ?>
+									</p>
+								</div>
+							</div>
+						<?php endif;?>
+						<!--/ FIN Medidas modelo-->
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab" id="headingTwo">
+      <h5 class="mb-0">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+         <?php echo $this->__('Composition') ?>
+        </a>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+      		<!--IMAGENES PROPIEDADES-->
+			<div class="col-lg-12 col-md-12 col-xs-12">
+				<div class=" col-lg-12 col-md-12 col-xs-12" style="padding: 0;"> 
+					<?php $_composicion = $this->getProduct()->getComposicion(); ?>
+					<?php if ($_composicion): ?>
+						<div class="std">
+							<?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $_composicion, 'composicion') ?>
+						</div>
+					<?php endif; ?>
+				</div>	
+			</div>
+		</div>  	
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab" id="headingThree">
+      <h5 class="mb-0">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          <?php echo $this->__('Product Care') ?>
+        </a>
+      </h5>
+    </div>
+    <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<?php $_cuidadoproducto = $this->getProduct()->getCuidadoproducto(); ?>
+				<?php if ($_cuidadoproducto): ?>
+					<div class="std">
+						<?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $_cuidadoproducto, 'cuidadoproducto') ?>
+					</div>
+				<?php endif; ?>
+			</div> 
+    </div>
+  </div>
+
+<div class="card">
+    <div class="card-header" role="tab" id="headingFour">
+      <h5 class="mb-0">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          <?php echo $this->__('Gastos de envío y devoluciones') ?>
+        </a>
+      </h5>
+    </div>
+    <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="std">
+					<p><?php echo $this->__("Find out more about our")?> <a href="<?php echo Mage::getBaseUrl();?>devoluciones"><?php echo $this->__("delivery options")?>.</a></p>
+					<p><?php echo $this->__("Please try items in the comfort of your own home. If you don't like them, or they don't fit, we'll happily collect them from your home or office for free.")?></p>
+
+				</div>
+			</div> 
+  </div>
 </div>
+	      </div>
+	    </div>
+	   
+	  </div>
+	</div>
+<!-- Fin Modal info -->
 </div>
+
+<script type="text/javascript">
+
+	jQuery(document).ready(function(){
+		
+ //IE, Opera, Safari
+ jQuery('body').bind('touchmove', function(e){
+
+ 	if(jQuery(window).scrollTop() >= jQuery('#contenido-suscribe').offset().top + jQuery('#contenido-suscribe').outerHeight() - (window.innerHeight )-100) {
+    	jQuery("#product-info").fadeOut( "slow" );
+    }else{
+    	jQuery("#product-info").fadeIn();
+    }
+
+ });
+
+ //Firefox
+ jQuery('body').bind('touchmove', function(e){
+     
+      if(jQuery(window).scrollTop() >= jQuery('#contenido-suscribe').offset().top + jQuery('#contenido-suscribe').outerHeight() - (window.innerHeight )-100) {
+        	jQuery("#product-info").fadeOut( "slow" );
+	    }else{
+	    	jQuery("#product-info").fadeIn();
+	    }
+ });
+
+  jQuery('body').bind('mousewheel', function(e){
+
+      if(jQuery(window).scrollTop() >= jQuery('#contenido-suscribe').offset().top + jQuery('#contenido-suscribe').outerHeight() - (window.innerHeight )-100) {
+        	jQuery("#product-info").fadeOut( "slow" );
+	    }else{
+	    	jQuery("#product-info").fadeIn();
+	    }
+
+ });
+
+	});
+</script>

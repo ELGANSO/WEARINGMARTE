@@ -481,6 +481,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     public function saveFile()
     {
         $filename = $this->getNewFile();
+        Mage::log($filename,null,"ivan.log");
         $this->getImageProcessor()->save($filename);
         Mage::helper('core/file_storage_database')->saveFile($filename);
         return $this;
@@ -491,9 +492,10 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      */
     public function getUrl()
     {
-        $baseDir = Mage::getBaseDir('media');
-        $path = str_replace($baseDir . DS, "", $this->_newFile);
-        return Mage::getBaseUrl('media') . str_replace(DS, '/', $path);
+	    $baseDir = Mage::getBaseDir('media');
+	    $file = ('gif' == strtolower(pathinfo($this->_baseFile, PATHINFO_EXTENSION))) ? $this->_baseFile : $this->_newFile;
+	    $path = str_replace($baseDir . DS, "", $file);
+	    return Mage::getBaseUrl('media') . str_replace(DS, '/', $path);
     }
 
     public function push()

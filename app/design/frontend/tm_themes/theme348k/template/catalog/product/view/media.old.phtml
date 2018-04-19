@@ -43,30 +43,36 @@
 <?php 
     if(!$_product_type_center_image){
 ?>
-
-<?php if (count($this->getGalleryImages()) > 0): ?>
+<!--LISTA DE IMAGENES LATERALES-->
+<?php if(!count($this->getGalleryImages()) > 0): ?>
     <?php $img_mode = ($_product_type_large_image) ? 'large-image' : 'normal-image' ?>
-    <div class="more-views">
+    <!-- <div class="more-views">
         <ul class="product-image-thumbs more-views-carousel" data-imgmode="<?php echo $img_mode; ?>">
-        <?php $i=0; foreach ($this->getGalleryImages() as $_image): ?>
+        <?php /* $i=0; foreach ($this->getGalleryImages() as $_image): ?>
             <?php if ($this->isGalleryImageVisible($_image)): ?>
+                <?php //Mage::log('variable imagen',null,'marte.log')?>
+                <?php //Mage::log($_image,null,'marte.log')?>
+                <?php //Mage::log('fin variable imagen',null,'marte.log')?>
             <li>
                 <a class="thumb-link" href="#" title="<?php echo $this->escapeHtml($_image->getLabel()) ?>" data-image-index="<?php echo $i; ?>">
+                              
                     <img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(100,124); ?>"
-                        alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>" />
+                        alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>" />  
                 </a>
             </li>
             <?php endif; ?>
-        <?php $i++; endforeach; ?>
+        <?php $i++; endforeach; */?>
         </ul>
-    </div>
+    </div>-->
 <?php endif; ?>
 
+<!--IMAGEN PRINCIPAL-->
 
-<div class="product-image product-image-zoom">
+<!--<div class="product-image product-image-zoom" style="cursor: cell;">-->
+<div class="product-image product-image-zoom cursorPlus" >
     <div class="product-image-gallery">
         <img id="image-main"
-            class="gallery-image visible"
+            class="gallery-image visible mySlides"
             src="<?php echo $this->helper('catalog/image')->init($_product, 'image') ?>"
             alt="<?php echo $this->escapeHtml($this->getImageLabel()) ?>"
             title="<?php echo $this->escapeHtml($this->getImageLabel()); ?>" itemprop="image" />
@@ -74,13 +80,48 @@
         <?php $i=0; foreach ($this->getGalleryImages() as $_image): ?>
             <?php if ($this->isGalleryImageVisible($_image)): ?>
             <img id="image-<?php echo $i; ?>"
-                 class="gallery-image"
+                 class="gallery-image mySlides"
                  src="<?php echo $this->getGalleryImageUrl($_image); ?>"
                  data-zoom-image="<?php echo  $this->getGalleryImageUrl($_image); ?>"
                  alt="" />
             <?php endif; ?>
+
         <?php $i++; endforeach; ?>
+        <div class="slides-botton" onclick="plusDivs(-1)" id= "flechas-up" ></div>
+        <div class="slides-botton" onclick="plusDivs(1)" id= "flechas-down"></div>
+        <div class="bx-controls-direction"><a class="bx-prev" href=""></a><a class="bx-next" href=""></a></div>
     </div>
+        <script>
+        var slideIndex = 1;
+        showDivs(slideIndex);
+
+        function plusDivs(n) {
+          showDivs(slideIndex += n);
+        }
+
+        function showDivs(n) {
+          var i;
+          var x = document.getElementsByClassName("mySlides");
+            slideIndex = n;
+
+          if (n > x.length -1) {slideIndex = 1}
+          if (n < 1) {slideIndex = x.length-1}
+
+          for (i = 0; i < x.length; i++) {
+             x[i].style.display = "none";  
+          }
+
+          x[slideIndex].style.display = "block";
+          x[slideIndex].style.height= "100%" ;
+          jQuery('.zoomWindow').css('background-image','url('+jQuery(x[slideIndex]).attr("data-zoom-image")+')');
+          jQuery('.zoomWindow').css('top','50%');
+          jQuery('.zoomWindow').css('left','50%');
+         
+        }
+        </script>
+
+
+
 </div>
 
 <?php 

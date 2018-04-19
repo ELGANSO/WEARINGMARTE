@@ -1087,6 +1087,9 @@ var zoomSettings = {
     zoomType: "inner", 
     cursor: "crosshair",
     easing: true,
+    zoomWindowWidth: 420,
+    zoomWindowHeight: 365,
+    zoomWindowPosition: 3,
 }         
 
 var ProductMediaManager = {
@@ -1201,6 +1204,7 @@ var ProductMediaManager = {
     },
 
     initZoom: function() {
+
         ProductMediaManager.createZoom($j(".gallery-image.visible")); //set zoom on first image
     },
 

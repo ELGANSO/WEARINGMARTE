@@ -370,61 +370,14 @@ a #img_twitter{
 /***ESTILO FICHA DE PRODUCTO***/
 
 /**SLIDER IMAGEN**/
-#flechas-up  {
-    position: fixed;
-    top: 48%;
-    left: 5px;
-    /*width: 25px;
-    height: 25px;*/
-    width: 35px;
-    height: 35px;
-    /*background: url("/media/wysiwyg/flechas-up.png") no-repeat ;*/
-    background: url("/media/wysiwyg/flechas-up.png") 0 -35px;
-    cursor: pointer;
-    background-color: white;
-    border: 1px solid #333;    
-    }
-#flechas-up:hover {
-    background: url("/media/wysiwyg/flechas-up.png") 35px 0;
-    cursor: pointer;
-    background-color: white;
-    border-color: #dedede;
+
+/**IMAGEN PRODUCTO **/
+.product-image-thumbs li{
+    margin-bottom: 15px;
 }
-#flechas-down  {
-    position: fixed;
-    top: 54%;
-    left: 5px;
-    /*width: 25px;
-    height: 25px;*/
-    width: 35px;
-    height: 35px;
-    background: url("/media/wysiwyg/flechas-down.png") 0 -35px;
-    cursor: pointer;
-    background-color: white;
-    border: 1px solid #333;
-}
-#flechas-down:hover {
-    background: url("/media/wysiwyg/flechas-down.png") 35px 0;
-    cursor: pointer;
-    background-color: white;
-    border-color: #dedede;
-}
-/**IMAGEN PRODUCTO**/
-.product-image-gallery{
-    width: 100%;
-    /*height: 140vh;*/
-    background: #fff;
-}  
-#image-main{
-	height: initial !important;
-	width: 100%;
-}
-.product-image-gallery img {
-    height: initial !important;
-    width: 100%;
-}  
+
 #product-info div .row {
-	margin-left: 30px;
+margin-left: 30px;
 }
 /**ICONOS DE LAS PROPIEDADES DE LA PRENDA**/
 .iconos_producto {
@@ -960,7 +913,6 @@ a:focus{
 	float: left;
 	display: block;
 	width: 100%;
-	margin-top: 15px;
 }
 #add-cart-style button{
 	display: block;
@@ -1022,6 +974,7 @@ a:focus{
     padding: 0;
     position: fixed;
     top: 0;
+    left: 0;
     z-index: 1000;
 }
 .top-message h4{
@@ -1233,7 +1186,6 @@ body.customer-account .data-table tbody tr.first {
 }
 .top-links a.account-dropdown::before{ display: none !important; }
 .main-container { padding: 0 !important }
-.zoomContainer{ display: none !important; }
 
 .page-title h1:before{ display: none !important; }
 .page-title h1{
@@ -1669,7 +1621,6 @@ h3.product-name { padding-top: 10px; }
   height: 100%;
   overflow: hidden;
 }
-.product-image {width:100%;}
 .product-wrapper a span, .product-details a span{ 
 	color: #333 !important;
 	font-weight: 600;
@@ -2378,6 +2329,9 @@ label.required:after, span.required:after{ color: #333 !important; }
 	#add-cart-style{
 		margin-top: 0;
 	}
+    .find-my-size{
+        width: 100% !important;
+    }
 	.bs-wizard > .bs-wizard-step > .bs-wizard-dot{
 		margin-top: 10px !important;
 		top: 61px !important;
@@ -2387,6 +2341,7 @@ label.required:after, span.required:after{ color: #333 !important; }
 	}
 	.tallas-productos{
 		margin-bottom: 0 !important;
+        width: 100% !important;
 	}
 	#flechas-up{
 	    top: 42%;
@@ -2401,7 +2356,6 @@ label.required:after, span.required:after{ color: #333 !important; }
 	}
 	#product-info {
 	    width: 100%;
-	    position: fixed;
 	    bottom: 0;
 	    left: 0;
 	    z-index: 1;
@@ -2420,12 +2374,29 @@ label.required:after, span.required:after{ color: #333 !important; }
 		letter-spacing: 2px;
 		padding-top:15px;
 	}
+    .btnsizes::after{
+        background-image: url(/media/wysiwyg/arrow_down.png);
+        background-size: 20px;
+        display: block;
+        background-repeat: no-repeat;
+        background-origin: 0;
+        margin-right: 15px;
+        font-size: 40px;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        color: #fff !important;
+        content: "-";
+    }
 	#tallas{
 		padding: 0px;
-	    position: fixed;
-	    bottom: 50px;
+	    position: relative;
+	    top: -10px;
 	    left:0;
 	    background: #fff;
+        width:100%;
+        border: 1px solid #333;
+        border-top:none;
 	}
 	.sizes{ display: block; }
 	.sizes li {
@@ -2446,8 +2417,9 @@ label.required:after, span.required:after{ color: #333 !important; }
 		margin-bottom: 0px !important;
 	}
 	.short-description{
-	    margin-left: 15px;
-    	margin-right: 15px;
+	    margin-left: 0px;
+    	margin-right: 0px;
+        margin-top: 15px;
 	}
 	.std .row div{
 		margin-right: 3%;
@@ -2524,12 +2496,76 @@ label.required:after, span.required:after{ color: #333 !important; }
         right: 0;
         float: right;
     }
+    .composicion h1, .beneficios h1{
+        font-size: 14px;
+        font-weight: bold;
+    }
+    .beneficios .std .row div{
+        margin-right:0 !important;
+        margin-bottom: 15px;
+    }
+    .lateralDerecho{
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+    .beneficios, .beneficios .row, .imgs-centrales {
+        margin-top: 30px;
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+    .more-views-mov .thumb-link{
+        width:15px;
+        height: 15px;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+        background: transparent;
+        border: 2px solid #9E9E9E;
+        display: block;
+    }
+    .more-views-mov {
+        width: 100%;
+        position: absolute;
+        z-index: 1;
+        bottom: 0;
+        left: 0;
+    }
+    .more-views-mov .bx-wrapper{
+        max-width: 100% !important;
+    }
+    .more-views-mov ul{
+        display: block;
+        margin: 0 auto;
+        width: 200px;
+        padding-left: 18px;
+    }
+    .bx-has-controls-direction{
+        display: none;
+    }
+    .more-views-carousel-mov li{
+        width:15px !important;
+        float: left;
+        margin-right: 15px;
+    }
+    .product-image-thumbs a::before{
+        border:none;
+        background: #9E9E9E;
+    }
+    .product-view {
+        margin-top: 0px !important;
+    }
+    .ui-loader{
+        display: none;
+    }
+    .product-image-gallery #lupa{
+        display:none !important;
+    }
 }
 
 /****ESTILOS GUIA DE TALLAS***/
 /*.cursorPlus{ cursor:url(../images/ico-mas.cur), default; }*/
 .modal-backdrop.in{
-	opacity: 0.95 !important;
+	opacity: 0.75 !important;
 }
 .guia-de-tallas{
 	padding:0 0 15px 20px; 
@@ -2633,6 +2669,7 @@ label.required:after, span.required:after{ color: #333 !important; }
 	#product-info{
 		max-width: 430px;
 		margin: 30% auto;
+        margin-bottom: 30px;
 	}
 	.product-description{
     max-width: 1200px;
@@ -2873,7 +2910,7 @@ label.required:after, span.required:after{ color: #333 !important; }
 	margin: 0;
 }
 .modal .close{
-	color: #000 !important;
+	color: #9e9e9e !important;
     text-shadow: none;
     opacity: 1;
     font-size: 41px;
@@ -2940,4 +2977,87 @@ label.required:after, span.required:after{ color: #333 !important; }
 }
 .account-menu-mobile{
 	display: none;
+}
+.more-views-carousel li{
+    width: 80px !important;
+}
+.medidas-modelo span {
+    display: block;
+    margin-bottom: 10px;
+}
+.medidas-modelo .coser::before {
+    display: inline-block;
+    background: url(/media/wysiwyg/iconos/coser.svg) center no-repeat;
+    width: 20px;
+    height: 20px;
+    content: "-";
+    color: #fff;
+    background-size: 20px;
+    margin-right: 10px;
+}
+.medidas-modelo .gota::before {
+    display: inline-block;
+    background: url(/media/wysiwyg/iconos/gota.svg) center no-repeat;
+    width: 20px;
+    height: 20px;
+    content: "-";
+    color: #fff;
+    background-size: 20px;
+    margin-right: 10px;
+}
+#medidasModelo .details{
+    color:#333;
+    margin-bottom: 10px;
+    margin-top:15px;
+    display: block;
+}
+.medidas-modelo .accordion-toggle span {
+   text-decoration: underline #333;
+}
+.medidas-modelo a{
+    color:#333;
+}
+.composicion h1, .beneficios h1 { text-align: center;}
+.beneficios img {
+    width: auto !important;
+    margin:0 auto;
+}
+.beneficios span{
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}
+.beneficios,.beneficios .row, .imgs-centrales{
+    margin-top:50px;
+}
+/*.main > .row {
+    margin-left: -15px;
+    margin-right: -15px;
+}*/
+#lupa{
+    background: url("/media/wysiwyg/iconos/zoom.png");
+    width: 30px;
+    display: block;
+    z-index: 100000;
+    height: 30px;
+    background-size: 30px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+#modal-cuidados .modal-content{
+    height: auto !important;
+    margin-top:30% !important;
+}
+.modal-title-cuidados{
+    text-transform: initial;
+    font-weight: bold;
+    padding-top: 15px;
+}
+.product-view {
+    margin-top: 30px;
+}
+.panel {
+    margin-bottom: 15px;
 }
