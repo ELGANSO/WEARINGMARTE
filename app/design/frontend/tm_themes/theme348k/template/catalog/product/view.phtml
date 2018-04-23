@@ -104,8 +104,8 @@ $path4 = Mage::getResourceModel('catalog/product')->getAttributeRawValue($_produ
 
 <div class="product-view <?php echo $indicate_class; ?>" itemscope itemtype="https://schema.org/Offer">
 	<div class="product-essential row row-eq-height">
-        <div class="col-lg-4 col-md-4 col-xs-12"></div>
-		<div class="product-img-box col-lg-4 col-md-4 col-xs-12   <?php //echo $grid_cols_1 ?>" id="style-img">
+        <div class="col-lg-3 col-md-3 col-xs-12"></div>
+		<div class="product-img-box col-lg-5 col-md-5 col-xs-12   <?php //echo $grid_cols_1 ?>" id="style-img">
 			<div class="product-name">
 				<h2><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h2>
 			</div>
@@ -231,8 +231,8 @@ $path4 = Mage::getResourceModel('catalog/product')->getAttributeRawValue($_produ
                                 <div id="medidasModelo">
                                     <span class="details"><?php echo $this->__("Details") ?>:</span>
                                     <p class="medidas-modelo"><?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $this->getProduct()->getMedidasModelo()); ?>
-                                        <a class="accordion-toggle uppercase" data-toggle="modal" data-target="#modal-cuidados"><span class="gota"><?php echo $this->__("Cuidado del producto") ?></span></a>
-                                        <span class="coser"><?php echo $this->__("Envíos y devoluciones gratuitas en Península") ?></span>
+                                        <a class="accordion-toggle uppercase" data-toggle="modal" data-target="#modal-cuidados"><span class="cuidado"><?php echo $this->__("Cuidado del producto") ?></span></a>
+                                        <span class="envios"><?php echo $this->__("Envíos y devoluciones gratuitas en Península") ?></span>
                                     </p>
                                 </div>
                             </div>
@@ -260,13 +260,13 @@ $path4 = Mage::getResourceModel('catalog/product')->getAttributeRawValue($_produ
         <h1> <?php echo $this->getProduct()->getTejido(); ?></h1>
     </div>
 
-    <div class="row imgs-centrales">
-        <div class="col-md-6 col-xs-12">
+    <div class="row imgs-centrales" style="margin-right: -15px;">
+        <div class="col-md-6 col-xs-12" style="margin-right: -15px;">
 	        <?php if($img_cent_1 != ""):?>
                 <img src="<?php echo $img_cent_1; ?>" class="img-properties" style="width:100%;"/>
 	        <?php endif;?>
         </div>
-        <div class="col-md-6 col-xs-12">
+        <div class="col-md-6 col-xs-12" style="margin-left: -15px;">
             <?php if($img_cent_2 != ""):?>
             <img src="<?php echo $img_cent_2; ?>" class="img-properties" style="width:100%;"/>
             <?php endif;?>
@@ -275,7 +275,7 @@ $path4 = Mage::getResourceModel('catalog/product')->getAttributeRawValue($_produ
 
     <div class="row beneficios">
         <div class="col-lg-12 col-md-12 col-xs-12">
-            <div class=" col-lg-12 col-md-12 col-xs-12" style="padding: 0;">
+            <div class=" col-lg-12 col-md-12 col-xs-12" style="padding: 0; ">
 			    <?php $_composicion = $this->getProduct()->getComposicion(); ?>
 			    <?php if ($_composicion): ?>
                     <div class="std">
@@ -289,11 +289,12 @@ $path4 = Mage::getResourceModel('catalog/product')->getAttributeRawValue($_produ
     <div class="row imgs-centrales">
         <div class="col-md-12 col-xs-12">
 			<?php if($img_tejidos != ""):?>
+				<h1 id="texto_tejidos"><?php echo Mage::getResourceModel('catalog/product')->getAttributeRawValue($_product->getId(), 'texto_tejidos', Mage::app()->getStore()->getStoreId()); ?></h1>
                 <img src="<?php echo $img_tejidos; ?>" class="img-properties" style="width:100%;"/>
 			<?php endif;?>
         </div>
     </div>
-    <div class="row imgs-centrales">
+    <div class="row imgs-centrales img-costes">
         <div class="col-md-12 col-xs-12">
 			<?php if($img_costes != ""):?>
                 <img src="<?php echo $img_costes; ?>" class="img-properties" style="width:100%;"/>

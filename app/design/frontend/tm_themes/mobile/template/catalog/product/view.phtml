@@ -235,8 +235,8 @@ $path4 = Mage::getResourceModel('catalog/product')->getAttributeRawValue($_produ
                                 <div id="medidasModelo">
                                     <span class="details"><?php echo $this->__("Details") ?>:</span>
                                     <p class="medidas-modelo"><?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $this->getProduct()->getMedidasModelo()); ?>
-                                        <a class="accordion-toggle uppercase" data-toggle="modal" data-target="#modal-cuidados"><span class="gota"><?php echo $this->__("Cuidado del producto") ?></span></a>
-                                        <span class="coser"><?php echo $this->__("Envíos y devoluciones gratuitas en Península") ?></span>
+                                        <a class="accordion-toggle uppercase" data-toggle="modal" data-target="#modal-cuidados"><span class="cuidado"><?php echo $this->__("Cuidado del producto") ?></span></a>
+                                        <span class="envios"><?php echo $this->__("Envíos y devoluciones gratuitas en Península") ?></span>
                                     </p>
                                 </div>
                             </div>
@@ -293,11 +293,12 @@ $path4 = Mage::getResourceModel('catalog/product')->getAttributeRawValue($_produ
     <div class="row imgs-centrales">
         <div class="col-md-12 col-xs-12">
 			<?php if($img_tejidos != ""):?>
+				<h1 id="texto_tejidos"><?php echo Mage::getResourceModel('catalog/product')->getAttributeRawValue($_product->getId(), 'texto_tejidos', Mage::app()->getStore()->getStoreId()); ?></h1>
                 <img src="<?php echo $img_tejidos; ?>" class="img-properties" style="width:100%;"/>
 			<?php endif;?>
         </div>
     </div>
-    <div class="row imgs-centrales">
+    <div class="row imgs-centrales img-costes">
         <div class="col-md-12 col-xs-12">
 			<?php if($img_costes != ""):?>
                 <img src="<?php echo $img_costes; ?>" class="img-properties" style="width:100%;"/>
