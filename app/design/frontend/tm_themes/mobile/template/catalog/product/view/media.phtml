@@ -43,7 +43,7 @@
 <?php 
     if(!$_product_type_center_image){
 ?>
-<script src="//code.jquery.com/mobile/1.5.0-alpha.1/jquery.mobile-1.5.0-alpha.1.min.js"></script>
+<script src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);?>frontend/tm_themes/theme348k/js/jquery.mobile.custom.js"></script>
 
 <?php if (count($this->getGalleryImages()) > 0): ?>
     <?php $img_mode = ($_product_type_large_image) ? 'large-image' : 'normal-image' ?>
@@ -153,7 +153,7 @@
         if(id == 'main') id = 0;
         id = parseInt(id)-1;
         if(id < 0 ) id = (jQuery('.product-image-gallery img').length -2);
-        console.log(id);
+        
         jQuery('#image-'+id).addClass('visible');
         jQuery('.more-views-mov .thumb-link[data-image-index="'+id+'"]').addClass('active');
     } );
@@ -163,9 +163,9 @@
 
         jQuery('.product-image-gallery .visible').removeClass('visible');
         jQuery('.more-views-mov .active').removeClass('active');
-        console.log(jQuery(this).attr('id'));
+        
         var id = jQuery(this).attr('id').substring(6);
-        console.log(id);
+        
         if(id == 'main') id = 0;
         id = parseInt(id)+1;
         if(id >= (jQuery('.product-image-gallery img').length -1)) id = 0;

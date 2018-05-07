@@ -1,7 +1,7 @@
 jQuery( document ).ready(function() {
 	error_movil_web();
 	footer_movil_web();
-	resolveInstagram();
+	//resolveInstagram();
 
 	jQuery(".youama-window-outside .close").click(function() {
 		jQuery("#header-account2").css("display","none");

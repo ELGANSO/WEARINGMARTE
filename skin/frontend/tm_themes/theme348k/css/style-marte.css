@@ -12,7 +12,7 @@
 html, body {
     height: 100%;
     width: 100%;
-    overflow-x: hidden;
+    /*overflow-x: hidden;*/
     -webkit-overflow-scrolling: touch;
 }
 .row2{
@@ -758,7 +758,7 @@ margin-left: 30px;
     font-size: 13px;
 }
 .item{
-	height: 582px;
+	height: 630px;
 }
 .item:first-child {
     	height: 630px;
@@ -1617,6 +1617,7 @@ h3.product-name { padding-top: 10px; }
 }
 #cart-sidebar {
 	overflow-y: scroll;
+	overflow-x: hidden;
 	margin-top:40px;
 	height: 80vh;
 }
@@ -2389,8 +2390,8 @@ label.required:after, span.required:after{ color: #333 !important; }
         margin-right: 15px;
         font-size: 40px;
         position: absolute;
-        top: 15px;
-        right: 15px;
+        top: 25px;
+        right: 25px;
         color: #fff !important;
         content: "-";
     }
@@ -2548,7 +2549,7 @@ label.required:after, span.required:after{ color: #333 !important; }
         display: block;
         margin: 0 auto;
         width: 200px;
-        padding-left: 18px;
+        padding-left: 30px;
     }
     .bx-has-controls-direction{
         display: none;
@@ -2573,7 +2574,7 @@ label.required:after, span.required:after{ color: #333 !important; }
     }
 
     .composicion h1, .beneficios h1{
-    	font-size: 16px !important;
+    	font-size: 14px !important;
     }
     .product-view .product-essential{
     	margin-bottom: 0 !important;
@@ -2584,10 +2585,10 @@ label.required:after, span.required:after{ color: #333 !important; }
 	    display: block;
 	}
 	#texto_tejidos{
-	    top: 30% !important;
+	    top: 25% !important;
 	    padding-left: 30px !important;
 	    padding-right: 30px !important;
-	    font-size: 25px !important;
+	    font-size: 16px !important;
 	    line-height: 30px !important;
 	}
 }
@@ -2691,7 +2692,7 @@ label.required:after, span.required:after{ color: #333 !important; }
 @media only screen and (min-width: 1400px) and (max-width: 2399px) {
 
 	.item {
-    	height: 1150px;
+    	height: 850px;
 	}
 	.product-image-container {
     	height: auto !important;
@@ -2709,6 +2710,18 @@ label.required:after, span.required:after{ color: #333 !important; }
     margin-right: auto;
     margin-top: 90px;
 }
+}
+@media only screen and (min-width: 1800px) and (max-width: 1999px) {
+
+	.item {
+    	height: 950px;
+	}
+}
+@media only screen and (min-width: 2000px) and (max-width: 2399px) {
+
+	.item {
+    	height: 1150px;
+	}
 }
 .modal-content-guia-tallas{
 	margin-top: 50px;
@@ -3018,7 +3031,7 @@ label.required:after, span.required:after{ color: #333 !important; }
 }
 .medidas-modelo span {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 11px;
     font-size: 10px;
     letter-spacing: 0.2px;
     color: #9c9c9c;
@@ -3060,7 +3073,7 @@ label.required:after, span.required:after{ color: #333 !important; }
     height: 20px;
     content: "-";
     color: #fff;
-    background-size: 20px;
+    background-size: 15px;
     margin-right: 10px;
 }
 .medidas-modelo .person::before {
@@ -3076,8 +3089,8 @@ label.required:after, span.required:after{ color: #333 !important; }
 .medidas-modelo .envios::before {
     display: inline-block;
     background: url(/media/wysiwyg/iconos/envios.svg) center no-repeat;
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     content: "-";
     color: #fff;
     background-size: 20px;
@@ -3095,7 +3108,7 @@ label.required:after, span.required:after{ color: #333 !important; }
 }
 #medidasModelo .details{
     color:#333;
-    margin-bottom: 10px;
+    margin-bottom: 11px;
     margin-top:15px;
     display: block;
     font-size: 10px;
@@ -3152,7 +3165,7 @@ label.required:after, span.required:after{ color: #333 !important; }
 	margin-top: 50px;
 }
 #lupa{
-    background: url("/media/wysiwyg/iconos/zoom.png");
+    background: url("/media/wysiwyg/icono-lupa.svg") no-repeat;
     width: 30px;
     display: block;
     z-index: 100000;
@@ -3162,12 +3175,29 @@ label.required:after, span.required:after{ color: #333 !important; }
     bottom: 10px;
     right: 10px;
 }
+.modal .close{
+	 background: url("/media/wysiwyg/cruz-cerrar.svg") no-repeat;
+    width: 30px;
+    display: block;
+    z-index: 100000;
+    height: 30px;
+    background-size: 20px;
+    position: absolute;
+    top: 20px;
+    right: 0;
+}
+.modal .close span {
+	color:#fff !important;
+}
 .bx-next , .bx-prev{
 	display: none;
 }
 #modal-cuidados .modal-content{
     height: auto !important;
     margin-top:30% !important;
+}
+#modal-cuidados .modal-body{
+	padding-bottom: 30px;
 }
 .modal-title-cuidados{
     text-transform: initial;
