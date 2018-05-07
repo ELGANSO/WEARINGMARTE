@@ -54,7 +54,7 @@
         $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
     }
   ?>
-  <!-- Menú Categorías lateral izquierdo -->
+  <!-- Menï¿½ Categorï¿½as lateral izquierdo -->
 	<div class="col-lg-2 col-md-2 col-xs-0 categories">
 		<?php $_helperCat = Mage::helper('catalog/category') ?>
 		<?php $_categories = $_helperCat->getStoreCategories() ?>
@@ -86,7 +86,7 @@
 		    </ul>
 		<?php endif; ?>
 	</div>
-	<!-- Fin Menú Categorias -->
+	<!-- Fin Menï¿½ Categorias -->
 <?php if(!$_productCollection->count()): ?>
 <div class="category-products col-lg-8 col-md-8 col-xs-12">
     <?php echo $_imgHtml; ?>
@@ -213,7 +213,7 @@
     <?php $i=0; foreach ($_productCollection as $_product): ?>
         <?php 
         $_productId = $_product->getId();
-        	/* Calculo tamño del li*/
+        	/* Calculo tamï¿½o del li*/
 
         	//$x = ($j) % 3;
         	if($j == 1) $size = 12;
